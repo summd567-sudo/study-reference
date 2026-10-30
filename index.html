@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>مرجعي الشامل — Study Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f172a;--surface:#1e293b;--surface2:#263348;--border:#334155;
+  --fg:#f1f5f9;--fg-muted:#94a3b8;
+  --blue:#60a5fa;--blue-bg:rgba(96,165,250,.12);
+  --green:#4ade80;--green-bg:rgba(74,222,128,.12);
+  --red:#f87171;--red-bg:rgba(248,113,113,.12);
+  --amber:#fbbf24;--amber-bg:rgba(251,191,36,.12);
+  --purple:#c084fc;--purple-bg:rgba(192,132,252,.12);
+  --cyan:#22d3ee;--cyan-bg:rgba(34,211,238,.12);
+  --pink:#f472b6;--pink-bg:rgba(244,114,182,.12);
+  --orange:#fb923c;--orange-bg:rgba(251,146,60,.12);
+  --radius:14px;--radius-sm:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;direction:rtl}
+
+/* ── Header ── */
+.hero{
+  background:linear-gradient(135deg,#1e293b 0%,#0f172a 50%,#1a1035 100%);
+  padding:48px 20px 36px;text-align:center;position:relative;overflow:hidden;
+  border-bottom:1px solid var(--border);
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 70% 50%,rgba(96,165,250,.07) 0%,transparent 60%),
+             radial-gradient(ellipse at 20% 80%,rgba(192,132,252,.06) 0%,transparent 55%);
+}
+.hero-badge{
+  display:inline-block;background:var(--blue-bg);color:var(--blue);
+  border:1px solid rgba(96,165,250,.3);border-radius:99px;
+  padding:4px 16px;font-size:12px;font-weight:700;margin-bottom:16px;
+}
+.hero h1{font-size:clamp(24px,5vw,42px);font-weight:900;margin-bottom:8px;
+  background:linear-gradient(90deg,#f1f5f9,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{font-size:15px;color:var(--fg-muted);max-width:480px;margin:0 auto 20px;line-height:1.7}
+.stats{display:flex;justify-content:center;gap:32px;margin-top:20px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{font-size:28px;font-weight:900;color:var(--blue)}
+.stat-lbl{font-size:11px;color:var(--fg-muted);font-weight:700}
+
+/* ── Search ── */
+.search-wrap{max-width:480px;margin:24px auto 0;position:relative}
+.search-input{
+  width:100%;padding:12px 44px 12px 16px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  color:var(--fg);font-family:'Tajawal',sans-serif;font-size:15px;outline:none;
+  transition:border-color .2s;
+}
+.search-input:focus{border-color:var(--blue)}
+.search-input::placeholder{color:var(--fg-muted)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--fg-muted);font-size:18px}
+
+/* ── Grid ── */
+.container{max-width:1000px;margin:0 auto;padding:32px 16px 60px}
+.section-lbl{font-size:12px;font-weight:900;color:var(--fg-muted);text-transform:uppercase;letter-spacing:2px;margin:0 0 16px 4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:36px}
+
+/* ── Card ── */
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:20px;display:flex;flex-direction:column;gap:10px;
+  transition:transform .18s,border-color .18s,box-shadow .18s;
+  position:relative;overflow:hidden;
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.card::before{content:'';position:absolute;inset:0;border-radius:var(--radius);opacity:0;transition:opacity .2s}
+.card:hover::before{opacity:1}
+
+.card-icon{font-size:32px;line-height:1}
+.card-title{font-size:17px;font-weight:900}
+.card-en{font-size:11px;color:var(--fg-muted);font-weight:500}
+.card-desc{font-size:12.5px;color:var(--fg-muted);line-height:1.6;flex:1}
+.card-meta{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+.card-tags{display:flex;gap:5px;flex-wrap:wrap}
+.tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;border:1px solid}
+.card-status{font-size:10px;font-weight:700;padding:3px 10px;border-radius:99px}
+.s-ready{background:var(--green-bg);color:var(--green)}
+.s-soon{background:var(--amber-bg);color:var(--amber)}
+.s-plan{background:var(--surface2);color:var(--fg-muted)}
+
+.card-link{text-decoration:none;color:inherit;display:block}
+.card-link .card{cursor:pointer}
+.card-link:hover .card{border-color:var(--accent-color,var(--blue))}
+
+/* Color variants */
+.c-blue  {--accent-color:var(--blue);} .c-blue  .card::before{background:var(--blue-bg);}
+.c-green {--accent-color:var(--green);} .c-green .card::before{background:var(--green-bg);}
+.c-red   {--accent-color:var(--red);} .c-red   .card::before{background:var(--red-bg);}
+.c-amber {--accent-color:var(--amber);} .c-amber .card::before{background:var(--amber-bg);}
+.c-purple{--accent-color:var(--purple);} .c-purple .card::before{background:var(--purple-bg);}
+.c-cyan  {--accent-color:var(--cyan);} .c-cyan  .card::before{background:var(--cyan-bg);}
+.c-pink  {--accent-color:var(--pink);} .c-pink  .card::before{background:var(--pink-bg);}
+.c-orange{--accent-color:var(--orange);} .c-orange .card::before{background:var(--orange-bg);}
+
+.card-link:hover .card-title{color:var(--accent-color,var(--blue))}
+
+/* disabled card */
+.card-disabled{opacity:.5;pointer-events:none}
+
+/* ── Coming Soon Banner ── */
+.coming-card .card{border-style:dashed}
+
+/* ── Footer ── */
+footer{text-align:center;padding:28px 16px;color:var(--fg-muted);font-size:12px;border-top:1px solid var(--border)}
+footer strong{color:var(--fg)}
+
+/* ── Responsive ── */
+@media(max-width:480px){.grid{grid-template-columns:1fr}.stats{gap:20px}}
+</style>
+</head>
+<body>
+
+<!-- ══ Hero ══ -->
+<div class="hero">
+  <div class="hero-badge">📚 مرجعي الشامل</div>
+  <h1>Study Reference Hub</h1>
+  <p>ملفات مراجعة تفاعلية شاملة — كل مادة مكتملة بتفاصيلها، رسومها، وجداولها. لا تحتاج مصدراً آخر.</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-num" id="cnt-ready">1</div><div class="stat-lbl">مادة جاهزة</div></div>
+    <div class="stat"><div class="stat-num">6+</div><div class="stat-lbl">مواد قادمة</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-lbl">تحديثات مستمرة</div></div>
+  </div>
+</div>
+
+<!-- ══ Search ══ -->
+<div style="background:var(--surface);border-bottom:1px solid var(--border);padding:16px 20px">
+  <div class="search-wrap" style="margin:0 auto">
+    <input class="search-input" type="text" placeholder="ابحث عن مادة..." id="searchBox" oninput="filterCards()">
+    <span class="search-icon">🔍</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ══ MEP ══ -->
+  <div class="section-lbl">🏗️ هندسة الميكانيكا والكهرباء والسباكة — MEP</div>
+  <div class="grid" id="grid">
+
+    <!-- Fire Fighting ✅ -->
+    <a class="card-link c-red" href="fire-fighting.html" data-search="اطفاء حريق sprinkler pump valve fire fighting mep">
+      <div class="card">
+        <div class="card-icon">🔥</div>
+        <div class="card-title">إطفاء الحريق</div>
+        <div class="card-en">Fire Fighting Systems</div>
+        <div class="card-desc">رشاشات · مضخات · محابس · كبائن · أنابيب · صواعد · NFPA · رسوم توضيحية شاملة + صور</div>
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="tag" style="border-color:#f87171;color:#f87171">NFPA 13/14/20</span>
+            <span class="tag" style="border-color:#475569;color:#94a3b8">Hydraulics</span>
+          </div>
+          <span class="card-status s-ready">✅ جاهز</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- HVAC — soon -->
+    <div class="card-link c-blue coming-card card-disabled" data-search="hvac تكييف تهوية تبريد">
+      <div class="card">
+        <div class="card-icon">❄️</div>
+        <div class="card-title">التكييف والتهوية</div>
+        <div class="card-en">HVAC Systems</div>
+        <div class="card-desc">Chillers · AHU · FCU · Ductwork · Psychrometrics · ASHRAE · Load Calculations · رسوم توضيحية</div>
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="tag" style="border-color:#60a5fa;color:#60a5fa">ASHRAE</span>
+          </div>
+          <span class="card-status s-soon">🔜 قريباً</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plumbing — soon -->
+    <div class="card-link c-cyan coming-card card-disabled" data-search="سباكة plumbing صرف مياه">
+      <div class="card">
+        <div class="card-icon">🚰</div>
+        <div class="card-title">السباكة والصرف الصحي</div>
+        <div class="card-en">Plumbing & Drainage</div>
+        <div class="card-desc">Water Supply · Drainage · Fixtures · Water Heaters · Pumps · ASPE · أنظمة الضغط</div>
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="tag" style="border-color:#22d3ee;color:#22d3ee">ASPE</span>
+          </div>
+          <span class="card-status s-soon">🔜 قريباً</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Electrical — soon -->
+    <div class="card-link c-amber coming-card card-disabled" data-search="كهرباء electrical power lighting">
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">الكهرباء والإضاءة</div>
+        <div class="card-en">Electrical & Lighting</div>
+        <div class="card-desc">MV/LV Distribution · Transformers · Switchgear · UPS · Lighting Design · NEC · IEC</div>
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="tag" style="border-color:#fbbf24;color:#fbbf24">NEC / IEC</span>
+          </div>
+          <span class="card-status s-soon">🔜 قريباً</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Low Current — plan -->
+    <div class="card-link c-purple coming-card card-disabled" data-search="تيار ضعيف low current BMS CCTV security">
+      <div class="card">
+        <div class="card-icon">📡</div>
+        <div class="card-title">أنظمة التيار الضعيف</div>
+        <div class="card-en">Low Current Systems</div>
+        <div class="card-desc">BMS · CCTV · Access Control · PA System · Structured Cabling · Fiber Optics · إنذار الحريق</div>
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="tag" style="border-color:#c084fc;color:#c084fc">BMS / ELV</span>
+          </div>
+          <span class="card-status s-plan">📅 مخطط</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ Structural ══ -->
+  <div class="section-lbl">🏢 الهندسة الإنشائية</div>
+  <div class="grid">
+
+    <div class="card-link c-orange coming-card card-disabled" data-search="انشائي structural concrete steel">
+      <div class="card">
+        <div class="card-icon">🏗️</div>
+        <div class="card-title">الخرسانة المسلحة</div>
+        <div class="card-en">Reinforced Concrete</div>
+        <div class="card-desc">Beams · Columns · Slabs · Foundations · Shear Walls · ACI 318 · تصميم القطاعات</div>
+        <div class="card-meta">
+          <div class="card-tags"><span class="tag" style="border-color:#fb923c;color:#fb923c">ACI 318</span></div>
+          <span class="card-status s-plan">📅 مخطط</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-link c-amber coming-card card-disabled" data-search="steel structure فولاذ steel design">
+      <div class="card">
+        <div class="card-icon">🔩</div>
+        <div class="card-title">الإنشاءات المعدنية</div>
+        <div class="card-en">Steel Structures</div>
+        <div class="card-desc">Beams · Columns · Connections · Bolts · Welds · AISC · Load Combinations</div>
+        <div class="card-meta">
+          <div class="card-tags"><span class="tag" style="border-color:#fbbf24;color:#fbbf24">AISC</span></div>
+          <span class="card-status s-plan">📅 مخطط</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ Project Management ══ -->
+  <div class="section-lbl">📋 إدارة المشاريع والتحكيم</div>
+  <div class="grid">
+
+    <div class="card-link c-green coming-card card-disabled" data-search="project management pmp بناء عقود">
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <div class="card-title">إدارة المشاريع الهندسية</div>
+        <div class="card-en">Engineering Project Management</div>
+        <div class="card-desc">Cost Control · Scheduling · Procurement · Contracts · Claims · FIDIC · PMP Concepts</div>
+        <div class="card-meta">
+          <div class="card-tags"><span class="tag" style="border-color:#4ade80;color:#4ade80">FIDIC</span></div>
+          <span class="card-status s-plan">📅 مخطط</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-link c-pink coming-card card-disabled" data-search="بيم bim revit autocad cad coordination">
+      <div class="card">
+        <div class="card-icon">🖥️</div>
+        <div class="card-title">BIM والتنسيق الرقمي</div>
+        <div class="card-en">BIM & Digital Coordination</div>
+        <div class="card-desc">Revit · Navisworks · Clash Detection · LOD · IFC · 4D/5D BIM · MEP Coordination</div>
+        <div class="card-meta">
+          <div class="card-tags"><span class="tag" style="border-color:#f472b6;color:#f472b6">Revit</span></div>
+          <span class="card-status s-plan">📅 مخطط</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  <p>بُني بـ <strong>Claude AI</strong> · مرجع شخصي للمراجعة الهندسية · <strong>SOHAIL</strong> — IT-Almaqam</p>
+  <p style="margin-top:6px;font-size:11px">كل ملف مكتمل من أول إصداره — لا حاجة لمصادر خارجية</p>
+</footer>
+
+<script>
+function filterCards(){
+  const q = document.getElementById('searchBox').value.trim().toLowerCase();
+  document.querySelectorAll('[data-search]').forEach(el => {
+    const txt = (el.dataset.search + ' ' + el.innerText).toLowerCase();
+    el.style.display = (!q || txt.includes(q)) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
