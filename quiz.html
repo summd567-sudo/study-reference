@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>اختبار هندسي عام</title>
+<style>
+:root{--bg:#f4f3f0;--sf:#fff;--fg:#17171f;--mu:#666678;--bd:#e2e0da;--nv:#1a2744;--ok:#0a6640;--okb:#eaf5ef;--no:#c0392b;--nob:#fdf0ee;--am:#d97706;--bl:#1e40af}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1220;--sf:#18243a;--fg:#e6e8f2;--mu:#8a97b2;--bd:#263048;--nv:#0d1220;--ok:#34d399;--okb:#042216;--no:#f87171;--nob:#260a0a;--am:#f59e0b;--bl:#60a5fa}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:Tahoma,'Segoe UI',system-ui,sans-serif;line-height:1.7;font-size:16px}
+header{background:var(--nv);color:#fff;padding:14px 16px;position:sticky;top:0;z-index:5}
+header h1{font-size:17px}
+.bar{height:6px;background:rgba(255,255,255,.2);border-radius:9px;margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--am);transition:width .25s}
+main{max-width:760px;margin:0 auto;padding:16px}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:18px;margin-bottom:14px}
+.meta{font-size:12px;color:var(--mu);margin-bottom:6px;display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--bd);border-radius:99px;padding:0 9px}
+.q{font-weight:700;margin-bottom:12px}
+.q bdi,.opt bdi{unicode-bidi:isolate}
+.opt{display:block;width:100%;text-align:right;background:var(--sf);color:var(--fg);border:1.5px solid var(--bd);border-radius:10px;padding:10px 12px;margin-bottom:8px;font:inherit;cursor:pointer;min-height:44px}
+.opt:hover{border-color:var(--bl)}
+.opt.sel{border-color:var(--bl);background:rgba(30,64,175,.08)}
+.opt.ok{border-color:var(--ok);background:var(--okb)}
+.opt.no{border-color:var(--no);background:var(--nob)}
+.nav{display:flex;gap:10px;justify-content:space-between;margin-top:8px}
+button.b{background:var(--nv);color:#fff;border:0;border-radius:10px;padding:11px 20px;font:inherit;font-weight:700;cursor:pointer;min-height:44px}
+button.b.g{background:transparent;color:var(--fg);border:1.5px solid var(--bd)}
+button.b:disabled{opacity:.4;cursor:default}
+button:focus-visible{outline:3px solid var(--am);outline-offset:2px}
+.big{font-size:44px;font-weight:900;text-align:center;color:var(--bl)}
+.lvl{text-align:center;font-size:20px;font-weight:800;margin-bottom:6px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+td,th{padding:8px;border-bottom:1px solid var(--bd);text-align:right}
+.pb{height:10px;background:var(--bd);border-radius:9px;overflow:hidden;min-width:90px}
+.pb i{display:block;height:100%;background:var(--bl)}
+.exp{font-size:14px;color:var(--mu);margin-top:8px}
+.rv{border-right:4px solid var(--no);padding-right:12px;margin-bottom:14px}
+.rv.good{border-color:var(--ok)}
+h2{font-size:17px;margin:6px 0}
+</style>
+</head>
+<body>
+<header><h1>🎓 اختبار هندسي عام — ميكانيكا المواد + إطفاء الحريق</h1><div class="bar"><i id="pg"></i></div></header>
+<main id="app"></main>
+<script>
+// [موضوع, مستوى(1 سهل،2 متوسط،3 صعب), السؤال, [الخيارات: الأولى هي الصحيحة], شرح]
+const Q=[
+["ميكانيكا المواد",1,"ما قيمة إجهاد الانحناء عند المحور المحايد (N.A.) للمقطع؟",["صفر","أقصى قيمة شد","أقصى قيمة ضغط","يساوي M/S"],"عند y = 0 يكون σ = M·y/I = 0، ويزداد خطيًا حتى الحواف."],
+["ميكانيكا المواد",1,"ما عزم القصور الذاتي I لمقطع مستطيل (عرض b وارتفاع h) حول محوره المحايد؟",["bh³/12","bh²/6","πd⁴/64","b³h/12"],"I = bh³/12، أما bh²/6 فهي معامل المقطع S."],
+["ميكانيكا المواد",1,"ما قانون إجهاد القص في القص المزدوج (Double Shear) لبرشام مساحة مقطعه A؟",["τ = F / 2A","τ = F / A","τ = 2F / A","τ = F·A / 2"],"في القص المزدوج يتوزع القص على مقطعين فتصبح المساحة المقاومة 2A."],
+["ميكانيكا المواد",1,"إجهاد الاتكاء (Bearing Stress) هو في الحقيقة:",["إجهاد ضغط عمودي في منطقة التلامس","إجهاد قص","إجهاد التواء","إجهاد حراري"],"هو إجهاد ضغط عمودي بين المسمار والبليت، وليس إجهاد قص."],
+["ميكانيكا المواد",2,"أي قيمة من التالي لا يمكن أن تكون نسبة بواسون (ν) لمادة هندسية عادية؟",["0.7","0.3","0.33","0.5"],"نظريًا 0 < ν < 0.5، فالقيمة 0.7 خارج المدى."],
+["ميكانيكا المواد",2,"فولاذ E = 200 GPa وν = 0.3. ما معامل القص G تقريبًا؟",["76.9 GPa","66.7 GPa","100 GPa","153.8 GPa"],"G = E / 2(1+ν) = 200 / 2.6 = 76.9 GPa."],
+["ميكانيكا المواد",2,"قضيب فولاذي طوله 2 m ومساحته 500 mm² وE = 200 GPa يحمل شدًا 100 kN. ما استطالته δ؟",["2 mm","1 mm","4 mm","0.5 mm"],"δ = FL/AE = (100000×2)/(500×10⁻⁶ × 200×10⁹) = 0.002 m = 2 mm."],
+["ميكانيكا المواد",2,"ما ترتيب مراحل منحنى الإجهاد–الانفعال الصحيح؟",["مرونة ← خضوع ← تصلّد انفعالي ← تخصّر (Necking)","خضوع ← مرونة ← تخصّر ← تصلّد","مرونة ← تصلّد ← خضوع ← تخصّر","تخصّر ← خضوع ← مرونة ← تصلّد"],"المرحلة المرنة فقط هي القابلة للاسترداد."],
+["ميكانيكا المواد",2,"في الكمرة البسيطة تحت حمل مركز P في المنتصف، أين يكون العزم أقصى وما قيمته؟",["عند المنتصف حيث V = 0، وM = PL/4","عند الدعامتين، M = PL/2","عند المنتصف، M = PL/8","عند ربع البحر، M = PL/4"],"dM/dx = V، فالعزم أقصى حيث V = 0 أي عند المنتصف: PL/4."],
+["ميكانيكا المواد",2,"لماذا يكون الشافت المجوف أكفأ من المصمت عند الالتواء؟",["لأن إجهاد القص قرب المركز يكاد يكون صفرًا فالمادة هناك قليلة الفائدة","لأن J يكون أكبر دائمًا بنفس الكتلة بسبب G","لأن τ منتظم على المقطع","لأن المجوف لا يتأثر بالالتواء"],"τ = Tr/J خطي من الصفر في المركز إلى الأقصى على السطح، فإزالة اللب توفر وزنًا بتأثير قليل."],
+["ميكانيكا المواد",3,"قضيب فولاذي محبوس بين جدارين صلبين (α = 12×10⁻⁶/°C وE = 200 GPa) ارتفعت حرارته 50°م. ما الإجهاد الحراري المتولد؟",["120 MPa ضغط","120 MPa شد","60 MPa ضغط","240 MPa ضغط"],"σ = α·ΔT·E = 12×10⁻⁶×50×200×10⁹ = 120 MPa، وهو ضغط لأن التمدد ممنوع."],
+["ميكانيكا المواد",3,"عنصر مستوٍ: σx = 100 MPa وσy = 40 MPa وτxy = 40 MPa. ما قيمة σ₁ (الإجهاد الرئيسي الأكبر)؟",["120 MPa","110 MPa","90 MPa","140 MPa"],"C = 70 ، R = √(30² + 40²) = 50 ← σ₁ = C + R = 120 MPa."],
+["ميكانيكا المواد",3,"في دائرة مور وجدت أن 2θp = 60° على الدائرة. ما الزاوية الفيزيائية الحقيقية للمستوى الرئيسي؟",["30°","60°","120°","15°"],"زاوية الدائرة = ضعف الزاوية الحقيقية، فـ θp = 30°."],
+["ميكانيكا المواد",3,"كمرة مستطيلة b = 100 mm وh = 200 mm. ما معامل المقطع S لها؟",["≈ 666,667 mm³","≈ 133,333 mm³","≈ 1,333,333 mm³","≈ 400,000 mm³"],"S = bh²/6 = 100×200²/6 ≈ 666,667 mm³."],
+["ميكانيكا المواد",3,"أين يحدث أقصى إجهاد قص في مقطع شافت مصمت تحت الالتواء، وما توزيعه؟",["على السطح الخارجي، توزيع خطي من الصفر في المركز","في المركز، توزيع منتظم","على السطح، توزيع منتظم","في منتصف نصف القطر، توزيع قطع مكافئ"],"τ = Tr/J: خطي، صفر في المركز وأقصى عند r = R."],
+["ميكانيكا المواد",1,"لماذا تُصنع الكمرات على شكل حرف I؟",["لتوزيع المادة بعيدًا عن المحور المحايد فيزيد I بنفس كمية الفولاذ","لتقليل معامل المرونة E","لجعل الإجهاد منتظمًا","لأنها أسهل في اللحام فقط"],"زيادة I تعني مقاومة أكبر للانحناء وإجهادًا أقل."],
+
+["إطفاء الحريق",1,"ما عناصر مثلث الحريق؟",["وقود + حرارة + أكسجين","وقود + ماء + هواء","حرارة + ضغط + وقود","أكسجين + CO₂ + حرارة"],"إزالة أي ضلع تُطفئ الحريق."],
+["إطفاء الحريق",1,"ما وسيلة الإطفاء المخصصة لحرائق الفئة K (زيوت المطابخ)؟",["Wet Chemical","ماء مباشر","مسحوق خاص للمعادن","رغوة عادية فقط"],"تعمل بالتصبّن (Saponification) فتكوّن طبقة رغوية عازلة مبرِّدة."],
+["إطفاء الحريق",1,"أي حريق يُمنع إطفاؤه بالماء المباشر لأنه يسبب صدمة كهربائية؟",["الفئة C (كهرباء)","الفئة A (مواد صلبة)","الفئة B (سوائل مشتعلة) فقط","كل الفئات تُطفأ بالماء بأمان"],"للكهرباء يُستخدم CO₂ أو المسحوق الجاف."],
+["إطفاء الحريق",2,"رشاش K = 5.6 يعمل عند ضغط 100 psi. ما التدفق Q؟",["56 gpm","28 gpm","560 gpm","112 gpm"],"Q = K√P = 5.6 × 10 = 56 gpm."],
+["إطفاء الحريق",2,"إذا ضوعف الضغط عند الرشاش 4 مرات، فكيف يتغير التدفق؟",["يتضاعف مرتين فقط","يتضاعف 4 مرات","يتضاعف 16 مرة","لا يتغير"],"Q = K√P ← √4 = 2."],
+["إطفاء الحريق",1,"ما لون الكبسولة الزجاجية الأكثر شيوعًا للمكاتب والسكن، وما درجة تشغيلها؟",["أحمر 68°م","أخضر 68°م","أصفر 141°م","أزرق 93°م"],"أحمر 68، برتقالي 79، أصفر 93، أخضر 141، أزرق 182."],
+["إطفاء الحريق",2,"ما شرط تشغيل نظام Pre-Action؟",["إشارة كهربائية (كاشف) + انكسار رشاش معًا","انكسار رشاش فقط","إشارة واحدة تفتح كل الرشاشات المفتوحة","هبوط ضغط الهواء فقط"],"يُستخدم لغرف البيانات الحساسة لتجنب التفريغ الخاطئ."],
+["إطفاء الحريق",2,"ما ترتيب تشغيل المضخات عند هبوط ضغط كبير مفاجئ في الشبكة؟",["جوكي ← كهربائية رئيسية ← ديزل احتياط","ديزل ← كهربائية ← جوكي","كهربائية ← جوكي ← ديزل","كلها تبدأ معًا دائمًا"],"الجوكي تعوّض التسريب الصغير، وإن عجزت بدأت الكهربائية، وإلا فالديزل آخر خط دفاع."],
+["إطفاء الحريق",2,"ما آلية عمل FM-200 في الإطفاء؟",["امتصاص حرارة اللهب وتعطيل سلسلة الجذور الحرة","إزالة الأكسجين فيزيائيًا","تصبّن الزيوت","تكوين غطاء رغوي"],"CO₂ هو الذي يخفض الأكسجين، أما FM-200 فآليته كيميائية حرارية."],
+["إطفاء الحريق",2,"أي نوع كابينة حريق (Class) يحتوي وصلتين 2.5 بوصة و1.5 بوصة معًا؟",["Class III","Class I","Class II","Class IV"],"Class I رجال الإطفاء 2.5، Class II سكان 1.5، Class III الاثنان."],
+["إطفاء الحريق",3,"أي أنبوب يعطي أقل فقد ضغط حسب Hazen-Williams لنفس التدفق والقطر؟",["CPVC (C = 150)","حديد أسود قديم (C = 100)","حديد أسود جديد (C = 120)","مجلفن (C = 120)"],"C أعلى = سطح أنعم = فقد أقل."],
+["إطفاء الحريق",3,"خزان حريق مصمم لتدفق 1000 gpm لمدة 60 دقيقة. ما الحجم التقريبي؟ (1 م³ ≈ 264 gallon)",["≈ 227 م³","≈ 60 م³","≈ 1000 م³","≈ 2270 م³"],"1000×60 = 60,000 gallon ÷ 264 ≈ 227 م³."],
+["إطفاء الحريق",3,"كثافة التصميم لـ Ordinary I هي 0.15 gpm/ft² على مساحة حسابية 1500 ft². ما الحد الأدنى للتدفق؟",["225 gpm","150 gpm","10,000 gpm","1500 gpm"],"الكثافة × المساحة = 0.15 × 1500 = 225 gpm (قبل إضافة تدفق الخراطيم)."],
+["إطفاء الحريق",2,"غرفة المولدات داخل مستشفى تُصنَّف عادة:",["Extra (حمل حريقي عالٍ)","Light مثل صالة الانتظار","Ordinary فقط","لا تحتاج تصنيفًا"],"التصنيف يتبع الحمل الحريقي الفعلي لكل منطقة وليس المبنى كله."],
+["إطفاء الحريق",3,"ماذا يحدث عند إغلاق تام لخط المضخة (Churn) حسب منحنى المضخة؟",["التدفق صفر والضغط عند أعلى قيمة","التدفق أعلى قيمة والضغط صفر","التدفق والضغط عند نقطة التصميم","الضغط صفر والتدفق صفر"],"العلاقة عكسية: زيادة التدفق تخفض الضغط."],
+["إطفاء الحريق",2,"عند اندلاع حريق في غرفة بها 100 رشاش من نوع الكبسولة الزجاجية، ما الذي يحدث؟",["تنكسر فقط الرشاشات التي بلغت حرارتها درجة التشغيل","تنكسر كل الرشاشات معًا","تنكسر رشاش واحد فقط دائمًا","لا تنكسر قبل إشارة الكاشف"],"كل رشاش يعمل باستقلال، والنظام الذي يفتح الكل بإشارة واحدة هو Deluge."],
+["إطفاء الحريق",3,"ما الخاصية الأساسية لرشاش ESFR؟",["إخماد فوري بتدفق عالٍ (K ≥ 14) للمخازن ذات الرفوف العالية","تبريد فقط بتدفق منخفض","رشاش جانبي للممرات","غطاء مخفي للفنادق"],"ESFR = Early Suppression Fast Response."]
+];
+const N=Q.length, LV=["","سهل","متوسط","صعب"];
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+let S;
+function start(){
+  S={i:0,items:shuf(Q.map((q,k)=>k)).map(k=>{const q=Q[k];const o=shuf(q[3].map((t,x)=>({t,c:x===0})));return{q,o,a:null}}),done:false};
+  render();
+}
+function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function render(){
+  const app=document.getElementById('app');
+  document.getElementById('pg').style.width=(S.done?100:S.i/N*100)+'%';
+  if(S.done)return result(app);
+  const it=S.items[S.i];
+  app.innerHTML=`<div class="card"><div class="meta"><span class="chip">سؤال ${S.i+1} / ${N}</span><span class="chip">${it.q[0]}</span><span class="chip">${LV[it.q[1]]}</span></div>
+  <div class="q"><bdi>${esc(it.q[2])}</bdi></div>
+  ${it.o.map((o,k)=>`<button class="opt ${it.a===k?'sel':''}" data-k="${k}"><bdi>${esc(o.t)}</bdi></button>`).join('')}
+  <div class="nav"><button class="b g" id="pv" ${S.i?'':'disabled'}>السابق</button>
+  <button class="b" id="nx" ${it.a===null?'disabled':''}>${S.i===N-1?'إنهاء الاختبار':'التالي'}</button></div></div>`;
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{it.a=+b.dataset.k;render()});
+  document.getElementById('pv').onclick=()=>{S.i--;render()};
+  document.getElementById('nx').onclick=()=>{if(S.i===N-1){S.done=true}else S.i++;render();scrollTo(0,0)};
+}
+function pct(a,b){return b?Math.round(a/b*100):0}
+function rate(p){return p>=90?"ممتاز — مستوى متقدم":p>=75?"جيد جدًا — أساس قوي":p>=60?"جيد — فهم مقبول مع ثغرات":p>=40?"متوسط — يحتاج مراجعة مركزة":"ضعيف — ابدأ من الأساسيات"}
+function result(app){
+  const ok=S.items.filter(i=>i.o[i.a].c).length;
+  const by=(f)=>{const m={};S.items.forEach(i=>{const k=f(i);m[k]=m[k]||[0,0];m[k][1]++;if(i.o[i.a].c)m[k][0]++});return m};
+  const topics=by(i=>i.q[0]), lv=by(i=>LV[i.q[1]]);
+  const row=(n,[a,b])=>`<tr><td>${n}</td><td>${a} / ${b}</td><td><div class="pb"><i style="width:${pct(a,b)}%"></i></div></td><td>${pct(a,b)}%</td></tr>`;
+  const wrong=S.items.filter(i=>!i.o[i.a].c);
+  app.innerHTML=`<div class="card"><div class="big">${ok} / ${N}</div><div class="lvl">${pct(ok,N)}% — ${rate(pct(ok,N))}</div>
+  <h2>حسب المادة</h2><table>${Object.entries(topics).map(([k,v])=>row(k,v)).join('')}</table>
+  <h2>حسب الصعوبة</h2><table>${["سهل","متوسط","صعب"].map(k=>row(k,lv[k]||[0,0])).join('')}</table></div>
+  <div class="card"><h2>مراجعة الإجابات${wrong.length?` (${wrong.length} خطأ)`:''}</h2>
+  ${wrong.length?'':'<p>أجبت على كل الأسئلة بشكل صحيح 🎉</p>'}
+  ${wrong.map(i=>`<div class="rv"><div class="q"><bdi>${esc(i.q[2])}</bdi></div>
+   <div>إجابتك: <b style="color:var(--no)"><bdi>${esc(i.o[i.a].t)}</bdi></b></div>
+   <div>الصحيحة: <b style="color:var(--ok)"><bdi>${esc(i.o.find(o=>o.c).t)}</bdi></b></div>
+   <div class="exp">${esc(i.q[4])}</div></div>`).join('')}
+  </div><div class="nav"><button class="b" id="rs">إعادة الاختبار</button></div>`;
+  document.getElementById('rs').onclick=()=>{start();scrollTo(0,0)};
+  scrollTo(0,0);
+}
+start();
+</script>
+</body>
+</html>
