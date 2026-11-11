@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>إدارة المخاطر في المشاريع الناشئة — ملخص شامل</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f172a;--surface:#1e293b;--surface2:#263348;--border:#334155;
+  --fg:#f1f5f9;--fg-muted:#94a3b8;--fg-dim:#64748b;
+  --blue:#60a5fa;--blue-bg:rgba(96,165,250,.13);--blue-border:rgba(96,165,250,.3);
+  --green:#4ade80;--green-bg:rgba(74,222,128,.13);--green-border:rgba(74,222,128,.3);
+  --red:#f87171;--red-bg:rgba(248,113,113,.13);--red-border:rgba(248,113,113,.3);
+  --amber:#fbbf24;--amber-bg:rgba(251,191,36,.13);--amber-border:rgba(251,191,36,.3);
+  --purple:#c084fc;--purple-bg:rgba(192,132,252,.13);--purple-border:rgba(192,132,252,.3);
+  --navy:#1e3a5f;--navy-light:#2d5a8e;
+  --radius:12px;--radius-sm:7px;
+}
+/* ── Light Theme ── */
+[data-theme="light"]{
+  --bg:#f0f4f8;--surface:#ffffff;--surface2:#e8edf2;--border:#cbd5e1;
+  --fg:#0f172a;--fg-muted:#475569;--fg-dim:#94a3b8;
+  --blue:#2563eb;--blue-bg:rgba(37,99,235,.1);--blue-border:rgba(37,99,235,.3);
+  --green:#16a34a;--green-bg:rgba(22,163,74,.1);--green-border:rgba(22,163,74,.3);
+  --red:#dc2626;--red-bg:rgba(220,38,38,.1);--red-border:rgba(220,38,38,.3);
+  --amber:#d97706;--amber-bg:rgba(217,119,6,.1);--amber-border:rgba(217,119,6,.3);
+  --purple:#7c3aed;--purple-bg:rgba(124,58,237,.1);--purple-border:rgba(124,58,237,.3);
+}
+[data-theme="light"] .topbar{background:#1e3a5f}
+[data-theme="light"] .nav-wrap{background:#f8fafc}
+[data-theme="light"] .formula-box{background:#e8edf2;border-color:#cbd5e1}
+[data-theme="light"] .ex-box{background:#f8fafc;border-color:#cbd5e1}
+[data-theme="light"] .in-g{background:rgba(22,163,74,.08)}
+[data-theme="light"] .in-a{background:rgba(217,119,6,.08)}
+[data-theme="light"] .in-b{background:rgba(37,99,235,.08)}
+[data-theme="light"] .in-r{background:rgba(220,38,38,.08)}
+[data-theme="light"] .in-p{background:rgba(124,58,237,.08)}
+[data-theme="light"] .steps .step-num{background:#2563eb}
+[data-theme="light"] svg text{fill:var(--fg)}
+/* ── Subject select ── */
+.subj-select{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:8px;color:#fff;font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;padding:6px 10px;cursor:pointer;outline:none;margin-right:auto}
+.subj-select option{background:#1e3a5f;color:#fff}
+/* ── Theme toggle ── */
+.theme-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:8px;color:#fff;font-size:16px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s}
+.theme-btn:hover{background:rgba(255,255,255,.25)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--fg);direction:rtl;font-size:14px;transition:background .2s,color .2s}
+/* ── Nav ── */
+.topbar{background:#0a0f1e;border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.topbar-title{font-size:17px;font-weight:900;color:var(--fg)}
+.topbar-sub{font-size:11px;color:var(--fg-muted)}
+.nav-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--surface);border-bottom:1px solid var(--border)}
+.nav{display:flex;gap:0;padding:0;min-width:max-content}
+.nav-btn{background:none;border:none;border-bottom:3px solid transparent;padding:11px 14px;color:var(--fg-muted);font-family:'Tajawal',sans-serif;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s}
+.nav-btn:hover{color:var(--fg)}
+.nav-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
+/* ── Sections ── */
+.section{display:none;padding:16px;max-width:820px;margin:0 auto}
+.section.active{display:block}
+/* ── Cards ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:14px}
+.card-title{font-size:15px;font-weight:900;margin-bottom:10px;color:var(--fg)}
+.cls{font-size:10px;font-weight:900;padding:2px 9px;border-radius:99px;margin-bottom:8px;display:inline-block}
+.cls-mem{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.cls-var{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.cls-ver{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+/* ── Tips ── */
+.tip{border-radius:var(--radius-sm);padding:10px 14px;margin:8px 0;line-height:1.65;font-size:13px}
+.tip-blue{background:var(--blue-bg);border-right:3px solid var(--blue)}
+.tip-green{background:var(--green-bg);border-right:3px solid var(--green)}
+.tip-amber{background:var(--amber-bg);border-right:3px solid var(--amber)}
+.tip-red{background:var(--red-bg);border-right:3px solid var(--red)}
+.tip-purple{background:var(--purple-bg);border-right:3px solid var(--purple)}
+.warn{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--radius-sm);padding:9px 12px;font-size:12.5px;color:var(--amber);margin:8px 0}
+/* ── Formula ── */
+.formula-box{background:#0a0f1e;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin:10px 0;text-align:center;font-size:16px;font-weight:700;letter-spacing:.5px;color:var(--fg)}
+.formula-box .lbl{font-size:11px;color:var(--fg-muted);font-weight:500;display:block;margin-top:4px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 3px;font-size:15px}
+.frac .num{border-bottom:1.5px solid currentColor;padding:0 4px;line-height:1.4}
+.frac .den{padding:0 4px;line-height:1.4}
+.sym{font-style:italic;color:var(--blue)}
+/* ── Table ── */
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin:10px 0}
+.tbl th{background:var(--surface2);padding:7px 10px;text-align:right;font-weight:800;border:1px solid var(--border)}
+.tbl td{padding:7px 10px;border:1px solid var(--border)}
+.tbl tr:nth-child(even){background:rgba(255,255,255,.02)}
+/* ── Steps ── */
+.steps{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.step{display:flex;gap:10px;align-items:flex-start}
+.step-num{min-width:26px;height:26px;border-radius:50%;background:var(--blue);color:white;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body{flex:1;line-height:1.6;font-size:13px}
+/* ── Illustrations ── */
+.illus-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin:12px 0}
+.illus-item{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 6px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.illus-name{font-size:11.5px;font-weight:800;margin:6px 0 2px;color:var(--fg);line-height:1.3}
+.illus-en{font-size:10px;color:var(--fg-muted);margin-bottom:4px}
+.illus-note{font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;margin-top:4px;display:inline-block}
+.in-g{background:var(--green-bg);color:var(--green)}
+.in-a{background:var(--amber-bg);color:var(--amber)}
+.in-b{background:var(--blue-bg);color:var(--blue)}
+.in-r{background:var(--red-bg);color:var(--red)}
+.in-p{background:var(--purple-bg);color:var(--purple)}
+/* ── Solved example ── */
+.ex-box{background:#0a0f1e;border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin:10px 0}
+.ex-title{font-size:13px;font-weight:900;color:var(--amber);margin-bottom:8px}
+.ex-step{font-size:12.5px;line-height:1.7;margin:4px 0}
+.ex-step .ans{color:var(--green);font-weight:900}
+/* ── Big concept grid ── */
+.concept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:12px 0}
+.concept-card{border-radius:var(--radius-sm);padding:12px;border:1px solid}
+/* ── Distribution badge ── */
+.dist-tag{display:inline-block;font-size:10px;font-weight:900;padding:2px 8px;border-radius:4px;margin-top:6px}
+.dist-u{background:var(--green-bg);color:var(--green)}
+.dist-nu{background:var(--red-bg);color:var(--red)}
+
+/* ── Risk page additions ── */
+.mx th{text-align:center}
+.mx td{text-align:center;line-height:1.6}
+.mx-r{background:var(--red-bg)!important;color:var(--fg)}
+.mx-o{background:rgba(251,146,60,.16)!important;color:var(--fg)}
+.mx-y{background:var(--amber-bg)!important;color:var(--fg)}
+.mx-g{background:var(--green-bg)!important;color:var(--fg)}
+.qa{border:1px solid var(--border);border-radius:var(--radius-sm);margin:6px 0;background:var(--surface2)}
+.qa summary{cursor:pointer;padding:10px 12px;font-weight:700;font-size:13px;line-height:1.6}
+.qa div{padding:0 12px 12px;font-size:13px;line-height:1.7;color:var(--green)}
+.card p,.card li{color:var(--fg)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <div class="topbar-title">🧭 إدارة المخاطر في المشاريع الناشئة</div>
+    <div class="topbar-sub">Risk Management for Startups — ملخص شامل</div>
+  </div>
+  <select class="subj-select" onchange="if(this.value)window.location.href=this.value">
+    <option value="">📚 اختر المادة</option>
+    <option value="index.html">🏠 الرئيسية</option>
+    <option value="risk-management.html" selected>🧭 إدارة المخاطر</option>
+    <option value="mechanics.html">⚙️ ميكانيكا المواد</option>
+    <option value="fire-fighting.html">🔥 إطفاء الحريق</option>
+  </select>
+  <button class="theme-btn" onclick="toggleTheme()" title="تبديل الإضاءة" id="themeBtn">🌙</button>
+</div>
+
+<div class="nav-wrap">
+<div class="nav">
+  <button class="nav-btn active" onclick="show('map',this)">🗺️ خريطة</button>
+  <button class="nav-btn" onclick="show('concept',this)">💡 المفهوم</button>
+  <button class="nav-btn" onclick="show('types',this)">🗂️ الأنواع</button>
+  <button class="nav-btn" onclick="show('identify',this)">🔎 التحديد</button>
+  <button class="nav-btn" onclick="show('analyze',this)">🔬 التحليل</button>
+  <button class="nav-btn" onclick="show('assess',this)">⚖️ التقييم</button>
+  <button class="nav-btn" onclick="show('respond',this)">🛡️ الاستجابة</button>
+  <button class="nav-btn" onclick="show('tools',this)">🧰 الأدوات</button>
+  <button class="nav-btn" onclick="show('decide',this)">🧠 القرار</button>
+  <button class="nav-btn" onclick="show('monitor',this)">🔁 المراقبة</button>
+  <button class="nav-btn" onclick="show('practice',this)">📝 تطبيق واختبار</button>
+</div>
+</div>
+
+<!-- ══════════ خريطة ══════════ -->
+<div class="section active" id="s-map">
+
+  <div class="card">
+    <div class="card-title">🗺️ الصورة الكاملة في دقيقة</div>
+    <div class="tip tip-blue">
+      <strong>الفكرة الأساسية:</strong> المخاطرة حدث محتمل في المستقبل. إدارة المخاطر أن تراه مبكرًا، وتقرر موقفك منه قبل أن يقع، لا وقت الأزمة.
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>التحديد:</strong> ما الذي قد يحدث؟ نكتب قائمة المخاطر.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>التحليل:</strong> لماذا قد يحدث؟ وما الذي يتأثر به؟</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>التقييم:</strong> ما احتماله وما أثره؟ نرتّب الأولويات.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>الاستجابة:</strong> تجنّب، أو تخفيف، أو نقل، أو قبول، مع خطة طوارئ.</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><strong>المراقبة والمراجعة:</strong> نتابع النتائج ونحدّث القائمة.</div></div>
+    </div>
+    <div class="tip tip-green">
+      إدارة المخاطر لا تمنع الفشل أبدًا، لكنها تجعل فرص النجاح أعلى والخسائر أقل. المشروع الناجح هو الذي يرى المخاطر مبكرًا ويتعامل معها بوعي.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📌 عن هذا الملخص</div>
+    <p style="line-height:1.8;font-size:13px">
+      مبني على دورة «إدارة المخاطر في المشاريع الناشئة» (عمادة شؤون الطلاب بجامعة أم القرى، تقديم أ. سعاد بنت طلال فقيه، 11 نوفمبر 2026)، مع توسعة من المراجع العامة في إدارة المخاطر لسد ما فات من الدورة.
+    </p>
+    <p style="line-height:1.8;font-size:13px;margin-top:8px">كل بطاقة تحمل إحدى علامتين:</p>
+    <p style="margin-top:6px"><span class="cls cls-mem">🟢 من الدورة</span> ما دوّنته من شرح المدرّبة.</p>
+    <p><span class="cls cls-var">🟡 إضافة للتوسّع</span> ما أُضيف من المعرفة العامة، وليس منسوبًا للمدرّبة.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🧾 ورقة الغش: كل ما تحتاج حفظه</div>
+    <table class="tbl">
+      <tr><th>السؤال</th><th>الجواب المختصر</th></tr>
+      <tr><td>ما المخاطرة؟</td><td>حدث محتمل في المستقبل، إذا وقع أثّر في أهداف المشروع سلبًا أو إيجابًا</td></tr>
+      <tr><td>ما الفرق بينها وبين المشكلة؟</td><td>المخاطرة لم تقع بعد، والمشكلة وقعت فعلًا</td></tr>
+      <tr><td>ما خطوات الدورة؟</td><td>تحديد، تحليل، تقييم، استجابة، مراقبة</td></tr>
+      <tr><td>ما أنواع المخاطر؟</td><td>مالية، تشغيلية، تسويقية، قانونية، تقنية</td></tr>
+      <tr><td>كيف نقيّم؟</td><td>الاحتمال × الأثر</td></tr>
+      <tr><td>ما استراتيجيات الاستجابة؟</td><td>تجنّب، تخفيف، نقل، قبول</td></tr>
+      <tr><td>ما عناصر خطة الطوارئ؟</td><td>الإشارة، المسؤول، الخطوات الأولى، من نتواصل معه</td></tr>
+      <tr><td>ما الأدوات؟</td><td>سجل المخاطر، مصفوفة الاحتمال والأثر، SWOT، ماذا لو، تجربة مصغرة</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════ المفهوم ══════════ -->
+<div class="section" id="s-concept">
+
+  <div class="card">
+    <div class="card-title">💡 ما المخاطرة؟</div>
+    <span class="cls cls-mem">🟢 من الدورة</span>
+    <div class="formula-box">حدث محتمل في المستقبل + أثر على أهداف المشروع<span class="lbl">الأثر قد يكون سلبيًا أو إيجابيًا</span></div>
+    <ul style="line-height:1.9;font-size:13px;padding-right:18px">
+      <li>قد يقع وقد لا يقع، فهو <strong>احتمال</strong> لا يقين.</li>
+      <li>إذا وقع أثّر في أهداف المشروع.</li>
+      <li>إذا وقع لزمك اتخاذ قرار أو موقف.</li>
+      <li>المخاطر ليست مالية فقط: قد تكون في نظام، أو شخص، أو مورّد، أو عقد.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚔️ المخاطرة والمشكلة: كيف نفرّق؟</div>
+    <span class="cls cls-mem">🟢 من الدورة</span>
+    <table class="tbl">
+      <tr><th></th><th>المخاطرة</th><th>المشكلة</th></tr>
+      <tr><td><strong>الزمن</strong></td><td>مستقبل: قد يحدث</td><td>ماضٍ أو حاضر: حدث فعلًا</td></tr>
+      <tr><td><strong>المطلوب</strong></td><td>استعداد وتخطيط</td><td>حل وعلاج فوري</td></tr>
+      <tr><td><strong>مثال الدورة</strong></td><td>قد يتأخر المورّد في توصيل المواد الشهر القادم</td><td>موقع المتجر تعطّل</td></tr>
+      <tr><td><strong>مشروع قهوة</strong></td><td>قد يرتفع سعر البن العام القادم</td><td>آلة القهوة معطّلة اليوم</td></tr>
+    </table>
+    <div class="tip tip-amber"><strong>اختبار سريع:</strong> اسأل «هل وقع؟». إن كان الجواب نعم فهي مشكلة، وإن كان «قد يقع» فهي مخاطرة. والمخاطرة التي تُهمل تتحول إلى مشكلة.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🧩 ما إدارة المخاطر؟ ولماذا تهم المشروع الناشئ؟</div>
+    <span class="cls cls-mem">🟢 من الدورة</span>
+    <p style="line-height:1.8;font-size:13px">عملية منظمة ومرتبة للتعامل مع المخاطر عبر دورة: تحديد، ثم تحليل، ثم تقييم، ثم استجابة، ثم متابعة النتائج.</p>
+    <div class="concept-grid">
+      <div class="concept-card" style="border-color:var(--red-border);background:var(--red-bg)"><strong>موارد محدودة</strong><br><span style="font-size:12px">أي خطأ قد يكون مكلفًا ولا يوجد احتياطي يعوّضه.</span></div>
+      <div class="concept-card" style="border-color:var(--amber-border);background:var(--amber-bg)"><strong>بيئة غير مستقرة</strong><br><span style="font-size:12px">السوق والعملاء والأنظمة تتغير بسرعة.</span></div>
+      <div class="concept-card" style="border-color:var(--blue-border);background:var(--blue-bg)"><strong>فريق صغير</strong><br><span style="font-size:12px">قد يكون شخصًا واحدًا، فغيابه يوقف كل شيء.</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📖 مصطلحات تحتاج معرفتها</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <table class="tbl">
+      <tr><th>المصطلح</th><th>معناه</th></tr>
+      <tr><td><strong>الاحتمال</strong> Probability / Likelihood</td><td>مدى توقع وقوع الحدث</td></tr>
+      <tr><td><strong>الأثر</strong> Impact</td><td>حجم الضرر أو النفع إذا وقع</td></tr>
+      <tr><td><strong>درجة الخطر</strong> Risk Score</td><td>حاصل ضرب الاحتمال في الأثر</td></tr>
+      <tr><td><strong>الفرصة</strong> Opportunity</td><td>مخاطرة أثرها إيجابي، تُستغل ولا تُتجنب</td></tr>
+      <tr><td><strong>السبب الجذري</strong> Root Cause</td><td>السبب الحقيقي خلف الظاهر</td></tr>
+      <tr><td><strong>مالك الخطر</strong> Risk Owner</td><td>الشخص المسؤول عن متابعة خطر بعينه</td></tr>
+      <tr><td><strong>مؤشر الإنذار المبكر</strong> Trigger / KRI</td><td>علامة قابلة للقياس تنبّه إلى اقتراب الخطر</td></tr>
+      <tr><td><strong>الخطر المتبقي</strong> Residual Risk</td><td>ما يبقى من الخطر بعد تطبيق المعالجة</td></tr>
+      <tr><td><strong>شهية المخاطر</strong> Risk Appetite</td><td>مقدار الخطر الذي يقبله صاحب المشروع لتحقيق هدفه</td></tr>
+      <tr><td><strong>سجل المخاطر</strong> Risk Register</td><td>الجدول الذي تُحفظ فيه كل المخاطر ومعالجاتها</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════ الأنواع ══════════ -->
+<div class="section" id="s-types">
+
+  <div class="card">
+    <div class="card-title">🗂️ لماذا نصنّف المخاطر؟</div>
+    <span class="cls cls-mem">🟢 من الدورة</span>
+    <ul style="line-height:1.9;font-size:13px;padding-right:18px">
+      <li>حتى لا ننسى شيئًا: كل فئة تذكّرك بزاوية.</li>
+      <li>يسهّل توزيع المسؤوليات داخل الفريق.</li>
+      <li>يجعل التفكير منظمًا بدل العشوائي.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🧱 الأنواع الخمسة</div>
+    <span class="cls cls-mem">🟢 من الدورة</span>
+    <table class="tbl">
+      <tr><th>النوع</th><th>بماذا يتعلق</th><th>أمثلة</th></tr>
+      <tr><td><strong style="color:var(--green)">💰 مالية</strong></td><td>المال: توفّره وإدارته واستمراره</td><td>تكاليف تشغيل عالية · الاعتماد على مصدر تمويل واحد · نفاد السيولة</td></tr>
+      <tr><td><strong style="color:var(--blue)">⚙️ تشغيلية</strong></td><td>سير العمل اليومي داخل المشروع</td><td>عدم وضوح دور كل موظف · الاعتماد على شخص واحد · تعطّل المورّد أو تأخر التوريد</td></tr>
+      <tr><td><strong style="color:var(--amber)">📣 تسويقية</strong></td><td>السوق والعملاء وقبولهم للمنتج</td><td>عدم تقبّل السوق للمنتج · ظهور منافس أقوى · سوء فهم احتياج العميل · فشل الحملات الإعلانية</td></tr>
+      <tr><td><strong style="color:var(--purple)">⚖️ قانونية</strong></td><td>الأنظمة والتراخيص والعقود</td><td>العمل دون ترخيص أو سجل مناسب · عقود غير واضحة مع الشركاء · مخالفة أنظمة حماية البيانات · خلاف على الملكية الفكرية كاسم المشروع أو شعاره</td></tr>
+      <tr><td><strong style="color:var(--red)">💻 تقنية</strong></td><td>التقنية والأنظمة التي يعتمد عليها المشروع</td><td>تعطّل الموقع أو التطبيق · اختراق البيانات · الاعتماد على تقنية قديمة · صعوبة تطوير المنتج بالمستوى المطلوب</td></tr>
+    </table>
+    <div class="tip tip-amber">في ملاحظاتي وردت «ضعف التسويق» ضمن المخاطر التشغيلية، والأقرب أنها تسويقية.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">➕ تصنيفات أخرى شائعة</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <p style="line-height:1.8;font-size:13px">الخمسة ليست حصرًا. بعض المراجع تضيف أو تفصّل:</p>
+    <table class="tbl">
+      <tr><th>الفئة</th><th>مثال</th></tr>
+      <tr><td><strong>استراتيجية</strong></td><td>اختيار سوق خاطئ، أو نموذج عمل لا يربح</td></tr>
+      <tr><td><strong>بشرية</strong></td><td>ترك موظف أساسي، أو صعوبة التوظيف</td></tr>
+      <tr><td><strong>سمعة</strong></td><td>شكوى علنية أو تجربة سيئة تنتشر</td></tr>
+      <tr><td><strong>أمن وخصوصية</strong></td><td>تسرب بيانات العملاء</td></tr>
+      <tr><td><strong>خارجية</strong></td><td>تغيّر نظام حكومي، أو أزمة اقتصادية</td></tr>
+    </table>
+    <div class="tip tip-blue">التصنيف وسيلة لا غاية: إن احترت في أي فئة تضع الخطر، ضعه في الأقرب وامضِ. المهم ألّا يُنسى.</div>
+  </div>
+</div>
+
+<!-- ══════════ التحديد ══════════ -->
+<div class="section" id="s-identify">
+
+  <div class="card">
+    <div class="card-title">🔎 الخطوة الأولى: تحديد المخاطر</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <p style="line-height:1.8;font-size:13px">الهدف قائمة أولية بكل ما قد يحدث، دون حكم على أهميته. الحكم يأتي في التقييم.</p>
+    <table class="tbl">
+      <tr><th>الطريقة</th><th>كيف تطبّقها</th></tr>
+      <tr><td><strong>العصف الذهني</strong></td><td>اجمع الفريق واسأل: ما الذي قد يُفشل المشروع؟ اكتب كل شيء دون نقاش</td></tr>
+      <tr><td><strong>المرور على الفئات</strong></td><td>خذ الأنواع الخمسة واحدًا واحدًا واسأل عن كل نوع</td></tr>
+      <tr><td><strong>سؤال أصحاب الخبرة</strong></td><td>من سبقك في المجال يعرف ما لا تراه</td></tr>
+      <tr><td><strong>دروس المشاريع المشابهة</strong></td><td>لماذا تعثرت مشاريع قريبة من مشروعك؟</td></tr>
+      <tr><td><strong>تتبّع رحلة العميل</strong></td><td>من أول تواصل إلى الدفع والدعم: أين قد تنكسر السلسلة؟</td></tr>
+      <tr><td><strong>مراجعة الافتراضات</strong></td><td>كل افتراض في خطتك (سعر، عدد عملاء، مدة) خطر محتمل إن لم يصحّ</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">✍️ كيف تصوغ الخطر؟</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <div class="formula-box">بسبب (السبب) ← قد يحدث (الحدث) ← فينتج (الأثر)</div>
+    <div class="ex-box">
+      <div class="ex-title">مثال: صياغة ضعيفة وصياغة جيدة</div>
+      <div class="ex-step">❌ <strong>ضعيفة:</strong> «مشكلة في المورّد».</div>
+      <div class="ex-step">✅ <strong>جيدة:</strong> «لأننا نعتمد على مورّد واحد للبن، قد يتأخر التوريد في موسم الذروة، <span class="ans">فنخسر مبيعات أسبوع كامل</span>».</div>
+    </div>
+    <div class="tip tip-green">الصياغة الجيدة تكشف المعالجة تلقائيًا: السبب «مورّد واحد» يقترح الحل «مورّد ثانٍ».</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚠️ أخطاء شائعة في هذه المرحلة</div>
+    <span class="cls cls-mem">🟢 من الدورة</span>
+    <table class="tbl">
+      <tr><th>الخطأ</th><th>كيف تتفاداه</th></tr>
+      <tr><td>الاكتفاء بالمخاطر الواضحة</td><td>مرّ على كل فئة، واسأل شخصًا من خارج المشروع</td></tr>
+      <tr><td>التقليل من المخاطر بسبب الحماس</td><td>افترض أن المشروع فشل بعد سنة واسأل: ما السبب الأرجح؟</td></tr>
+      <tr><td>الخلط بين العَرَض والسبب الحقيقي</td><td>اسأل «لماذا؟» عدة مرات حتى تصل للجذر (انظر التحليل)</td></tr>
+      <tr><td>التفكير بمفردنا بدل إشراك الفريق</td><td>اعرض القائمة على غيرك قبل اعتمادها</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════ التحليل ══════════ -->
+<div class="section" id="s-analyze">
+
+  <div class="card">
+    <div class="card-title">🔬 الخطوة الثانية: تحليل المخاطر</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <p style="line-height:1.8;font-size:13px">التحليل يجيب عن أربعة أسئلة لكل خطر:</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>ما السبب الجذري؟</strong> لماذا قد يحدث أصلًا؟</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>ما الذي يتأثر؟</strong> المال، الوقت، الجودة، السمعة، أم الالتزام النظامي؟</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>ما الضوابط الموجودة؟</strong> هل عندنا اليوم ما يمنعه أو يخففه؟</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>هل يرتبط بمخاطر أخرى؟</strong> خطر واحد قد يجرّ غيره.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🌱 العَرَض والسبب الحقيقي: أسلوب «لماذا» خمس مرات</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <div class="ex-box">
+      <div class="ex-title">مثال: العملاء لا يجددون الاشتراك</div>
+      <div class="ex-step"><strong>لماذا؟</strong> لأنهم لا يستخدمون المنتج بعد الشهر الأول.</div>
+      <div class="ex-step"><strong>لماذا؟</strong> لأنهم لم يفهموا طريقة استخدامه.</div>
+      <div class="ex-step"><strong>لماذا؟</strong> لأن أحدًا لم يدرّبهم.</div>
+      <div class="ex-step"><strong>لماذا؟</strong> لأن التدريب يقوم به المؤسس وحده ولا وقت لديه.</div>
+      <div class="ex-step"><span class="ans">السبب الجذري:</span> لا توجد مواد تدريب تغني عن حضور المؤسس.</div>
+    </div>
+    <div class="tip tip-red">لو عالجت العَرَض (خصم على التجديد) لخسرت المال وبقي السبب. عالج الجذر (مواد تدريب).</div>
+  </div>
+</div>
+
+<!-- ══════════ التقييم ══════════ -->
+<div class="section" id="s-assess">
+
+  <div class="card">
+    <div class="card-title">⚖️ الخطوة الثالثة: تقييم المخاطر</div>
+    <span class="cls cls-mem">🟢 من الدورة</span>
+    <p style="line-height:1.8;font-size:13px">نقيس كل خطر ببُعدين: <strong>الاحتمال</strong> (منخفض أو مرتفع) و<strong>الأثر</strong> (منخفض أو مرتفع). إذا كان الأثر مرتفعًا والاحتمال مرتفعًا فلا بد من خطة، وهو الأولوية القصوى.</p>
+    <table class="tbl mx">
+      <tr><th></th><th>احتمال منخفض</th><th>احتمال مرتفع</th></tr>
+      <tr><th>أثر مرتفع</th><td class="mx-o"><strong>استعد</strong><br>خطة طوارئ جاهزة، أو نقل (تأمين، عقد)</td><td class="mx-r"><strong>أولوية قصوى</strong><br>خطة معالجة فورية</td></tr>
+      <tr><th>أثر منخفض</th><td class="mx-g"><strong>اقبل وراقب</strong><br>لا يستحق جهدًا الآن</td><td class="mx-y"><strong>خفّف</strong><br>إجراء روتيني بسيط يقلل تكراره</td></tr>
+    </table>
+    <p style="font-size:11.5px;color:var(--fg-muted);margin-top:4px">الخانة العليا اليمنى من الدورة، وبقية الخانات إضافة من الممارسة الشائعة.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔢 المقياس الخماسي 5×5</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <div class="formula-box">درجة الخطر = الاحتمال × الأثر<span class="lbl">من 1 إلى 25</span></div>
+    <table class="tbl">
+      <tr><th>الدرجة</th><th>الاحتمال</th><th>الأثر</th></tr>
+      <tr><td>1</td><td>نادر: لا يُتوقع إلا في ظروف استثنائية</td><td>ضئيل: إزعاج محدود</td></tr>
+      <tr><td>2</td><td>ضعيف: غير مرجح خلال سنة</td><td>محدود: تأخير أو تكلفة صغيرة</td></tr>
+      <tr><td>3</td><td>ممكن: قد يحدث مرة خلال سنة</td><td>متوسط: تأخير مرحلة أو فقد عميل</td></tr>
+      <tr><td>4</td><td>مرجح: متوقع ما لم يُعالج</td><td>جسيم: تعطّل هدف رئيسي</td></tr>
+      <tr><td>5</td><td>شبه مؤكد: حاصل أو سيحصل قريبًا</td><td>حرج: يهدد استمرار المشروع</td></tr>
+    </table>
+    <table class="tbl mx" style="text-align:center">
+      <tr><th>الأثر \ الاحتمال</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+      <tr><th>5</th><td class="mx-g">5</td><td class="mx-y">10</td><td class="mx-o">15</td><td class="mx-r">20</td><td class="mx-r">25</td></tr>
+      <tr><th>4</th><td class="mx-g">4</td><td class="mx-y">8</td><td class="mx-o">12</td><td class="mx-o">16</td><td class="mx-r">20</td></tr>
+      <tr><th>3</th><td class="mx-g">3</td><td class="mx-y">6</td><td class="mx-y">9</td><td class="mx-o">12</td><td class="mx-o">15</td></tr>
+      <tr><th>2</th><td class="mx-g">2</td><td class="mx-g">4</td><td class="mx-y">6</td><td class="mx-y">8</td><td class="mx-y">10</td></tr>
+      <tr><th>1</th><td class="mx-g">1</td><td class="mx-g">2</td><td class="mx-g">3</td><td class="mx-g">4</td><td class="mx-g">5</td></tr>
+    </table>
+    <table class="tbl">
+      <tr><th>المستوى</th><th>الدرجة</th><th>ماذا تفعل</th></tr>
+      <tr><td class="mx-r"><strong>حرج</strong></td><td>20 إلى 25</td><td>خطة فورية بمالك وموعد، ومتابعة شهرية</td></tr>
+      <tr><td class="mx-o"><strong>عالٍ</strong></td><td>12 إلى 19</td><td>خطة بمالك وموعد، ومتابعة شهرية</td></tr>
+      <tr><td class="mx-y"><strong>متوسط</strong></td><td>6 إلى 11</td><td>ضوابط تُراقب، ومراجعة ربع سنوية</td></tr>
+      <tr><td class="mx-g"><strong>منخفض</strong></td><td>1 إلى 5</td><td>قبول مع المراقبة</td></tr>
+    </table>
+    <div class="tip tip-blue">حدود المستويات ليست موحدة عالميًا؛ كل جهة تختار حدودها. المهم أن تثبّتها قبل التقييم ولا تغيّرها لتجميل النتيجة.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🧮 مثال محلول</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <div class="ex-box">
+      <div class="ex-title">مشروع قهوة مختصة: ثلاثة مخاطر</div>
+      <div class="ex-step"><strong>(1) تأخر مورّد البن الوحيد:</strong> احتمال 3 × أثر 4 = <span class="ans">12 (عالٍ)</span></div>
+      <div class="ex-step"><strong>(2) افتتاح منافس في الشارع نفسه:</strong> احتمال 4 × أثر 3 = <span class="ans">12 (عالٍ)</span></div>
+      <div class="ex-step"><strong>(3) انقطاع الكهرباء ساعة:</strong> احتمال 2 × أثر 2 = <span class="ans">4 (منخفض)</span></div>
+      <div class="ex-step">الترتيب: الأول والثاني يحتاجان خطة، والثالث يُقبل ويُراقب.</div>
+    </div>
+    <div class="tip tip-amber">إذا تساوت الدرجتان فقدّم الأعلى أثرًا: خطر 3×4 أولى من 4×3، لأن الأثر الجسيم أصعب تعويضًا.</div>
+  </div>
+</div>
+
+<!-- ══════════ الاستجابة ══════════ -->
+<div class="section" id="s-respond">
+
+  <div class="card">
+    <div class="card-title">🛡️ الخطوة الرابعة: خطط الاستجابة</div>
+    <span class="cls cls-mem">🟢 من الدورة</span>
+    <ul style="line-height:1.9;font-size:13px;padding-right:18px">
+      <li>لا فائدة من قائمة مخاطر نكتبها ثم نتركها في الدرج.</li>
+      <li>الخطة تحدد ما سنفعله تجاه كل مخاطرة مهمة.</li>
+      <li>الأفضل أن نقرر قبل وقوع الحدث، فالقرارات وقت الأزمة تكون متوترة.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🧭 الاستراتيجيات الأربع</div>
+    <span class="cls cls-mem">🟢 من الدورة</span>
+    <table class="tbl">
+      <tr><th>الاستراتيجية</th><th>معناها</th><th>متى تُختار</th><th>مثال</th></tr>
+      <tr><td><strong style="color:var(--red)">🚫 التجنّب</strong></td><td>نغيّر الخطة ونتخلى عن النشاط أو الطريقة المسببة للمخاطرة</td><td>حين تكون المخاطرة أكبر من فائدة النشاط</td><td>إلغاء فرع في موقع إيجاره غير مضمون</td></tr>
+      <tr><td><strong style="color:var(--amber)">📉 التخفيف</strong></td><td>نقلل احتمالها أو أثرها</td><td>حين يمكن التحكم في السبب بتكلفة معقولة</td><td>التعاقد مع مورّد ثانٍ احتياطي</td></tr>
+      <tr><td><strong style="color:var(--blue)">🔄 النقل</strong></td><td>نحمّل جزءًا منها لطرف آخر</td><td>حين يوجد من يتحملها أفضل منا</td><td>تأمين على المعدات، أو شرط جزائي في عقد المورّد</td></tr>
+      <tr><td><strong style="color:var(--green)">✅ القبول</strong></td><td>نقبلها ونستعد لها</td><td>حين يكون أثرها بسيطًا، أو معالجتها تكلف أكثر من فائدتها</td><td>قبول انقطاع الكهرباء القصير دون شراء مولّد</td></tr>
+    </table>
+    <div class="tip tip-green">في أي موقف يجب أن تحدد واحدة من الأربع. لا يوجد اختيار خاطئ إذا كانت له مبررات.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🧠 كيف تختار؟ وما الذي يبقى بعد الاختيار؟</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body">هل يمكن الاستغناء عن النشاط دون خسارة الهدف؟ إن نعم: <strong>تجنّب</strong>.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body">هل يمكن تقليل السبب أو الأثر بتكلفة أقل من الضرر؟ إن نعم: <strong>تخفيف</strong>.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body">هل يوجد طرف يتحمله بعقد أو تأمين؟ إن نعم: <strong>نقل</strong>.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body">غير ذلك: <strong>قبول</strong>، مع خطة طوارئ إن كان الأثر مرتفعًا.</div></div>
+    </div>
+    <div class="tip tip-amber"><strong>تنبيهان:</strong> النقل لا يزيل الخطر كله؛ التأمين يعوّض المال ولا يعوّض السمعة. والتخفيف يترك «خطرًا متبقيًا» يجب أن تعيد تقييمه.</div>
+    <p style="line-height:1.8;font-size:13px;margin-top:8px"><strong>وللفرص (المخاطر الإيجابية) استراتيجيات مقابلة:</strong> الاستغلال (ضمان وقوعها)، والتعزيز (زيادة احتمالها)، والمشاركة (مع شريك)، والقبول.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🚨 خطة الطوارئ</div>
+    <span class="cls cls-mem">🟢 من الدورة</span>
+    <p style="line-height:1.8;font-size:13px">خطوات جاهزة نطبقها إذا وقعت المخاطرة. عناصرها أربعة:</p>
+    <table class="tbl">
+      <tr><th>العنصر</th><th>السؤال</th><th>مثال: تأخر مورّد البن</th></tr>
+      <tr><td><strong>الإشارة</strong></td><td>ما الذي ينبّهنا أن المخاطرة بدأت؟</td><td>لم يصل تأكيد الشحنة قبل الموعد بثلاثة أيام</td></tr>
+      <tr><td><strong>المسؤول</strong></td><td>من يتحرك؟</td><td>مدير المشتريات</td></tr>
+      <tr><td><strong>الخطوات الأولى</strong></td><td>ماذا نفعل أولًا؟</td><td>طلب عاجل من المورّد الاحتياطي، وتقليص قائمة الأصناف مؤقتًا</td></tr>
+      <tr><td><strong>التواصل</strong></td><td>من نبلّغ؟</td><td>المورّد الاحتياطي، وفريق المبيعات، والعملاء الدائمون</td></tr>
+    </table>
+    <div class="tip tip-blue"><strong>الفرق بين خطة المعالجة وخطة الطوارئ:</strong> المعالجة قبل الوقوع لتمنع أو تخفف، والطوارئ بعد الوقوع لتحتوي الضرر.</div>
+  </div>
+</div>
+
+<!-- ══════════ الأدوات ══════════ -->
+<div class="section" id="s-tools">
+
+  <div class="card">
+    <div class="card-title">🧰 أدوات إدارة المخاطر</div>
+    <span class="cls cls-mem">🟢 من الدورة</span>
+    <p style="line-height:1.8;font-size:13px">ذكرت الدورة خمس أدوات: سجل المخاطر، مصفوفة الاحتمالية والأثر، تحليل SWOT، سيناريوهات «ماذا لو»، والتجربة المصغرة. تفصيل كل أداة أدناه إضافة للتوسّع.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📒 1. سجل المخاطر</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <p style="line-height:1.8;font-size:13px">الجدول الرئيسي الذي يجمع كل شيء. أعمدته المعتادة:</p>
+    <div style="overflow-x:auto">
+    <table class="tbl" style="min-width:640px">
+      <tr><th>الرمز</th><th>الخطر (سبب، حدث، أثر)</th><th>الفئة</th><th>احتمال</th><th>أثر</th><th>الدرجة</th><th>الاستراتيجية والإجراء</th><th>المالك</th><th>الموعد</th><th>مؤشر الإنذار</th><th>الحالة</th></tr>
+      <tr><td>R-01</td><td>لاعتمادنا على مورّد واحد، قد يتأخر التوريد، فنخسر مبيعات أسبوع</td><td>تشغيلية</td><td>3</td><td>4</td><td class="mx-o">12</td><td>تخفيف: مورّد احتياطي ومخزون أسبوعين</td><td>المشتريات</td><td>شهر</td><td>تأخر تأكيد الشحنة</td><td>مفتوح</td></tr>
+    </table>
+    </div>
+    <div class="tip tip-green">يُغلق الخطر بدليل (عقد موقّع، نتيجة اختبار)، لا بمجرد تنفيذ الإجراء.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🟥 2. مصفوفة الاحتمالية والأثر</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <p style="line-height:1.8;font-size:13px">شبكة ملونة توزّع عليها رموز المخاطر، فترى في نظرة واحدة أين تتركز الأولويات. شرحها ومثالها في تبويب «التقييم».</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔲 3. تحليل SWOT</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <table class="tbl mx">
+      <tr><th></th><th>مفيد</th><th>ضار</th></tr>
+      <tr><th>داخلي (تتحكم فيه)</th><td class="mx-g"><strong>القوة Strengths</strong><br>ما تتميز به</td><td class="mx-o"><strong>الضعف Weaknesses</strong><br>ما ينقصك</td></tr>
+      <tr><th>خارجي (لا تتحكم فيه)</th><td class="mx-y"><strong>الفرص Opportunities</strong><br>ما قد ينفعك في السوق</td><td class="mx-r"><strong>التهديدات Threats</strong><br>ما قد يضرك من الخارج</td></tr>
+    </table>
+    <div class="tip tip-blue"><strong>علاقته بالمخاطر:</strong> كل نقطة ضعف وكل تهديد مرشّح ليكون خطرًا في السجل، وكل فرصة مخاطرة إيجابية.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">❓ 4. سيناريوهات «ماذا لو»</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <p style="line-height:1.8;font-size:13px">تتخيل وقوع الحدث وتكتب ما سيحصل وما ستفعله. جرّب ثلاثة سيناريوهات لكل قرار مهم:</p>
+    <table class="tbl">
+      <tr><th>السيناريو</th><th>السؤال</th></tr>
+      <tr><td><strong>المتفائل</strong></td><td>ماذا لو جاء ضعف العملاء المتوقعين؟ هل نستطيع خدمتهم؟</td></tr>
+      <tr><td><strong>المتوقع</strong></td><td>ماذا لو سارت الأمور كما في الخطة؟</td></tr>
+      <tr><td><strong>المتشائم</strong></td><td>ماذا لو جاء نصف العملاء فقط؟ كم شهرًا نصمد؟</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🧪 5. التجربة المصغرة</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <p style="line-height:1.8;font-size:13px">تختبر الفكرة على نطاق صغير قبل الالتزام الكامل: عدد قليل من العملاء، مدة محدودة، وتكلفة يمكن تحمّل خسارتها. تحدد قبل البدء ما الذي ستقيسه وما النتيجة التي تعدّها نجاحًا.</p>
+    <div class="tip tip-green">التجربة المصغرة تحوّل الافتراض إلى رقم مقيس، وهذا أقوى ما يخفف مخاطر السوق.</div>
+  </div>
+</div>
+
+<!-- ══════════ القرار ══════════ -->
+<div class="section" id="s-decide">
+
+  <div class="card">
+    <div class="card-title">🌫️ متى يكون القرار صعبًا؟</div>
+    <span class="cls cls-mem">🟢 من الدورة</span>
+    <div class="concept-grid">
+      <div class="concept-card" style="border-color:var(--blue-border);background:var(--blue-bg)"><strong>المعلومات ناقصة</strong></div>
+      <div class="concept-card" style="border-color:var(--red-border);background:var(--red-bg)"><strong>الخوف من الخطأ</strong></div>
+      <div class="concept-card" style="border-color:var(--amber-border);background:var(--amber-bg)"><strong>ضغط الوقت</strong></div>
+      <div class="concept-card" style="border-color:var(--purple-border);background:var(--purple-bg)"><strong>تأثير العاطفة والحماس الزائد للفكرة</strong></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🪜 أساليب عملية للقرار مع عدم اليقين</div>
+    <span class="cls cls-mem">🟢 من الدورة</span>
+    <table class="tbl">
+      <tr><th>الأسلوب</th><th>شرحه</th></tr>
+      <tr><td><strong>الخطوات الصغيرة القابلة للتراجع</strong></td><td>قسّم القرار الكبير إلى خطوات يمكن الرجوع عنها بتكلفة قليلة</td></tr>
+      <tr><td><strong>النسخة التجريبية MVP</strong></td><td>أبسط نسخة من المنتج تكفي لاختبار الفكرة مع عملاء حقيقيين</td></tr>
+      <tr><td><strong>التفكير في الخطة البديلة</strong></td><td>قبل أن تبدأ، اكتب ماذا ستفعل لو لم تنجح الخطة الأولى</td></tr>
+      <tr><td><strong>استشارة أصحاب الخبرة</strong></td><td>رأي من جرّب يختصر عليك أخطاء كثيرة</td></tr>
+      <tr><td><strong>تحديد «نقطة المراجعة»</strong></td><td>موعد أو رقم محدد سلفًا تتوقف عنده وتقرر: أكمل، أم أعدّل، أم أتوقف؟</td></tr>
+    </table>
+    <div class="tip tip-blue"><strong>مثال لنقطة مراجعة:</strong> «إذا لم نصل إلى 10 عملاء مدفوعين خلال 3 أشهر، نراجع السعر والشريحة المستهدفة».</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🪞 الانحيازات التي تعيق قرارنا</div>
+    <span class="cls cls-mem">🟢 من الدورة</span>
+    <table class="tbl">
+      <tr><th>الانحياز</th><th>كيف يظهر</th><th>كيف تقاومه <span style="font-weight:500;color:var(--fg-muted)">(إضافة)</span></th></tr>
+      <tr><td><strong>التفاؤل الزائد</strong></td><td>«مشروعي مختلف، لن يحدث لي»</td><td>اطلب من شخص آخر أن يبحث عن الثغرات في خطتك</td></tr>
+      <tr><td><strong>الانحياز للفكرة الأولى</strong></td><td>تتمسك بأول حل خطر لك</td><td>اكتب بديلين على الأقل قبل أن تقرر</td></tr>
+      <tr><td><strong>الخوف من الخسارة</strong></td><td>تستمر في مسار خاسر لأنك أنفقت عليه</td><td>اسأل: لو بدأت اليوم من الصفر، هل أختار هذا المسار؟</td></tr>
+      <tr><td><strong>تأثير القطيع</strong></td><td>تفعل الشيء لأن الجميع يفعله</td><td>اسأل عن الدليل لا عن عدد المتابعين</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════ المراقبة ══════════ -->
+<div class="section" id="s-monitor">
+
+  <div class="card">
+    <div class="card-title">🔁 الخطوة الخامسة: المراقبة والمراجعة</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <p style="line-height:1.8;font-size:13px">السجل وثيقة حيّة. المخاطر تتغير: بعضها ينتهي، وبعضها يكبر، وتظهر مخاطر جديدة.</p>
+    <table class="tbl">
+      <tr><th>متى</th><th>ماذا تراجع</th></tr>
+      <tr><td><strong>شهريًا</strong></td><td>المخاطر الحرجة والعالية: هل تغيّرت الدرجة؟ هل نُفذت المعالجة؟ ماذا يقول مؤشر الإنذار؟</td></tr>
+      <tr><td><strong>كل ثلاثة أشهر</strong></td><td>السجل كاملًا: إضافة الجديد وإغلاق المنتهي وإعادة التقييم</td></tr>
+      <tr><td><strong>عند حدث مهم</strong></td><td>عميل كبير، تمويل، حادث، تغيّر نظامي، أو توظيف</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📡 مؤشرات الإنذار المبكر</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <p style="line-height:1.8;font-size:13px">المؤشر الجيد رقم أو حدث واضح، يظهر قبل وقوع الخطر، ويمكن متابعته بسهولة.</p>
+    <table class="tbl">
+      <tr><th>الخطر</th><th>مؤشر ضعيف</th><th>مؤشر جيد</th></tr>
+      <tr><td>نفاد السيولة</td><td>«الوضع المالي صعب»</td><td>الرصيد يغطي أقل من 3 أشهر من المصروفات</td></tr>
+      <tr><td>عدم تقبّل السوق</td><td>«العملاء غير متحمسين»</td><td>أقل من 3 التزامات دفع بعد 10 مقابلات</td></tr>
+      <tr><td>ترك العملاء</td><td>«بعضهم لا يستخدم المنتج»</td><td>عميل لم يسجّل الدخول منذ أسبوعين</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">✅ قائمة تحقق: هل إدارة المخاطر عندي سليمة؟</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <ul style="line-height:2;font-size:13px;padding-right:18px;list-style:'☐  '">
+      <li>عندي سجل مكتوب، وليس في رأسي فقط.</li>
+      <li>مررت على الفئات الخمس كلها.</li>
+      <li>كل خطر مصوغ بسبب وحدث وأثر.</li>
+      <li>لكل خطر درجة، والمقياس ثابت.</li>
+      <li>لكل خطر عالٍ أو حرج: استراتيجية ومالك وموعد.</li>
+      <li>لكل خطر حرج: خطة طوارئ بعناصرها الأربعة.</li>
+      <li>لكل خطر مهم: مؤشر إنذار قابل للقياس.</li>
+      <li>راجعت السجل خلال آخر ثلاثة أشهر.</li>
+      <li>عرضته على شخص غيري.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════ تطبيق ══════════ -->
+<div class="section" id="s-practice">
+
+  <div class="card">
+    <div class="card-title">🏗️ تطبيق كامل: منصة برمجية ناشئة</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <p style="line-height:1.8;font-size:13px">منصة اشتراكات لإدارة مراكز تعليمية، يعمل عليها مؤسس واحد، ولها ثلاثة عملاء تجريبيين دون إيرادات بعد.</p>
+    <div style="overflow-x:auto">
+    <table class="tbl" style="min-width:680px">
+      <tr><th>الخطر</th><th>الفئة</th><th>ح</th><th>أ</th><th>الدرجة</th><th>الاستراتيجية</th><th>الإجراء</th></tr>
+      <tr><td>العملاء قد لا يقبلون الدفع بعد التجربة المجانية</td><td>تسويقية</td><td>4</td><td>5</td><td class="mx-r">20</td><td>تخفيف</td><td>مقابلات مع أصحاب القرار وخطابات نية قبل التوسع</td></tr>
+      <tr><td>غياب المؤسس يوقف التطوير والدعم</td><td>تشغيلية</td><td>4</td><td>5</td><td class="mx-r">20</td><td>تخفيف</td><td>توثيق، ووثيقة تسليم للطوارئ، ثم توظيف شخص ثانٍ</td></tr>
+      <tr><td>نفاد المال قبل أول إيراد</td><td>مالية</td><td>4</td><td>5</td><td class="mx-r">20</td><td>تخفيف</td><td>تشغيل مقتصد، وأكثر من مصدر تمويل</td></tr>
+      <tr><td>تسرب بيانات المستخدمين</td><td>تقنية</td><td>3</td><td>5</td><td class="mx-o">15</td><td>تخفيف ونقل</td><td>اختبار اختراق خارجي، وبند مسؤولية في عقد الاستضافة</td></tr>
+      <tr><td>شكوى بسبب معالجة بيانات دون اتفاقية</td><td>قانونية</td><td>3</td><td>4</td><td class="mx-o">12</td><td>تخفيف</td><td>اتفاقية معالجة بيانات مع كل عميل وإشعار خصوصية</td></tr>
+      <tr><td>تعطّل الخادم ساعات</td><td>تقنية</td><td>2</td><td>4</td><td class="mx-y">8</td><td>قبول مع طوارئ</td><td>نسخ احتياطي يومي وتجربة استعادة دورية</td></tr>
+      <tr><td>طلب ميزة خاصة من عميل واحد</td><td>تشغيلية</td><td>3</td><td>2</td><td class="mx-y">6</td><td>تجنّب</td><td>رفض ما لا يفيد أكثر من عميل، أو تسعيره كخدمة مستقلة</td></tr>
+    </table>
+    </div>
+    <div class="ex-box">
+      <div class="ex-title">خطة طوارئ للخطر الثاني: غياب المؤسس</div>
+      <div class="ex-step"><strong>الإشارة:</strong> غياب أكثر من 48 ساعة دون بديل.</div>
+      <div class="ex-step"><strong>المسؤول:</strong> الشخص الموثوق حامل وثيقة التسليم.</div>
+      <div class="ex-step"><strong>الخطوات الأولى:</strong> فتح الوثيقة، التأكد من آخر نسخة احتياطية، تجميد التغييرات، إبلاغ العملاء.</div>
+      <div class="ex-step"><strong>التواصل:</strong> العملاء، ومزود الاستضافة، ومطور متعاقد.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📝 اختبر نفسك</div>
+    <p style="font-size:12.5px;color:var(--fg-muted);margin-bottom:8px">أجب في ذهنك ثم اضغط السؤال لرؤية الجواب.</p>
+
+    <details class="qa"><summary>1. «انتهت رخصة المحل أمس». مخاطرة أم مشكلة؟</summary><div>مشكلة، لأنها وقعت فعلًا. المخاطرة كانت: «قد تنتهي الرخصة قبل أن نجددها».</div></details>
+    <details class="qa"><summary>2. رتّب خطوات دورة إدارة المخاطر.</summary><div>تحديد، ثم تحليل، ثم تقييم، ثم استجابة، ثم مراقبة ومراجعة.</div></details>
+    <details class="qa"><summary>3. «الاعتماد على مصدر تمويل واحد» من أي نوع؟</summary><div>مالية.</div></details>
+    <details class="qa"><summary>4. «خلاف على اسم المشروع أو شعاره» من أي نوع؟</summary><div>قانونية (ملكية فكرية).</div></details>
+    <details class="qa"><summary>5. خطر احتماله 4 وأثره 5. ما درجته ومستواه؟</summary><div>20، وهو حرج: يحتاج خطة فورية.</div></details>
+    <details class="qa"><summary>6. اشتريت تأمينًا على المعدات. أي استراتيجية؟</summary><div>النقل: حمّلت جزءًا من الخطر لشركة التأمين.</div></details>
+    <details class="qa"><summary>7. قررت ألّا تبيع منتجًا يحتاج ترخيصًا صعبًا. أي استراتيجية؟</summary><div>التجنّب: تخلّيت عن النشاط المسبب للمخاطرة.</div></details>
+    <details class="qa"><summary>8. متى يكون القبول اختيارًا صحيحًا؟</summary><div>حين يكون الأثر بسيطًا، أو حين تكلف المعالجة أكثر من فائدتها.</div></details>
+    <details class="qa"><summary>9. ما عناصر خطة الطوارئ الأربعة؟</summary><div>الإشارة المنبّهة، والمسؤول عن التحرك، والخطوات الأولى، ومن نتواصل معه.</div></details>
+    <details class="qa"><summary>10. اذكر أربعة أخطاء شائعة عند تحديد المخاطر.</summary><div>الاكتفاء بالواضح، والتقليل منها بسبب الحماس، والخلط بين العَرَض والسبب الحقيقي، والتفكير بمفردنا دون الفريق.</div></details>
+    <details class="qa"><summary>11. ما الانحيازات الأربعة التي تعيق القرار؟</summary><div>التفاؤل الزائد، والانحياز للفكرة الأولى، والخوف من الخسارة، وتأثير القطيع.</div></details>
+    <details class="qa"><summary>12. ما «نقطة المراجعة»؟</summary><div>موعد أو رقم تحدده سلفًا، تتوقف عنده لتقرر: أكمل، أم أعدّل، أم أتوقف.</div></details>
+    <details class="qa"><summary>13. في SWOT: أي الخانات داخلية وأيها خارجية؟</summary><div>القوة والضعف داخليتان، والفرص والتهديدات خارجيتان.</div></details>
+    <details class="qa"><summary>14. هل تمنع إدارة المخاطر الفشل؟</summary><div>لا. لكنها ترفع فرص النجاح وتقلل الخسائر.</div></details>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🎯 تمرين: طبّق على مشروعك</div>
+    <span class="cls cls-var">🟡 إضافة للتوسّع</span>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body">اكتب ثلاثة مخاطر على الأقل في كل فئة من الخمس.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body">أعد صياغة كل خطر: سبب، حدث، أثر.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body">أعطِ كل خطر احتمالًا وأثرًا من 1 إلى 5 واحسب الدرجة.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body">رتّبها تنازليًا، وخذ أعلى خمسة.</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body">اختر لكل واحد استراتيجية، ومالكًا، وموعدًا، ومؤشر إنذار.</div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-body">اكتب خطة طوارئ لأعلى ثلاثة.</div></div>
+      <div class="step"><div class="step-num">7</div><div class="step-body">ضع موعد المراجعة القادمة في تقويمك.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- JS -->
+<script>
+function show(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('s-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+function toggleTheme(){
+  const html=document.documentElement;
+  const isLight=html.getAttribute('data-theme')==='light';
+  html.setAttribute('data-theme',isLight?'dark':'light');
+  document.getElementById('themeBtn').textContent=isLight?'🌙':'☀️';
+  try{localStorage.setItem('mech-theme',isLight?'dark':'light')}catch(e){}
+}
+(function(){
+  try{
+    const t=localStorage.getItem('mech-theme');
+    if(t==='light'){
+      document.documentElement.setAttribute('data-theme','light');
+      document.addEventListener('DOMContentLoaded',()=>{
+        const b=document.getElementById('themeBtn');
+        if(b)b.textContent='☀️';
+      });
+    }
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
