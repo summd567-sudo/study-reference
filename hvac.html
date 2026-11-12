@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>التكييف والتهوية — مرجع</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f172a;--surface:#1e293b;--surface2:#263348;--border:#334155;
+  --fg:#f1f5f9;--fg-muted:#94a3b8;--fg-dim:#64748b;
+  --blue:#60a5fa;--blue-bg:rgba(96,165,250,.13);--blue-border:rgba(96,165,250,.3);
+  --green:#4ade80;--green-bg:rgba(74,222,128,.13);--green-border:rgba(74,222,128,.3);
+  --red:#f87171;--red-bg:rgba(248,113,113,.13);--red-border:rgba(248,113,113,.3);
+  --amber:#fbbf24;--amber-bg:rgba(251,191,36,.13);--amber-border:rgba(251,191,36,.3);
+  --purple:#c084fc;--purple-bg:rgba(192,132,252,.13);--purple-border:rgba(192,132,252,.3);
+  --navy:#1e3a5f;--navy-light:#2d5a8e;
+  --radius:12px;--radius-sm:7px;
+}
+/* ── Light Theme ── */
+[data-theme="light"]{
+  --bg:#f0f4f8;--surface:#ffffff;--surface2:#e8edf2;--border:#cbd5e1;
+  --fg:#0f172a;--fg-muted:#475569;--fg-dim:#94a3b8;
+  --blue:#2563eb;--blue-bg:rgba(37,99,235,.1);--blue-border:rgba(37,99,235,.3);
+  --green:#16a34a;--green-bg:rgba(22,163,74,.1);--green-border:rgba(22,163,74,.3);
+  --red:#dc2626;--red-bg:rgba(220,38,38,.1);--red-border:rgba(220,38,38,.3);
+  --amber:#d97706;--amber-bg:rgba(217,119,6,.1);--amber-border:rgba(217,119,6,.3);
+  --purple:#7c3aed;--purple-bg:rgba(124,58,237,.1);--purple-border:rgba(124,58,237,.3);
+}
+[data-theme="light"] .topbar{background:#1e3a5f}
+[data-theme="light"] .nav-wrap{background:#f8fafc}
+[data-theme="light"] .formula-box{background:#e8edf2;border-color:#cbd5e1}
+[data-theme="light"] .ex-box{background:#f8fafc;border-color:#cbd5e1}
+[data-theme="light"] .in-g{background:rgba(22,163,74,.08)}
+[data-theme="light"] .in-a{background:rgba(217,119,6,.08)}
+[data-theme="light"] .in-b{background:rgba(37,99,235,.08)}
+[data-theme="light"] .in-r{background:rgba(220,38,38,.08)}
+[data-theme="light"] .in-p{background:rgba(124,58,237,.08)}
+[data-theme="light"] .steps .step-num{background:#2563eb}
+[data-theme="light"] svg text{fill:var(--fg)}
+/* ── Subject select ── */
+.subj-select{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:8px;color:#fff;font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;padding:6px 10px;cursor:pointer;outline:none;margin-right:auto}
+.subj-select option{background:#1e3a5f;color:#fff}
+/* ── Theme toggle ── */
+.theme-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:8px;color:#fff;font-size:16px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s}
+.theme-btn:hover{background:rgba(255,255,255,.25)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--fg);direction:rtl;font-size:14px;transition:background .2s,color .2s}
+/* ── Nav ── */
+.topbar{background:#0a0f1e;border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.topbar-title{font-size:17px;font-weight:900;color:var(--fg)}
+.topbar-sub{font-size:11px;color:var(--fg-muted)}
+.nav-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--surface);border-bottom:1px solid var(--border)}
+.nav{display:flex;gap:0;padding:0;min-width:max-content}
+.nav-btn{background:none;border:none;border-bottom:3px solid transparent;padding:11px 14px;color:var(--fg-muted);font-family:'Tajawal',sans-serif;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s}
+.nav-btn:hover{color:var(--fg)}
+.nav-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
+/* ── Sections ── */
+.section{display:none;padding:16px;max-width:820px;margin:0 auto}
+.section.active{display:block}
+/* ── Cards ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:14px}
+.card-title{font-size:15px;font-weight:900;margin-bottom:10px;color:var(--fg)}
+.cls{font-size:10px;font-weight:900;padding:2px 9px;border-radius:99px;margin-bottom:8px;display:inline-block}
+.cls-mem{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.cls-var{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.cls-ver{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+/* ── Tips ── */
+.tip{border-radius:var(--radius-sm);padding:10px 14px;margin:8px 0;line-height:1.65;font-size:13px}
+.tip-blue{background:var(--blue-bg);border-right:3px solid var(--blue)}
+.tip-green{background:var(--green-bg);border-right:3px solid var(--green)}
+.tip-amber{background:var(--amber-bg);border-right:3px solid var(--amber)}
+.tip-red{background:var(--red-bg);border-right:3px solid var(--red)}
+.tip-purple{background:var(--purple-bg);border-right:3px solid var(--purple)}
+.warn{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--radius-sm);padding:9px 12px;font-size:12.5px;color:var(--amber);margin:8px 0}
+/* ── Formula ── */
+.formula-box{background:#0a0f1e;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin:10px 0;text-align:center;font-size:16px;font-weight:700;letter-spacing:.5px;color:var(--fg)}
+.formula-box .lbl{font-size:11px;color:var(--fg-muted);font-weight:500;display:block;margin-top:4px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 3px;font-size:15px}
+.frac .num{border-bottom:1.5px solid currentColor;padding:0 4px;line-height:1.4}
+.frac .den{padding:0 4px;line-height:1.4}
+.sym{font-style:italic;color:var(--blue)}
+/* ── Table ── */
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin:10px 0}
+.tbl th{background:var(--surface2);padding:7px 10px;text-align:right;font-weight:800;border:1px solid var(--border)}
+.tbl td{padding:7px 10px;border:1px solid var(--border)}
+.tbl tr:nth-child(even){background:rgba(255,255,255,.02)}
+/* ── Steps ── */
+.steps{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.step{display:flex;gap:10px;align-items:flex-start}
+.step-num{min-width:26px;height:26px;border-radius:50%;background:var(--blue);color:white;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body{flex:1;line-height:1.6;font-size:13px}
+/* ── Illustrations ── */
+.illus-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin:12px 0}
+.illus-item{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 6px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.illus-name{font-size:11.5px;font-weight:800;margin:6px 0 2px;color:var(--fg);line-height:1.3}
+.illus-en{font-size:10px;color:var(--fg-muted);margin-bottom:4px}
+.illus-note{font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;margin-top:4px;display:inline-block}
+.in-g{background:var(--green-bg);color:var(--green)}
+.in-a{background:var(--amber-bg);color:var(--amber)}
+.in-b{background:var(--blue-bg);color:var(--blue)}
+.in-r{background:var(--red-bg);color:var(--red)}
+.in-p{background:var(--purple-bg);color:var(--purple)}
+/* ── Solved example ── */
+.ex-box{background:#0a0f1e;border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin:10px 0}
+.ex-title{font-size:13px;font-weight:900;color:var(--amber);margin-bottom:8px}
+.ex-step{font-size:12.5px;line-height:1.7;margin:4px 0}
+.ex-step .ans{color:var(--green);font-weight:900}
+/* ── Big concept grid ── */
+.concept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:12px 0}
+.concept-card{border-radius:var(--radius-sm);padding:12px;border:1px solid}
+/* ── Distribution badge ── */
+.dist-tag{display:inline-block;font-size:10px;font-weight:900;padding:2px 8px;border-radius:4px;margin-top:6px}
+.dist-u{background:var(--green-bg);color:var(--green)}
+.dist-nu{background:var(--red-bg);color:var(--red)}
+/* ── Added for FE pages ── */
+.formula-box,.ltr{direction:ltr;unicode-bidi:isolate}
+.ltr{display:inline-block}
+td.ltr,div.ltr{display:revert;text-align:left}
+.formula-box .lbl{direction:rtl}
+.qa{border:1px solid var(--border);border-radius:var(--radius-sm);margin:8px 0;background:var(--surface2)}
+.qa summary{cursor:pointer;padding:10px 12px;font-weight:700;line-height:1.6;font-size:13px}
+.qa .ans-box{padding:10px 12px;border-top:1px solid var(--border);color:var(--green);font-weight:700;line-height:1.8;font-size:13px}
+.card{line-height:1.6}
+svg{direction:ltr}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <div class="topbar-title">❄️ التكييف والتهوية</div>
+    <div class="topbar-sub">HVAC — من ملخصي + تصحيحات، ومرجع لاختيار المعدات</div>
+  </div>
+  <select class="subj-select" onchange="if(this.value)window.location.href=this.value">
+    <option value="">📚 اختر المادة</option>
+    <option value="index.html">🏠 الرئيسية</option>
+    <option value="mechanics.html">⚙️ ميكانيكا المواد</option>
+    <option value="fluid-mechanics.html">💧 ميكانيكا الموائع</option>
+    <option value="machine-design.html">🔩 تصميم الآلات</option>
+    <option value="fire-fighting.html">🔥 إطفاء الحريق</option>
+    <option value="plumbing.html">🚰 السباكة والصرف</option>
+    <option value="hvac.html" selected>❄️ التكييف والتهوية</option>
+  </select>
+  <button class="theme-btn" onclick="toggleTheme()" title="تبديل الإضاءة" id="themeBtn">🌙</button>
+</div>
+
+<div class="nav-wrap">
+<div class="nav">
+  <button class="nav-btn active" onclick="show('map',this)">🗺️ خريطة</button>
+  <button class="nav-btn" onclick="show('basic',this)">🔥 الأساسيات</button>
+  <button class="nav-btn" onclick="show('psy',this)">💨 السايكرومتري</button>
+  <button class="nav-btn" onclick="show('load',this)">☀️ الأحمال</button>
+  <button class="nav-btn" onclick="show('sys',this)">🏢 الأنظمة</button>
+  <button class="nav-btn" onclick="show('sel',this)">🎯 اختيار المعدات</button>
+  <button class="nav-btn" onclick="show('air',this)">🌀 توزيع الهواء</button>
+  <button class="nav-btn" onclick="show('duct',this)">📦 الدكت</button>
+  <button class="nav-btn" onclick="show('chw',this)">🧊 الماء المثلج</button>
+  <button class="nav-btn" onclick="show('vent',this)">🌬️ التهوية</button>
+  <button class="nav-btn" onclick="show('fix',this)">🔴 تصحيحات ملخصي</button>
+  <button class="nav-btn" onclick="show('quiz',this)">📝 أسئلة</button>
+</div>
+</div>
+
+<!-- ══════════ خريطة ══════════ -->
+<div class="section active" id="s-map">
+  <div class="card">
+    <div class="card-title">🗺️ تسلسل تصميم التكييف</div>
+    <div class="tip tip-blue"><strong>المنطق:</strong> كل خطوة تعطي رقمًا تحتاجه الخطوة التي بعدها. إذا عرفت أين أنت في هذه السلسلة عرفت ماذا تحسب.</div>
+    <div style="overflow-x:auto">
+    <svg width="680" height="210" viewBox="0 0 680 210" style="display:block;min-width:600px;margin:10px auto;font-family:Tajawal,sans-serif">
+      <g font-size="11" font-weight="900" text-anchor="middle">
+        <rect x="10" y="20" width="118" height="54" rx="8" fill="none" stroke="#fbbf24" stroke-width="2"/><text x="69" y="42" fill="#fbbf24">الأحمال الحرارية</text><text x="69" y="60" font-size="9" fill="#94a3b8" font-weight="500">كم طن تبريد؟</text>
+        <rect x="146" y="20" width="118" height="54" rx="8" fill="none" stroke="#60a5fa" stroke-width="2"/><text x="205" y="42" fill="#60a5fa">اختيار النظام</text><text x="205" y="60" font-size="9" fill="#94a3b8" font-weight="500">DX أو ماء مثلج</text>
+        <rect x="282" y="20" width="118" height="54" rx="8" fill="none" stroke="#4ade80" stroke-width="2"/><text x="341" y="42" fill="#4ade80">كمية الهواء</text><text x="341" y="60" font-size="9" fill="#94a3b8" font-weight="500">CFM لكل غرفة</text>
+        <rect x="418" y="20" width="118" height="54" rx="8" fill="none" stroke="#c084fc" stroke-width="2"/><text x="477" y="42" fill="#c084fc">المخارج والدكت</text><text x="477" y="60" font-size="9" fill="#94a3b8" font-weight="500">مقاسات وضغط ساكن</text>
+        <rect x="554" y="20" width="118" height="54" rx="8" fill="none" stroke="#f87171" stroke-width="2"/><text x="613" y="42" fill="#f87171">اختيار المعدات</text><text x="613" y="60" font-size="9" fill="#94a3b8" font-weight="500">من الكتالوج</text>
+      </g>
+      <g stroke="#94a3b8" stroke-width="2"><line x1="128" y1="47" x2="144" y2="47"/><line x1="264" y1="47" x2="280" y2="47"/><line x1="400" y1="47" x2="416" y2="47"/><line x1="536" y1="47" x2="552" y2="47"/></g>
+      <rect x="146" y="130" width="390" height="54" rx="8" fill="none" stroke="#60a5fa" stroke-width="2" stroke-dasharray="6,4"/>
+      <text x="341" y="152" text-anchor="middle" font-size="11" fill="#60a5fa" font-weight="900">إذا كان النظام ماء مثلج</text>
+      <text x="341" y="170" text-anchor="middle" font-size="10" fill="#94a3b8">تدفق الماء ← أقطار المواسير ← المضخات ← التشيلر وبرج التبريد</text>
+      <line x1="205" y1="74" x2="205" y2="130" stroke="#60a5fa" stroke-width="2" stroke-dasharray="4,3"/>
+    </svg>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">مراحل المشروع (من ملخصك)</div>
+    <table class="tbl">
+      <tr><th>المرحلة</th><th>ماذا يُسلَّم</th></tr>
+      <tr><td><strong>BOD</strong> — Basis of Design</td><td>الاتفاق مع المالك: أي نظام، هل نحتاج تدفئة، درجات التصميم، الأكواد. هو المرجع بين المهندس والمالك</td></tr>
+      <tr><td><strong>Schematic Design</strong></td><td>أماكن غرف المعدات والمسارات الرئيسية ومتطلبات كل دور</td></tr>
+      <tr><td><strong>Detailed Design</strong></td><td>المخططات الكاملة وكل الحسابات (الأحمال، الضغط الساكن، المواسير)</td></tr>
+      <tr><td><strong>IFT</strong> — Issued for Tender</td><td>يُعرض على المقاولين ليقدموا أسعارهم</td></tr>
+      <tr><td><strong>IFC</strong> — Issued for Construction</td><td>المخططات المعتمدة للتنفيذ، ويتابع الاستشاري المقاول عليها</td></tr>
+    </table>
+    <div class="tip tip-amber"><strong>مراسلات الموقع (من منهج الدورة):</strong> <strong>RFI</strong> استفسار فني · <strong>MIR</strong> طلب فحص مواد · <strong>IR</strong> طلب استلام أعمال · <strong>NCR</strong> تقرير عدم مطابقة · <strong>VO</strong> أمر تغيير.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">المراجع</div>
+    <table class="tbl">
+      <tr><th>المرجع</th><th>موضوعه</th></tr>
+      <tr><td>ASHRAE Handbook — Fundamentals</td><td>الأساسيات: السايكرومتري، الأحمال، الدكت والمواسير</td></tr>
+      <tr><td>ASHRAE Handbook — HVAC Applications</td><td>كل تطبيق لوحده: فندق، مستشفى، مطبخ، موقف</td></tr>
+      <tr><td>ASHRAE Handbook — Systems &amp; Equipment</td><td>الأنظمة وتفاصيل المعدات</td></tr>
+      <tr><td>ASHRAE 62.1</td><td>كميات الهواء النقي للتهوية</td></tr>
+      <tr><td>ASHRAE 90.1</td><td>كفاءة الطاقة</td></tr>
+      <tr><td>ASHRAE 170</td><td>المستشفيات</td></tr>
+      <tr><td>ASHRAE 154 و NFPA 96</td><td>تهوية المطابخ التجارية</td></tr>
+      <tr><td>SMACNA</td><td>تصنيع الدكت وتركيبه (كود "اسمكنا" في منهج الدورة)</td></tr>
+      <tr><td>SBC 501</td><td>الكود الميكانيكي السعودي</td></tr>
+    </table>
+    <div class="tip tip-red"><strong>🔴 تصحيح:</strong> كتبتَ "معايير المطابخ أظن اسمها بـ50". المعيار هو <strong>ASHRAE 154</strong>.</div>
+  </div>
+</div>
+
+<!-- ══════════ الأساسيات ══════════ -->
+<div class="section" id="s-basic">
+  <div class="card">
+    <div class="card-title">🔥 المحسوس والكامن — "ما فهمت"</div>
+    <div class="tip tip-purple"><strong>🟣 مثال القِدر كاملًا:</strong> ضع ماء على النار. من 25 إلى 100 درجة ترى الترمومتر يرتفع: هذه <strong>حرارة محسوسة</strong>. عند 100 يبدأ الغليان، والنار ما زالت تعطي حرارة لكن الترمومتر <strong>ثابت</strong> على 100. أين تذهب الحرارة؟ في تحويل الماء إلى بخار: هذه <strong>حرارة كامنة</strong>.</div>
+    <table class="tbl">
+      <tr><th></th><th>Sensible محسوس</th><th>Latent كامن</th></tr>
+      <tr><td>يغيّر</td><td>درجة الحرارة</td><td>كمية بخار الماء (الرطوبة)</td></tr>
+      <tr><td>تقيسه بـ</td><td>الترمومتر</td><td>مقياس الرطوبة</td></tr>
+      <tr><td>مصادره</td><td>الشمس، الجدران، الإضاءة، الأجهزة</td><td>تنفس الناس وعرقهم، الطبخ، الهواء الخارجي الرطب</td></tr>
+      <tr><td>كيف يزيله المكيف</td><td>يبرّد الهواء</td><td>يكثّف البخار على الملف البارد فينزل ماءً من خط التصريف</td></tr>
+    </table>
+    <div class="tip tip-green"><strong>الخلاصة:</strong> الحمل الكلي = محسوس + كامن. الشخص يعطي الاثنين: حرارة جسمه محسوسة، ونَفَسه وعرقه كامن. آلة القهوة كذلك. اللابتوب محسوس فقط.</div>
+    <div class="formula-box">SHR = Q_sensible / Q_total<span class="lbl">نسبة الحرارة المحسوسة. مكتب ≈ 0.80، مطعم أو نادٍ ≈ 0.65 (رطوبة أكثر)</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">طرق انتقال الحرارة</div>
+    <table class="tbl">
+      <tr><th>الطريقة</th><th>المعنى</th><th>في المبنى</th></tr>
+      <tr><td><strong>Conduction</strong> توصيل</td><td>عبر مادة صلبة</td><td>الحرارة عبر الجدار والسقف</td></tr>
+      <tr><td><strong>Convection</strong> حمل</td><td>بحركة مائع</td><td>الهواء على سطح الجدار، والهواء على ملف التبريد</td></tr>
+      <tr><td><strong>Radiation</strong> إشعاع</td><td>موجات بلا وسط</td><td>الشمس عبر الزجاج</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🟢 الوحدات والمعادلات التي تتكرر في كل حساب</div>
+    <span class="cls cls-mem">🟢 للحفظ</span>
+    <table class="tbl">
+      <tr><th>التحويل</th><th>القيمة</th></tr>
+      <tr><td>1 طن تبريد TR</td><td class="ltr">12,000 Btu/h = 3.517 kW</td></tr>
+      <tr><td>1 kW</td><td class="ltr">3412 Btu/h</td></tr>
+      <tr><td>1 CFM</td><td class="ltr">0.472 L/s</td></tr>
+      <tr><td>1 gpm</td><td class="ltr">0.063 L/s</td></tr>
+      <tr><td>1 in.wg</td><td class="ltr">249 Pa</td></tr>
+    </table>
+    <div class="formula-box">Q_s = 1.08 × CFM × ΔT(°F)   =   1.2 × L/s × ΔT(°C)<span class="lbl">الحمل المحسوس للهواء (Btu/h أو W)</span></div>
+    <div class="formula-box">Q_total = 4.5 × CFM × Δh   =   1.2 × L/s × Δh(kJ/kg)<span class="lbl">الحمل الكلي للهواء، من فرق الإنثالبي</span></div>
+    <div class="formula-box">gpm = 24 × TR / ΔT(°F)<span class="lbl">تدفق الماء المثلج. عند ΔT = 10°F: كل طن يحتاج 2.4 gpm</span></div>
+    <div class="formula-box">L/s = kW / (4.19 × ΔT°C)<span class="lbl">نفس المعادلة بالنظام المتري</span></div>
+    <div class="tip tip-purple"><strong>🟣 من ملخصك:</strong> "1 طن = 1.5 حصان". هذا عُرف سوق تقريبي للمكيفات المنزلية، والحصان هنا ليس وحدة تبريد علمية. لا تستخدمه في أي حساب.</div>
+    <div class="tip tip-blue"><strong>قاعدة تحقق سريعة:</strong> كل طن تبريد يحتاج نحو <strong>400 CFM</strong> هواء. إذا خرج حسابك بعيدًا عنها فراجعه.</div>
+  </div>
+</div>
+
+<!-- ══════════ السايكرومتري ══════════ -->
+<div class="section" id="s-psy">
+  <div class="card">
+    <div class="card-title">💨 ما هو السايكرومتري؟</div>
+    <div class="tip tip-blue">علم خليط <strong>الهواء الجاف وبخار الماء</strong>. الهواء الذي نكيّفه ليس جافًّا، وفيه بخار يتغير، والخريطة السايكرومترية ترسم حالته. إذا عرفت <strong>خاصيتين</strong> قرأت الخمس الباقية من الخريطة.</div>
+    <div class="tip tip-purple"><strong>🟣 صورة ذهنية تحل أغلب أسئلتك:</strong> تخيّل الهواء <strong>إسفنجة</strong>. كلما سخّنتها كبرت واستطاعت حمل ماء أكثر. كلما برّدتها صغرت. هذا هو "الكرش" الذي ذكره الدكتور.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">الخصائص السبع — بكلمات بسيطة</div>
+    <table class="tbl">
+      <tr><th>الخاصية</th><th>المعنى</th><th>بصورة الإسفنجة</th></tr>
+      <tr><td><strong>Dry Bulb</strong> (DB)<br>الجافة</td><td>درجة حرارة الهواء بترمومتر عادي</td><td>حرارة الإسفنجة</td></tr>
+      <tr><td><strong>Wet Bulb</strong> (WB)<br>الرطبة</td><td>قراءة ترمومتر طرفه ملفوف بقماش مبلول والهواء يمر عليه</td><td>كم تستطيع الإسفنجة أن تشرب زيادة</td></tr>
+      <tr><td><strong>Dew Point</strong> (DP)<br>الندى</td><td>الدرجة التي لو بُرّد الهواء إليها بدأ بخاره يتكثف</td><td>الحجم الذي إذا صغرت إليه الإسفنجة بدأت تقطر</td></tr>
+      <tr><td><strong>Humidity Ratio</strong> (W)<br>نسبة الرطوبة</td><td>كتلة بخار الماء لكل كجم هواء جاف</td><td>وزن الماء الفعلي داخل الإسفنجة</td></tr>
+      <tr><td><strong>Relative Humidity</strong> (RH)<br>الرطوبة النسبية</td><td>الماء الموجود ÷ أقصى ما يحمله الهواء عند نفس الحرارة</td><td>نسبة امتلاء الإسفنجة</td></tr>
+      <tr><td><strong>Specific Volume</strong> (v)</td><td>حجم كجم واحد من الهواء (مقلوب الكثافة) ≈ 0.85 م³/كجم</td><td>—</td></tr>
+      <tr><td><strong>Enthalpy</strong> (h)</td><td>الطاقة الكلية في الهواء = محسوسة + كامنة</td><td>—</td></tr>
+    </table>
+    <div class="tip tip-red"><strong>🔴 تصحيح:</strong> كتبتَ أن نسبة الرطوبة "نسبة الفابور في الهواء على نسبة الفابور في الماء". الصحيح: <span class="ltr">W = m_vapor / m_dry air</span>. معادلتك كانت صحيحة والوصف خطأ.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">الرطبة ونقطة الندى — "مافهمتها"</div>
+    <div class="tip tip-purple"><strong>🟣 Wet Bulb:</strong> القماش المبلول حول الترمومتر يتبخر ماؤه، والتبخر <strong>يسحب حرارة</strong> فتنزل القراءة (مثل برودة يدك المبلولة أمام المروحة).
+      <br>• هواء <strong>جاف</strong> ("عطشان") ← تبخر كثير ← القراءة تنزل كثيرًا ← WB أقل بكثير من DB.
+      <br>• هواء <strong>مشبع</strong> 100% ← لا تبخر ← WB = DB.
+      <br>الفرق بين القراءتين يخبرك كم الهواء جاف. لهذا المكيف الصحراوي ممتاز في الرياض وضعيف في جدة.</div>
+    <div class="tip tip-purple"><strong>🟣 Dew Point:</strong> قارورة الماء الباردة يتكوّن عليها ماء من الخارج. السبب: سطحها أبرد من نقطة ندى هواء الغرفة، فالهواء الملامس لها "صغرت إسفنجته" حتى قطرت. نقطة الندى تعتمد فقط على <strong>كمية البخار</strong> في الهواء.</div>
+    <div class="tip tip-green"><strong>لماذا تهمك في الشغل؟</strong> (1) ملف التبريد لازم يكون <strong>أبرد من نقطة الندى</strong> حتى يزيل الرطوبة. (2) أي سطح أبرد منها يتعرّق: لهذا نعزل مواسير الماء المثلج والدكت. (3) في جدة نقطة الندى عالية، فالتعرّق والعفن مشكلة يومية.</div>
+    <div class="ex-box">
+      <div class="ex-title">حالة التصميم الداخلية المعتادة: 24°C و 50% RH. بقية الخصائص من الخريطة:</div>
+      <div class="ex-step">نسبة الرطوبة ≈ <span class="ltr">9.3 g/kg</span> · نقطة الندى ≈ <span class="ltr">13°C</span> · الرطبة ≈ <span class="ltr">17°C</span> · الإنثالبي ≈ <span class="ltr">48 kJ/kg</span></div>
+      <div class="ex-step"><span class="ans">لهذا يخرج الهواء من ملف التبريد عند نحو 13°C: قريب من نقطة الندى ليكثّف الرطوبة.</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">الخريطة والعمليات الثماني</div>
+    <div style="overflow-x:auto">
+    <svg width="640" height="360" viewBox="0 0 640 360" style="display:block;min-width:540px;margin:10px auto;font-family:Tajawal,sans-serif">
+      <line x1="60" y1="310" x2="600" y2="310" stroke="#94a3b8" stroke-width="2"/>
+      <line x1="600" y1="310" x2="600" y2="30" stroke="#94a3b8" stroke-width="2"/>
+      <text x="330" y="340" text-anchor="middle" font-size="11" fill="#94a3b8" font-weight="700">الحرارة الجافة DB  ←  تزيد لليمين</text>
+      <text x="622" y="170" text-anchor="middle" font-size="11" fill="#94a3b8" font-weight="700" transform="rotate(90 622 170)">نسبة الرطوبة W  ←  تزيد لأعلى</text>
+      <path d="M60,300 Q260,280 380,190 Q470,120 520,30" fill="none" stroke="#60a5fa" stroke-width="3"/>
+      <text x="250" y="232" font-size="11" fill="#60a5fa" font-weight="900">خط التشبع RH = 100%</text>
+      <path d="M130,304 Q330,290 450,220 Q540,165 596,95" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <text x="520" y="204" font-size="10" fill="#60a5fa">RH = 50%</text>
+      <circle cx="400" cy="220" r="7" fill="#fbbf24"/>
+      <g stroke-width="3">
+        <line x1="400" y1="220" x2="500" y2="220" stroke="#f87171"/><polygon points="500,214 512,220 500,226" fill="#f87171"/>
+        <line x1="400" y1="220" x2="300" y2="220" stroke="#60a5fa"/><polygon points="300,214 288,220 300,226" fill="#60a5fa"/>
+        <line x1="400" y1="220" x2="400" y2="140" stroke="#4ade80"/><polygon points="394,140 400,128 406,140" fill="#4ade80"/>
+        <line x1="400" y1="220" x2="400" y2="285" stroke="#c084fc"/><polygon points="394,285 400,297 406,285" fill="#c084fc"/>
+        <line x1="400" y1="220" x2="322" y2="272" stroke="#fbbf24"/><polygon points="326,264 312,279 331,275" fill="#fbbf24"/>
+      </g>
+      <text x="520" y="214" font-size="10" fill="#f87171" font-weight="900">تسخين محسوس</text>
+      <text x="196" y="214" font-size="10" fill="#60a5fa" font-weight="900">تبريد محسوس</text>
+      <text x="410" y="124" font-size="10" fill="#4ade80" font-weight="900">ترطيب</text>
+      <text x="410" y="302" font-size="10" fill="#c084fc" font-weight="900">إزالة رطوبة</text>
+      <text x="176" y="292" font-size="11" fill="#fbbf24" font-weight="900">تبريد + إزالة رطوبة</text>
+      <text x="176" y="306" font-size="9" fill="#fbbf24">(ملف المكيف — الأشيع)</text>
+    </svg>
+    </div>
+    <table class="tbl">
+      <tr><th>العملية</th><th>الاتجاه على الخريطة</th><th>مثال</th></tr>
+      <tr><td>تسخين محسوس</td><td>يمين أفقيًا</td><td>سخان كهربائي في الدكت</td></tr>
+      <tr><td>تبريد محسوس</td><td>يسار أفقيًا</td><td>ملف أدفأ من نقطة الندى (لا تكثيف)</td></tr>
+      <tr><td>ترطيب</td><td>أعلى</td><td>مرطّب بخاري. مصانع النسيج: الخيط الجاف ينقطع</td></tr>
+      <tr><td>إزالة رطوبة</td><td>أسفل</td><td>مادة ماصّة مثل السيليكا جل</td></tr>
+      <tr><td><strong>تبريد + إزالة رطوبة</strong></td><td>يسار وأسفل</td><td><strong>ملف تبريد أي مكيف</strong></td></tr>
+      <tr><td>تسخين + ترطيب</td><td>يمين وأعلى</td><td>غرف تخمير الخبز</td></tr>
+      <tr><td>تبريد + ترطيب</td><td>يسار وأعلى</td><td>المكيف الصحراوي</td></tr>
+      <tr><td>تسخين + إزالة رطوبة</td><td>يمين وأسفل</td><td>محلات المكسرات والبن (تحفظ القرمشة)</td></tr>
+    </table>
+    <div class="tip tip-purple"><strong>🟣 "الطرق الصريحة ما نستخدمها" وسخان الدكت:</strong> إزالة الرطوبة في المباني لا تتم بمادة ماصّة، بل <strong>نبرّد الهواء تحت نقطة الندى</strong> فيتكثف بخاره. إذا خرج الهواء أبرد من اللازم للغرفة نعيد تسخينه قليلًا بسخان في الدكت (<strong>Reheat</strong>). هذا هو السخان الذي ذكرته.</div>
+    <div class="tip tip-blue"><strong>الرياض وجدة:</strong> الرياض حارة جافة، فالحمل أغلبه محسوس. جدة حارة رطبة، فالحمل الكامن كبير، وخصوصًا من الهواء النقي.</div>
+  </div>
+</div>
+
+<!-- ══════════ الأحمال ══════════ -->
+<div class="section" id="s-load">
+  <div class="card">
+    <div class="card-title">☀️ من أين تأتي الحرارة؟</div>
+    <table class="tbl">
+      <tr><th>المصدر</th><th>النوع</th><th>كيف يُحسب</th></tr>
+      <tr><td colspan="3" style="font-weight:900;color:var(--amber)">أحمال خارجية (لا نتحكم بها)</td></tr>
+      <tr><td>الشمس عبر الزجاج</td><td>محسوس</td><td>مساحة الزجاج × شدة الإشعاع × معامل التظليل. <strong>أكبر حمل غالبًا</strong></td></tr>
+      <tr><td>الجدران والسقف (توصيل)</td><td>محسوس</td><td class="ltr">Q = U × A × ΔT</td></tr>
+      <tr><td>الهواء النقي Ventilation</td><td>محسوس + كامن</td><td>كمية الهواء × فرق الإنثالبي بين الخارج والداخل</td></tr>
+      <tr><td>التسرب Infiltration</td><td>محسوس + كامن</td><td>هواء يدخل من الشقوق والأبواب. صغير وقد يُهمل في المباني المضغوطة</td></tr>
+      <tr><td colspan="3" style="font-weight:900;color:var(--amber)">أحمال داخلية</td></tr>
+      <tr><td>الأشخاص</td><td>محسوس + كامن</td><td>العدد × حمل الشخص حسب نشاطه</td></tr>
+      <tr><td>الإضاءة</td><td>محسوس</td><td>W/m² × المساحة</td></tr>
+      <tr><td>الأجهزة</td><td>محسوس (وبعضها كامن)</td><td>قدرة كل جهاز × معامل الاستخدام</td></tr>
+      <tr><td>الجدار الفاصل Partition</td><td>محسوس</td><td>جدار بين مكان مكيف ومكان غير مكيف (حمام، ممر، مطبخ)</td></tr>
+    </table>
+    <div class="formula-box">Q = U × A × ΔT<span class="lbl">U معامل انتقال الحرارة للجدار (كلما صغر كان العزل أفضل)، A المساحة</span></div>
+    <div class="tip tip-blue">في الواقع لا يُستخدم ΔT البسيط للجدران المعرضة للشمس، بل فرق حرارة مكافئ (CLTD) يدخل فيه أثر الشمس وتأخر الحرارة في الجدار. برنامج HAP يحسبه تلقائيًا ساعة بساعة.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">قيم تقريبية للأحمال الداخلية</div>
+    <span class="cls cls-ver">🔴 تقريبية — خذ القيمة من ASHRAE Fundamentals</span>
+    <table class="tbl">
+      <tr><th>الشخص حسب النشاط</th><th>محسوس (W)</th><th>كامن (W)</th></tr>
+      <tr><td>جالس في مكتب</td><td>75</td><td>55</td></tr>
+      <tr><td>جالس يأكل في مطعم</td><td>80</td><td>80</td></tr>
+      <tr><td>رياضي في نادٍ</td><td>210</td><td>315</td></tr>
+    </table>
+    <div class="tip tip-purple"><strong>🟣 سؤالك "هل حمل الشخص في الجيم غير المطعم؟":</strong> نعم، وفهمك صحيح. لاحظ أن الكامن في النادي أكبر من المحسوس لأن أغلب حرارة الرياضي تخرج عرقًا.</div>
+    <table class="tbl">
+      <tr><th>البند</th><th>قيمة تقريبية</th></tr>
+      <tr><td>إضاءة LED لمكتب</td><td>8 – 10 W/m²</td></tr>
+      <tr><td>أجهزة مكتب</td><td>10 – 15 W/m²</td></tr>
+      <tr><td>لابتوب</td><td>30 – 60 W</td></tr>
+    </table>
+    <div class="tip tip-amber"><strong>المطابخ الشعبية والأفران بالغاز (من ملخصك):</strong> أجهزتها غير موجودة في جداول ASHRAE، فيُحسب حملها من <strong>استهلاك الغاز</strong>. والمطبخ حمله عالٍ جدًا، فلا تقبل قول المالك "ما يحتاج تكييف" بدون دراسة.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">برنامج HAP — ماذا يطلب منك؟</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Weather:</strong> المدينة ودرجات التصميم. إذا لم تكن مدينتك في القائمة تأخذ بياناتها من جداول ASHRAE للطقس وتدخلها يدويًا.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Space — General:</strong> اسم الفراغ ورمزه، المساحة، الارتفاع، و Building Weight.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Internals:</strong> الإضاءة (النوع والوات)، الأشخاص (العدد والنشاط)، الأجهزة، مع <strong>جدول زمني Schedule</strong> لكل منها.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Walls, Windows, Doors:</strong> اتجاه كل جدار ومساحته، ومساحة النوافذ ونوع الزجاج.</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><strong>Roofs, Skylights:</strong> السقف ومساحته وميله.</div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-body"><strong>Floors:</strong> على الأرض، أو فوق مكان مكيف، أو فوق مكان غير مكيف.</div></div>
+      <div class="step"><div class="step-num">7</div><div class="step-body"><strong>Partitions:</strong> الجدران والأسقف الملاصقة لأماكن غير مكيفة.</div></div>
+      <div class="step"><div class="step-num">8</div><div class="step-body"><strong>System:</strong> نوع النظام، ثم يخرج التقرير: الحمل الكلي والمحسوس وكمية الهواء لكل فراغ.</div></div>
+    </div>
+    <div class="tip tip-purple"><strong>🟣 "Building Weight ما فهمت فكرته":</strong> هو <strong>الكتلة الحرارية</strong> للمبنى (خفيف، متوسط، ثقيل). المبنى الثقيل (خرسانة وبلوك) يمتص الحرارة في جدرانه ويطلقها متأخرة، فيقل الحمل الأقصى ويتأخر وقته. الخفيف (ألواح معدنية) يسخن فورًا.</div>
+    <div class="tip tip-purple"><strong>🟣 "Ballast Multiplier ما فهمتها كثير":</strong> لمبات الفلورسنت لها محوّل (Ballast) يستهلك كهرباء ويطلق حرارة زيادة على وات اللمبة، فيُضرب الوات في نحو 1.2. مع LED يكون 1.0.</div>
+    <table class="tbl">
+      <tr><th>نوع تركيب الإضاءة</th><th>أين تذهب حرارتها</th></tr>
+      <tr><td>Free Hanging معلقة</td><td>كلها للغرفة</td></tr>
+      <tr><td>Recessed Unvented غاطسة</td><td>أغلبها للغرفة وجزء لفراغ السقف</td></tr>
+      <tr><td>Recessed Vented غاطسة يمر عليها هواء الراجع</td><td>جزء كبير يذهب مع هواء الراجع</td></tr>
+    </table>
+    <div class="tip tip-blue"><strong>مصطلحات الزجاج:</strong> <strong>U-value</strong> للتوصيل، و <strong>Shading Coefficient</strong> أو SHGC لنسبة إشعاع الشمس الذي يمر. زجاج مزدوج عاكس يقلل الاثنين.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">درس الجامعة: لا تفترض</div>
+    <div class="tip tip-purple"><strong>🟣 من ملخصك:</strong> صُمّم تكييف جامعة على أنها مغلقة في الصيف، ثم أُجّرت مبانيها صيفًا فلم يغطِّ التكييف. الدرس: <strong>وثّق كل افتراض في الـBOD واعتمده من المالك</strong>، وخذ جدول الإشغال الأسوأ.</div>
+    <div class="tip tip-amber"><strong>توازن مهم:</strong> كتبتَ "نسوي Over size حتى لو كان هدر". هامش أمان 5–10% مقبول. لكن التكبير الزائد له ثمن: المعدة الكبيرة تشتغل وتطفئ بسرعة (Short Cycling) فتتلف، ولا تبقى شغالة مدة كافية لإزالة الرطوبة فيصير الجو باردًا ورطبًا.</div>
+    <span class="cls cls-ver">🔴 للتحقق السريع فقط — ليست بديلًا عن الحساب</span>
+    <table class="tbl">
+      <tr><th>نوع المكان (مناخ السعودية)</th><th>تقريبًا م² لكل طن</th></tr>
+      <tr><td>سكني</td><td>15 – 20</td></tr>
+      <tr><td>مكاتب</td><td>12 – 18</td></tr>
+      <tr><td>قاعات، مساجد، مطاعم</td><td>8 – 12</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════ الأنظمة ══════════ -->
+<div class="section" id="s-sys">
+  <div class="card">
+    <div class="card-title">🔁 دورة التبريد — أساس كل الأنظمة</div>
+    <div style="overflow-x:auto">
+    <svg width="640" height="300" viewBox="0 0 640 300" style="display:block;min-width:540px;margin:10px auto;font-family:Tajawal,sans-serif">
+      <rect x="230" y="20" width="180" height="50" rx="8" fill="rgba(248,113,113,.2)" stroke="#f87171" stroke-width="2"/>
+      <text x="320" y="42" text-anchor="middle" font-size="12" fill="#f87171" font-weight="900">Condenser المكثف</text>
+      <text x="320" y="60" text-anchor="middle" font-size="10" fill="#f87171">يطرد الحرارة للخارج</text>
+      <rect x="230" y="230" width="180" height="50" rx="8" fill="rgba(96,165,250,.2)" stroke="#60a5fa" stroke-width="2"/>
+      <text x="320" y="252" text-anchor="middle" font-size="12" fill="#60a5fa" font-weight="900">Evaporator المبخر</text>
+      <text x="320" y="270" text-anchor="middle" font-size="10" fill="#60a5fa">يسحب الحرارة من الداخل</text>
+      <circle cx="530" cy="150" r="34" fill="rgba(251,191,36,.2)" stroke="#fbbf24" stroke-width="2"/>
+      <text x="530" y="147" text-anchor="middle" font-size="11" fill="#fbbf24" font-weight="900">Compressor</text>
+      <text x="530" y="163" text-anchor="middle" font-size="10" fill="#fbbf24">الضاغط</text>
+      <path d="M92,126 L128,174 M128,126 L92,174" stroke="#4ade80" stroke-width="4"/>
+      <text x="110" y="200" text-anchor="middle" font-size="11" fill="#4ade80" font-weight="900">Expansion Valve</text>
+      <text x="110" y="216" text-anchor="middle" font-size="10" fill="#4ade80">صمام التمدد</text>
+      <path d="M410,255 L530,255 L530,184" fill="none" stroke="#60a5fa" stroke-width="4"/>
+      <path d="M530,116 L530,45 L410,45" fill="none" stroke="#f87171" stroke-width="4"/>
+      <path d="M230,45 L110,45 L110,124" fill="none" stroke="#f87171" stroke-width="4"/>
+      <path d="M110,176 L110,255 L230,255" fill="none" stroke="#60a5fa" stroke-width="4"/>
+      <text x="470" y="280" text-anchor="middle" font-size="10" fill="#60a5fa">غاز بارد، ضغط منخفض</text>
+      <text x="474" y="34" text-anchor="middle" font-size="10" fill="#f87171">غاز ساخن، ضغط عالٍ</text>
+      <text x="166" y="34" text-anchor="middle" font-size="10" fill="#f87171">سائل، ضغط عالٍ</text>
+      <text x="170" y="280" text-anchor="middle" font-size="10" fill="#60a5fa">سائل بارد، ضغط منخفض</text>
+      <line x1="320" y1="90" x2="320" y2="210" stroke="#94a3b8" stroke-dasharray="6,4"/>
+      <text x="320" y="140" text-anchor="middle" font-size="10" fill="#94a3b8">فوق: جهة الضغط العالي</text>
+      <text x="320" y="170" text-anchor="middle" font-size="10" fill="#94a3b8">تحت: جهة الضغط المنخفض</text>
+    </svg>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>المبخر:</strong> الفريون سائل بارد ضغطه منخفض. يمتص حرارة الغرفة <strong>فيتبخر</strong>.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>الضاغط:</strong> يسحب الغاز ويرفع ضغطه وحرارته.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>المكثف:</strong> الغاز الساخن يطرد حرارته للخارج <strong>فيتكثف</strong> سائلًا.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>صمام التمدد:</strong> يخنق السائل فينزل ضغطه وحرارته فجأة، ويرجع للمبخر.</div></div>
+    </div>
+    <div class="tip tip-green"><strong>السر:</strong> التبخر يسحب حرارة والتكثف يطردها. والضاغط يرفع الضغط حتى تصير حرارة الفريون أعلى من حرارة الجو الخارجي فيقدر يطرد حرارته حتى في صيف 48 درجة.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">DX — "ما فهمتها أبدًا"</div>
+    <div class="tip tip-purple"><strong>🟣 Direct Expansion:</strong> الفريون يتمدد ويتبخر داخل الملف الذي <strong>يلمسه هواء الغرفة مباشرة</strong>. لا وسيط بين الفريون والهواء. كل مكيف سبليت أو شباك هو DX.</div>
+    <table class="tbl">
+      <tr><th>النوع</th><th>الوصف</th><th>السعة التقريبية</th><th>أين</th></tr>
+      <tr><td><strong>Window</strong> شباك</td><td>كل المكونات في صندوق واحد. رخيص، صوته عالٍ</td><td>1 – 2.5 طن</td><td>غرف بسيطة</td></tr>
+      <tr><td><strong>Wall Split</strong></td><td>وحدة داخلية جدارية وخارجية</td><td>1 – 3 طن</td><td>غرف وشقق</td></tr>
+      <tr><td><strong>Floor / Ceiling / Free Stand</strong></td><td>سبليت أرضي أو سقفي أو دولابي</td><td>2 – 5 طن</td><td>محلات وصالات</td></tr>
+      <tr><td><strong>Cassette</strong></td><td>وحدة غاطسة في السقف المستعار بأربع فتحات</td><td>1.5 – 5 طن</td><td>مكاتب ومحلات</td></tr>
+      <tr><td><strong>Ducted / Concealed Split</strong></td><td>وحدة داخلية مخفية فوق السقف توزع بدكت</td><td>2 – 20 طن</td><td>فلل وشقق فاخرة</td></tr>
+      <tr><td><strong>Package Unit</strong></td><td>كل المكونات في وحدة على السطح، والهواء يدخل بدكت</td><td>5 – 100 طن</td><td>مستودعات، صالات، مساجد</td></tr>
+      <tr><td><strong>Condensing Unit + AHU</strong></td><td>وحدة تكثيف خارجية موصلة بملف DX داخل وحدة مناولة</td><td>حسب الطلب</td><td>حين نحتاج مواصفات AHU بدون تشيلر</td></tr>
+      <tr><td><strong>VRF</strong> (مضاف)</td><td>وحدة خارجية واحدة تغذي وحدات داخلية كثيرة بتحكم مستقل لكل غرفة</td><td>حتى مئات الأطنان</td><td>فنادق ومكاتب وأبراج</td></tr>
+    </table>
+    <div class="tip tip-purple"><strong>🟣 "Condensing Unit + AHU ما فهمت فكرتها":</strong> أحيانًا نحتاج مزايا وحدة المناولة (فلاتر عالية، هواء نقي كثير، تحكم بالرطوبة) لكن المشروع صغير لا يستحق تشيلر. فنضع داخل الـAHU ملف فريون بدل ملف ماء، ونوصله بوحدة تكثيف خارجية.</div>
+    <div class="tip tip-red"><strong>🔴 تصحيح:</strong> كتبتَ أن الـVAV "تتحكم بدرجة حرارة الهواء الداخل". صندوق الـVAV يتحكم <strong>بكمية</strong> الهواء (Variable Air Volume) الداخل لكل منطقة. حرارة الهواء ثابتة، ونغيّر الكمية حسب حاجة كل غرفة. وهو حل مشكلة الـPackage التي ذكرتها (درجة واحدة لكل الغرف).</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">نظام الماء المثلج — وسؤالك "ليش ما نستخدم الفريون بدل الماء؟"</div>
+    <div class="tip tip-blue"><strong>الفكرة:</strong> التشيلر يبرّد <strong>ماء</strong> (وليس هواء)، والمضخات توزع الماء المثلج في المبنى، وهناك يبرّد الهواء في وحدات AHU و FCU. الماء وسيط بين الفريون والهواء.</div>
+    <div style="overflow-x:auto">
+    <svg width="660" height="260" viewBox="0 0 660 260" style="display:block;min-width:560px;margin:10px auto;font-family:Tajawal,sans-serif">
+      <rect x="230" y="90" width="140" height="80" rx="8" fill="rgba(251,191,36,.18)" stroke="#fbbf24" stroke-width="2"/>
+      <text x="300" y="124" text-anchor="middle" font-size="13" fill="#fbbf24" font-weight="900">Chiller</text>
+      <text x="300" y="144" text-anchor="middle" font-size="10" fill="#fbbf24">دورة تبريد كاملة داخله</text>
+      <rect x="500" y="90" width="130" height="80" rx="8" fill="rgba(96,165,250,.18)" stroke="#60a5fa" stroke-width="2"/>
+      <text x="565" y="124" text-anchor="middle" font-size="12" fill="#60a5fa" font-weight="900">AHU / FCU</text>
+      <text x="565" y="144" text-anchor="middle" font-size="10" fill="#60a5fa">الماء يبرّد الهواء</text>
+      <path d="M370,110 L500,110" stroke="#60a5fa" stroke-width="5"/>
+      <text x="435" y="100" text-anchor="middle" font-size="10" fill="#60a5fa" font-weight="900">ذاهب بارد ≈ 6–7°C</text>
+      <path d="M500,150 L370,150" stroke="#f87171" stroke-width="5" stroke-dasharray="8,4"/>
+      <text x="435" y="170" text-anchor="middle" font-size="10" fill="#f87171" font-weight="900">راجع ≈ 12–13°C</text>
+      <circle cx="420" cy="110" r="11" fill="rgba(74,222,128,.3)" stroke="#4ade80" stroke-width="2"/>
+      <text x="420" y="86" text-anchor="middle" font-size="9" fill="#4ade80" font-weight="900">مضخة</text>
+      <rect x="30" y="80" width="120" height="100" rx="8" fill="rgba(192,132,252,.18)" stroke="#c084fc" stroke-width="2"/>
+      <text x="90" y="120" text-anchor="middle" font-size="12" fill="#c084fc" font-weight="900">Cooling Tower</text>
+      <text x="90" y="140" text-anchor="middle" font-size="10" fill="#c084fc">أو مراوح هواء</text>
+      <path d="M230,110 L150,110" stroke="#f87171" stroke-width="4"/><path d="M150,150 L230,150" stroke="#c084fc" stroke-width="4"/>
+      <text x="190" y="100" text-anchor="middle" font-size="9" fill="#f87171">ماء المكثف ساخن</text>
+      <text x="190" y="170" text-anchor="middle" font-size="9" fill="#c084fc">يرجع أبرد</text>
+      <text x="90" y="216" text-anchor="middle" font-size="10" fill="#94a3b8">طرد الحرارة للجو</text>
+      <text x="300" y="216" text-anchor="middle" font-size="10" fill="#94a3b8">غرفة التشيلرات</text>
+      <text x="565" y="216" text-anchor="middle" font-size="10" fill="#94a3b8">داخل المبنى</text>
+    </svg>
+    </div>
+    <div class="tip tip-purple"><strong>🟣 جواب سؤالك — الأسباب الحقيقية، وليس "ما فيه مضخات فريون" فقط:</strong>
+      <br><strong>1) المسافة:</strong> مواسير الفريون لها طول وارتفاع أقصى، لأن الزيت اللازم للضاغط يمشي مع الفريون ولازم يرجع له، ولأن الضغط يهبط في الخط الطويل فتنزل السعة. الماء يُضخ مئات الأمتار بلا مشكلة.
+      <br><strong>2) السلامة:</strong> تسرّب كمية فريون كبيرة داخل مبنى مأهول خطر اختناق، والكود (ASHRAE 15) يحدد الكمية المسموحة. تسرب الماء لا يضر.
+      <br><strong>3) السعة والكفاءة:</strong> تشيلر واحد كبير أكفأ من مئات الضواغط الصغيرة، ويستفيد من أن المبنى لا يحتاج كل سعته في نفس الوقت.
+      <br><strong>4) الصيانة والتحكم:</strong> المعدات المعقدة كلها في غرفة واحدة، وفي الغرف ملف ماء ومروحة فقط.
+      <br><strong>5) المساحة:</strong> صاعد ماء واحد يخدم عشرة أدوار، بدل وحدات خارجية على كل واجهة.</div>
+    <div class="tip tip-red"><strong>🔴 تصحيحان:</strong> (1) كتبتَ "الموية تخرج من الكوندنسر وتروح للـAHU". الماء المثلج يخرج من <strong>المبخر</strong>. (2) كتبتَ "الهواء دخل AHU 22 ورجع 28". الهواء يدخل ملف التبريد نحو 24–27°C ويخرج نحو 13°C.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">تبريد المكثف: بالهواء أم بالماء؟</div>
+    <table class="tbl">
+      <tr><th></th><th>Air-Cooled Chiller</th><th>Water-Cooled Chiller</th></tr>
+      <tr><td>تبريد المكثف</td><td>مراوح تدفع هواء الجو</td><td>ماء من برج تبريد Cooling Tower</td></tr>
+      <tr><td>المكان</td><td>في الخارج (سطح أو ساحة)</td><td>داخل غرفة، والبرج في الخارج</td></tr>
+      <tr><td>سعة الوحدة</td><td>حتى نحو 500 طن</td><td>حتى 2000 طن وأكثر</td></tr>
+      <tr><td>استهلاك الكهرباء</td><td>≈ 1.0 – 1.3 kW/TR</td><td>≈ 0.5 – 0.7 kW/TR (أكفأ)</td></tr>
+      <tr><td>الماء</td><td>لا يستهلك</td><td>يستهلك ماء تعويض Makeup</td></tr>
+      <tr><td>المعدات الإضافية</td><td>لا شيء</td><td>برج، مضخات مكثف، معالجة ماء</td></tr>
+      <tr><td>متى</td><td>مشاريع صغيرة ومتوسطة، أو شح الماء</td><td>مشاريع كبيرة يتوفر فيها الماء</td></tr>
+    </table>
+    <div class="tip tip-purple"><strong>🟣 برج التبريد (فكرة الدش من ملخصك):</strong> ماء المكثف الساخن يُرش قطرات من أعلى البرج ومروحة تسحب الهواء عليه. جزء صغير يتبخر، والتبخر يسحب حرارة فيبرد الباقي. الماء المتبخر يُعوَّض بماء <strong>Makeup</strong>. من معايير الاختيار: وفرة الماء.</div>
+    <table class="tbl">
+      <tr><th>التسمية</th><th>مصدر طرد الحرارة ← وسيط التبريد</th><th>مثال</th></tr>
+      <tr><td>Air-to-Air</td><td>هواء ← هواء</td><td>السبليت والـPackage (DX)</td></tr>
+      <tr><td>Air-to-Water</td><td>هواء ← ماء</td><td>Air-Cooled Chiller</td></tr>
+      <tr><td>Water-to-Water</td><td>ماء ← ماء</td><td>Water-Cooled Chiller</td></tr>
+      <tr><td>Water-to-Air</td><td>ماء ← هواء</td><td>Package بمكثف مائي</td></tr>
+    </table>
+  </div>
+</div>
+
+
+<!-- ══════════ اختيار المعدات ══════════ -->
+<div class="section" id="s-sel">
+  <div class="card">
+    <div class="card-title">🎯 ما هو الـSelection؟</div>
+    <div class="tip tip-purple"><strong>🟣 كتبتَ "مسألة السلكشن أحسها صعبة جدًا":</strong> هي أبسط مما تبدو. الاختيار = <strong>مطابقة أرقامك بأرقام الكتالوج</strong>. أنت تدخل بأرقام حسبتها، وتخرج بموديل. الصعوبة كلها في أن الكتالوج مليء بأعمدة لا تحتاج أغلبها.</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>جهّز المطلوب:</strong> الأرقام التي حسبتها (حمل، هواء، ضغط، ماء).</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>حدد ظروف التشغيل:</strong> حرارة الجو الخارجي، وحالة الهواء أو الماء الداخل للمعدة.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>افتح جدول الأداء عند ظروفك</strong> وليس عند الظروف القياسية المكتوبة على الغلاف.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>اختر أول موديل يساوي المطلوب أو يزيد قليلًا</strong> (هامش 5–10%).</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><strong>تحقق من القيود:</strong> الصوت، الأبعاد، الكهرباء، الضغط الساكن.</div></div>
+    </div>
+    <div class="tip tip-red"><strong>أشهر خطأ:</strong> السعة الاسمية في الكتالوج تُقاس عند جو خارجي 35°C. في السعودية التصميم عند 46–48°C، وعندها تنزل سعة المعدة 10–20%. مكيف "5 طن" على الغلاف قد يعطي 4.2 طن فعليًا. <strong>اقرأ دائمًا السعة عند حرارة التصميم.</strong></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">بطاقة 1 — مكيف DX (سبليت أو Package)</div>
+    <table class="tbl">
+      <tr><th>ماذا تجهّز</th><th>من أين</th></tr>
+      <tr><td>الحمل الكلي والحمل المحسوس</td><td>تقرير الأحمال (HAP)</td></tr>
+      <tr><td>كمية الهواء CFM</td><td>تقرير الأحمال</td></tr>
+      <tr><td>حرارة الجو الخارجي للتصميم</td><td>بيانات المدينة</td></tr>
+      <tr><td>حالة الهواء الداخل للملف (DB/WB)</td><td>غالبًا 27/19°C أو حسب خلط الهواء النقي</td></tr>
+      <tr><td>الضغط الساكن الخارجي ESP (للأنواع الدكت)</td><td>حساب الدكت</td></tr>
+    </table>
+    <table class="tbl">
+      <tr><th>عمود الكتالوج</th><th>معناه</th><th>تقارنه بـ</th></tr>
+      <tr><td>Total Capacity</td><td>السعة الكلية</td><td>≥ حملك الكلي</td></tr>
+      <tr><td>Sensible Capacity</td><td>السعة المحسوسة</td><td>≥ حملك المحسوس (يُنسى كثيرًا)</td></tr>
+      <tr><td>Airflow</td><td>هواء المروحة</td><td>≈ الـCFM المطلوب</td></tr>
+      <tr><td>ESP</td><td>الضغط الذي تتغلب عليه المروحة خارج الوحدة</td><td>≥ فقد الدكت</td></tr>
+      <tr><td>Power Input · EER</td><td>الاستهلاك والكفاءة</td><td>للمقارنة بين الموديلات</td></tr>
+      <tr><td>Power Supply</td><td>الفولت والأطوار</td><td>تُبلَّغ لمهندس الكهرباء</td></tr>
+      <tr><td>Piping Length / Height</td><td>أقصى طول وارتفاع لمواسير الفريون</td><td>المسافة الفعلية بين الوحدتين</td></tr>
+    </table>
+    <div class="ex-box">
+      <div class="ex-title">مثال: صالة حملها 4.5 طن (محسوس 3.6 طن)، الهواء 1800 CFM، الجو 46°C، فقد الدكت 0.5 in.wg.</div>
+      <div class="ex-step">موديل "5 طن" اسمي: عند 46°C يعطي مثلًا 4.3 طن ← <strong>أقل من المطلوب ✗</strong></div>
+      <div class="ex-step">موديل "6 طن" اسمي: عند 46°C يعطي 5.1 طن كلي و4.0 محسوس، هواء 2000 CFM، ESP حتى 0.6 ← <span class="ans">يحقق الكل ✓</span></div>
+    </div>
+    <div class="warn">أرقام الأداء في المثال توضيحية. الأرقام الفعلية من جدول أداء المصنّع.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">بطاقة 2 — FCU (Fan Coil Unit)</div>
+    <div class="tip tip-blue">وحدة صغيرة فوق السقف: مروحة وملف ماء مثلج وفلتر بسيط. تخدم غرفة أو غرفتين.</div>
+    <table class="tbl">
+      <tr><th>ماذا تجهّز</th><th>عمود الكتالوج المقابل</th></tr>
+      <tr><td>الحمل الكلي والمحسوس للغرفة</td><td>Total / Sensible Capacity عند سرعة المروحة المتوسطة</td></tr>
+      <tr><td>CFM</td><td>Airflow (له ثلاث سرعات: نختار على المتوسطة ليبقى احتياط)</td></tr>
+      <tr><td>حرارة الماء الداخل والخارج (7/12°C)</td><td>EWT / LWT</td></tr>
+      <tr><td>—</td><td>Water Flow: تدفق الماء، تأخذه لحساب المواسير</td></tr>
+      <tr><td>—</td><td>Water Pressure Drop: فقد الضغط في الملف، تأخذه لحساب المضخة</td></tr>
+      <tr><td>فقد الدكت القصير</td><td>ESP</td></tr>
+      <tr><td>حد الصوت للغرفة</td><td>Sound Level (NC أو dBA)</td></tr>
+    </table>
+    <div class="tip tip-amber"><strong>قيد مهم (من ملخصك):</strong> الـFCU لا يتحكم بالرطوبة ولا يحتمل هواء نقيًّا كثيرًا. لذلك الأماكن ذات الحمل الكامن العالي (مطابخ، قاعات مزدحمة) تُخدم بـAHU.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">بطاقة 3 — AHU (Air Handling Unit)</div>
+    <div class="tip tip-blue">وحدة كبيرة تُصنع حسب الطلب: أنت تعطي المورد المواصفات وهو يشغّل برنامج الاختيار ويعطيك ورقة Selection تراجعها.</div>
+    <div style="overflow-x:auto">
+    <svg width="680" height="210" viewBox="0 0 680 210" style="display:block;min-width:600px;margin:10px auto;font-family:Tajawal,sans-serif">
+      <rect x="20" y="50" width="640" height="100" fill="none" stroke="#94a3b8" stroke-width="2"/>
+      <g stroke="#94a3b8"><line x1="120" y1="50" x2="120" y2="150"/><line x1="200" y1="50" x2="200" y2="150"/><line x1="285" y1="50" x2="285" y2="150"/><line x1="385" y1="50" x2="385" y2="150"/><line x1="460" y1="50" x2="460" y2="150"/><line x1="570" y1="50" x2="570" y2="150"/></g>
+      <g font-size="10" font-weight="900" text-anchor="middle">
+        <text x="70" y="96" fill="#c084fc">Mixing Box</text><text x="70" y="114" font-size="9" fill="#c084fc" font-weight="500">خلط الراجع والنقي</text>
+        <text x="160" y="96" fill="#fbbf24">Pre-Filter</text><text x="160" y="114" font-size="9" fill="#fbbf24" font-weight="500">فلتر أولي</text>
+        <text x="242" y="96" fill="#fbbf24">Bag Filter</text><text x="242" y="114" font-size="9" fill="#fbbf24" font-weight="500">فلتر دقيق</text>
+        <text x="335" y="96" fill="#60a5fa">Cooling Coil</text><text x="335" y="114" font-size="9" fill="#60a5fa" font-weight="500">ملف التبريد + حوض تصريف</text>
+        <text x="422" y="96" fill="#f87171">Heater</text><text x="422" y="114" font-size="9" fill="#f87171" font-weight="500">سخان (اختياري)</text>
+        <text x="515" y="96" fill="#4ade80">Supply Fan</text><text x="515" y="114" font-size="9" fill="#4ade80" font-weight="500">المروحة</text>
+        <text x="615" y="96" fill="#fbbf24">HEPA</text><text x="615" y="114" font-size="9" fill="#fbbf24" font-weight="500">للمستشفيات</text>
+      </g>
+      <line x1="0" y1="80" x2="18" y2="80" stroke="#60a5fa" stroke-width="3"/><text x="4" y="40" font-size="9" fill="#60a5fa">هواء راجع</text>
+      <line x1="0" y1="120" x2="18" y2="120" stroke="#4ade80" stroke-width="3"/><text x="4" y="172" font-size="9" fill="#4ade80">هواء نقي</text>
+      <line x1="662" y1="100" x2="680" y2="100" stroke="#60a5fa" stroke-width="3"/><text x="640" y="172" font-size="9" fill="#60a5fa">إلى الدكت</text>
+      <text x="340" y="196" text-anchor="middle" font-size="10" fill="#94a3b8">اتجاه الهواء من اليسار إلى اليمين</text>
+    </svg>
+    </div>
+    <table class="tbl">
+      <tr><th>ماذا تعطي المورد</th><th>ملاحظة</th></tr>
+      <tr><td>كمية الهواء الكلية وكمية الهواء النقي</td><td>من تقرير الأحمال</td></tr>
+      <tr><td>الضغط الساكن الخارجي ESP</td><td>من حساب الدكت. المورد يضيف فقد مكونات الوحدة ليحسب الضغط الكلي للمروحة</td></tr>
+      <tr><td>الحمل الكلي والمحسوس للملف</td><td>يشمل حمل الهواء النقي</td></tr>
+      <tr><td>حالة الهواء الداخل للملف والخارج منه (DB/WB)</td><td>الداخل = خليط الراجع والنقي. الخارج ≈ 13°C</td></tr>
+      <tr><td>حرارة الماء المثلج الداخل والخارج</td><td>7/12°C مثلًا</td></tr>
+      <tr><td>مراحل الفلاتر</td><td>حسب التطبيق</td></tr>
+      <tr><td>نوع المروحة والموتور والكهرباء</td><td>—</td></tr>
+    </table>
+    <table class="tbl">
+      <tr><th>ماذا تراجع في ورقة المورد</th><th>الحد المقبول</th></tr>
+      <tr><td>Coil Face Velocity سرعة الهواء على الملف</td><td>لا تزيد عن 2.5 m/s، وإلا طار ماء التكثيف مع الهواء</td></tr>
+      <tr><td>Rows / Fins عدد صفوف الملف</td><td>4 إلى 8 صفوف. أكثر صفوفًا = إزالة رطوبة أفضل وفقد ضغط أعلى</td></tr>
+      <tr><td>Water Flow و Pressure Drop</td><td>تأخذهما لتصميم المواسير والمضخة</td></tr>
+      <tr><td>Fan Efficiency و Absorbed Power</td><td>القدرة التي تسحبها المروحة فعلًا. الموتور يُختار أكبر منها</td></tr>
+      <tr><td>Sound Power</td><td>يحدد حاجتك لكاتم صوت</td></tr>
+      <tr><td>الأبعاد والوزن</td><td>هل تدخل الغرفة؟ وهل يتحملها السقف؟</td></tr>
+    </table>
+    <div class="formula-box">Fan Power (kW) = Q(m³/s) × ΔP(Pa) / (1000 × η)</div>
+    <div class="ex-box">
+      <div class="ex-title">مثال: مروحة 2 m³/s ضد ضغط كلي 500 Pa بكفاءة 60%.</div>
+      <div class="ex-step ltr">P = 2 × 500 / (1000 × 0.6) = <span class="ans">1.67 kW</span>  ← نختار موتور 2.2 kW</div>
+    </div>
+    <table class="tbl">
+      <tr><th>الفلتر</th><th>يحجز</th><th>الاستخدام</th></tr>
+      <tr><td>Aluminum / Pre-filter (MERV 7–8)</td><td>الغبار الخشن</td><td>أول مرحلة في كل وحدة، ويُغسل</td></tr>
+      <tr><td>Bag Filter (MERV 13–14)</td><td>الغبار الدقيق</td><td>مكاتب، مولات، فنادق</td></tr>
+      <tr><td>HEPA (99.97% عند 0.3 ميكرون)</td><td>البكتيريا والجسيمات الدقيقة جدًا</td><td>غرف العمليات، الغرف النظيفة</td></tr>
+      <tr><td>Carbon Filter</td><td>الروائح والغازات</td><td>مطارات، مطابخ، مختبرات</td></tr>
+    </table>
+    <div class="tip tip-red"><strong>🔴 تصحيح أسماء:</strong> التصنيف اسمه <strong>MERV</strong> (كتبتَ "النيرف")، والفلتر <strong>HEPA</strong> (كتبتَ "هيبو")، و <strong>Mixing Box</strong> (كتبتَ Misting)، و <strong>Damper</strong> (كتبتَ dumped).</div>
+    <div class="tip tip-blue"><strong>استرجاع الطاقة (من ملخصك):</strong> Plate Heat Exchanger و Rotary Heat Wheel يستخدمان برودة هواء العادم لتبريد الهواء النقي الداخل قبل وصوله للملف، فيقل الحمل.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">بطاقة 4 — التشيلر</div>
+    <table class="tbl">
+      <tr><th>ماذا تجهّز</th><th>ملاحظة</th></tr>
+      <tr><td>الحمل الكلي للمبنى بالطن</td><td>مجموع أحمال الوحدات × معامل التزامن، لا مجموعها المباشر</td></tr>
+      <tr><td>حرارة الماء المثلج الخارج والراجع</td><td>6.7/12.2°C (44/54°F) المعتاد</td></tr>
+      <tr><td>حرارة الجو (للهوائي) أو ماء المكثف (للمائي)</td><td>46–50°C للهوائي في السعودية. اقرأ السعة عندها</td></tr>
+      <tr><td>عدد الوحدات</td><td>نقسم الحمل على أكثر من تشيلر + واحد احتياط (N+1) للمباني المهمة</td></tr>
+      <tr><td>حد الصوت والمساحة المتاحة</td><td>الهوائي يحتاج مساحة مكشوفة وتهوية حوله</td></tr>
+    </table>
+    <table class="tbl">
+      <tr><th>نوع الضاغط</th><th>المدى التقريبي</th><th>ملاحظة</th></tr>
+      <tr><td>Reciprocating ترددي</td><td>صغير</td><td>قديم وقلّ استخدامه في التشيلرات</td></tr>
+      <tr><td>Scroll حلزوني</td><td>حتى نحو 200 طن (عدة ضواغط)</td><td>قطعة ثابتة وقطعة متحركة. في التشيلرات الهوائية الصغيرة</td></tr>
+      <tr><td>Screw لولبي</td><td>70 – 500 طن</td><td>المدى المتوسط، هوائي ومائي</td></tr>
+      <tr><td>Centrifugal طارد مركزي</td><td>300 طن إلى آلاف</td><td>فيه Impeller. الأكفأ للسعات الكبيرة، مائي غالبًا</td></tr>
+    </table>
+    <table class="tbl">
+      <tr><th>عمود الكتالوج</th><th>معناه</th></tr>
+      <tr><td>Cooling Capacity عند ظروفك</td><td>تقارنه بحملك</td></tr>
+      <tr><td>Power Input · kW/TR · COP · IPLV</td><td>الكفاءة. IPLV كفاءة الحمل الجزئي، وهي الأهم لأن التشيلر قلّما يعمل على 100%</td></tr>
+      <tr><td>Evaporator Flow و Pressure Drop</td><td>لتصميم المضخات</td></tr>
+      <tr><td>Minimum Flow</td><td>أقل تدفق مسموح في المبخر</td></tr>
+      <tr><td>Sound Levels</td><td>للجيران والدور الذي تحته</td></tr>
+      <tr><td>الأبعاد والوزن التشغيلي</td><td>للمعماري والإنشائي</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">بطاقة 5 — برج التبريد، المضخات، خزان التمدد</div>
+    <table class="tbl">
+      <tr><th>برج التبريد</th><th>المعنى</th><th>قيمة معتادة</th></tr>
+      <tr><td>Flow تدفق ماء المكثف</td><td>أكبر من الماء المثلج لأنه يحمل حرارة المبنى + شغل الضاغط</td><td>≈ 3 gpm لكل طن</td></tr>
+      <tr><td>Range</td><td>حرارة الماء الداخل للبرج − الخارج منه</td><td>≈ 5.5°C</td></tr>
+      <tr><td>Approach</td><td>حرارة الماء الخارج − الحرارة الرطبة للجو</td><td>3 – 4°C. كلما صغر كبر البرج وغلا</td></tr>
+      <tr><td>Design Wet Bulb</td><td>الحرارة الرطبة للمدينة. <strong>لا يمكن للبرج أن يبرّد الماء تحتها</strong></td><td>من بيانات الطقس</td></tr>
+      <tr><td>Makeup ماء التعويض</td><td>تبخر + رذاذ + تصريف الأملاح</td><td>1 – 2% من التدفق</td></tr>
+    </table>
+    <div class="formula-box">Pump Flow (gpm) = 24 × TR / ΔT(°F)   ،   Pump Head = فقد أطول دائرة</div>
+    <div class="tip tip-blue"><strong>Head مضخة الماء المثلج</strong> = فقد المواسير والقطع في <strong>أبعد دائرة</strong> + فقد مبخر التشيلر + فقد ملف أبعد وحدة + فقد محابس التحكم والموازنة. الدائرة مغلقة، فارتفاع المبنى <strong>لا يدخل</strong> في الحساب.</div>
+    <table class="tbl">
+      <tr><th>نوع المضخة</th><th>الاستخدام</th></tr>
+      <tr><td>End Suction (Close أو Long Coupled)</td><td>الأشيع للتدفقات الصغيرة والمتوسطة</td></tr>
+      <tr><td>Inline</td><td>تُركّب على خط الماسورة مباشرة، توفر مساحة</td></tr>
+      <tr><td>Horizontal Split Case</td><td>التدفقات الكبيرة. تُفتح للصيانة دون فك المواسير</td></tr>
+    </table>
+    <div class="tip tip-green"><strong>خزان التمدد Expansion Tank:</strong> الماء يتمدد وينكمش مع تغير حرارته، والدائرة مغلقة. الخزان يستوعب هذا التغير ويحافظ على ضغط الشبكة. حجمه يُحسب من حجم ماء الشبكة ومدى الحرارة.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">بطاقة 6 — مخرج الهواء Diffuser من الكتالوج</div>
+    <div class="tip tip-purple"><strong>🟣 جدول "4SCD" الذي عرضه المحاضر:</strong> كل صف مقاس، وكل عمود كمية هواء، وفي الخانة ثلاثة أرقام: سرعة الرقبة، مدى الرمي، ومستوى الصوت. <strong>الألوان هي نطاقات الصوت</strong>: الأبيض هادئ (NC أقل من 30)، ثم كل لون أعلى صوتًا. تختار من النطاق الذي يناسب المكان.</div>
+    <table class="tbl">
+      <tr><th>عمود الجدول</th><th>معناه</th></tr>
+      <tr><td><strong>Neck Size</strong></td><td>مقاس رقبة المخرج المتصلة بالدكت</td></tr>
+      <tr><td><strong>CFM</strong></td><td>كمية الهواء الخارجة</td></tr>
+      <tr><td><strong>Neck Velocity</strong></td><td>سرعة الهواء في الرقبة. كلما زادت زاد الصوت</td></tr>
+      <tr><td><strong>Ak</strong></td><td>المساحة الفعالة للمخرج. تُستخدم في الموقع لقياس الهواء: <span class="ltr">CFM = V × Ak</span></td></tr>
+      <tr><td><strong>Throw</strong></td><td>المسافة التي يقطعها الهواء حتى تنزل سرعته لحد معيّن (غالبًا 0.25 m/s)</td></tr>
+      <tr><td><strong>NC</strong> (Noise Criteria)</td><td>مستوى الصوت. أقل = أهدأ</td></tr>
+      <tr><td><strong>Pressure Drop</strong></td><td>فقد الضغط في المخرج. يدخل في حساب الضغط الساكن</td></tr>
+    </table>
+    <span class="cls cls-ver">🔴 أرقام توضيحية للتدريب — ليست من كتالوج فعلي</span>
+    <div style="overflow-x:auto">
+    <table class="tbl" style="min-width:520px">
+      <tr><th>مقاس الرقبة (مم)</th><th>CFM</th><th>سرعة الرقبة (m/s)</th><th>Throw (م)</th><th>NC</th></tr>
+      <tr><td>150 × 150</td><td>100</td><td>2.1</td><td>1.2</td><td>&lt; 20</td></tr>
+      <tr><td>225 × 225</td><td>200</td><td>1.9</td><td>2.0</td><td>22</td></tr>
+      <tr><td>225 × 225</td><td>300</td><td>2.8</td><td>2.9</td><td>31</td></tr>
+      <tr><td>300 × 300</td><td>400</td><td>2.1</td><td>3.0</td><td>25</td></tr>
+      <tr><td>375 × 375</td><td>600</td><td>2.0</td><td>3.7</td><td>27</td></tr>
+      <tr><td>450 × 450</td><td>900</td><td>2.1</td><td>4.6</td><td>30</td></tr>
+    </table>
+    </div>
+    <div class="ex-box">
+      <div class="ex-title">مثال: مكتب 6 × 6 م، حمله 2 طن، حد الصوت NC 30.</div>
+      <div class="ex-step"><strong>1)</strong> الهواء: <span class="ltr">2 × 400 = 800 CFM</span></div>
+      <div class="ex-step"><strong>2)</strong> نقسم الغرفة 4 مربعات كل منها 3 × 3 م ومخرج في وسط كل مربع: <span class="ltr">800 / 4 = 200 CFM</span> لكل مخرج</div>
+      <div class="ex-step"><strong>3)</strong> المسافة من المخرج لحد مربعه = 1.5 م. نحتاج Throw قريبًا منها (1.5 إلى 2 م)</div>
+      <div class="ex-step"><strong>4)</strong> من الجدول: 225×225 عند 200 CFM ← Throw 2.0 م، NC 22 ✓</div>
+      <div class="ex-step"><span class="ans">الاختيار: 4 مخارج 225 × 225 مم.</span></div>
+      <div class="ex-step">لو اخترنا مخرجين فقط × 400 CFM بمقاس 225 لصار الصوت فوق NC 30 والهواء يصطدم بالجدار وينزل تيارًا مزعجًا.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ توزيع الهواء ══════════ -->
+<div class="section" id="s-air">
+  <div class="card">
+    <div class="card-title">🌀 كمية الهواء لكل غرفة</div>
+    <span class="cls cls-mem">🟢 للحفظ</span>
+    <div class="formula-box">CFM = Q_sensible (Btu/h) / (1.08 × ΔT°F)<span class="lbl">ΔT = حرارة الغرفة − حرارة هواء الإمداد ≈ 20°F (11°C)</span></div>
+    <div class="ex-box">
+      <div class="ex-title">مثال: غرفة حملها المحسوس 18,000 Btu/h، الغرفة 75°F والإمداد 55°F.</div>
+      <div class="ex-step ltr">CFM = 18,000 / (1.08 × 20) = <span class="ans">833 CFM</span></div>
+    </div>
+    <div class="tip tip-blue">الهواء يُحسب من الحمل <strong>المحسوس</strong> لأن وظيفة الهواء الداخل رفع حرارة الغرفة من 55 إلى 75، وهذا محسوس. الكامن يُعالَج عند الملف.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">أنواع المخارج</div>
+    <table class="tbl">
+      <tr><th>الرمز</th><th>الاسم</th><th>الوصف</th><th>أين</th></tr>
+      <tr><td><strong>SCD</strong></td><td>Square Ceiling Diffuser</td><td>مربع سقفي يرمي في 4 اتجاهات (أو 3 أو 2 أو 1)</td><td>المكاتب والمحلات. الأشيع</td></tr>
+      <tr><td><strong>SAG</strong></td><td>Supply Air Grille</td><td>شبك جداري بريش قابلة للتوجيه</td><td>الغرف التي دكتها في الممر</td></tr>
+      <tr><td><strong>LSD</strong></td><td>Linear Slot Diffuser</td><td>فتحة طولية رفيعة</td><td>الأماكن الفاخرة، وبمحاذاة الزجاج</td></tr>
+      <tr><td>Round Diffuser</td><td>دائري</td><td>يرمي في كل الاتجاهات</td><td>الأسقف المكشوفة</td></tr>
+      <tr><td>Jet Diffuser</td><td>نفاث</td><td>رمي بعيد جدًا</td><td>القاعات العالية والمطارات والمساجد</td></tr>
+      <tr><td>Swirl Diffuser</td><td>دوّامي</td><td>خلط سريع</td><td>الأسقف العالية</td></tr>
+      <tr><td><strong>RAG</strong></td><td>Return Air Grille</td><td>شبك الراجع</td><td>بعيدًا عن مخارج الإمداد</td></tr>
+    </table>
+    <div class="tip tip-purple"><strong>🟣 من ملخصك:</strong> شكل المخرج يحدده المعماري أو المصمم الداخلي. ودورك أن تختار <strong>المقاس والعدد</strong> اللذين يحققان الهواء والرمي والصوت.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">الرمي والصوت</div>
+    <div style="overflow-x:auto">
+    <svg width="620" height="220" viewBox="0 0 620 220" style="display:block;min-width:520px;margin:10px auto;font-family:Tajawal,sans-serif">
+      <line x1="30" y1="40" x2="590" y2="40" stroke="#94a3b8" stroke-width="3"/>
+      <text x="580" y="30" text-anchor="end" font-size="10" fill="#94a3b8">السقف</text>
+      <line x1="30" y1="190" x2="590" y2="190" stroke="#94a3b8" stroke-width="2"/>
+      <line x1="590" y1="40" x2="590" y2="190" stroke="#94a3b8" stroke-width="3"/>
+      <rect x="290" y="34" width="50" height="12" fill="#60a5fa"/>
+      <text x="315" y="24" text-anchor="middle" font-size="11" fill="#60a5fa" font-weight="900">المخرج</text>
+      <path d="M340,48 Q440,52 520,62 Q560,70 570,110" fill="none" stroke="#60a5fa" stroke-width="3"/>
+      <path d="M290,48 Q190,52 110,62 Q70,70 60,110" fill="none" stroke="#60a5fa" stroke-width="3"/>
+      <line x1="340" y1="78" x2="520" y2="78" stroke="#fbbf24" stroke-width="2"/>
+      <line x1="340" y1="72" x2="340" y2="84" stroke="#fbbf24" stroke-width="2"/><line x1="520" y1="72" x2="520" y2="84" stroke="#fbbf24" stroke-width="2"/>
+      <text x="430" y="98" text-anchor="middle" font-size="11" fill="#fbbf24" font-weight="900">Throw مدى الرمي</text>
+      <rect x="30" y="118" width="560" height="72" fill="rgba(74,222,128,.08)"/>
+      <text x="310" y="160" text-anchor="middle" font-size="11" fill="#4ade80" font-weight="900">منطقة الإشغال: السرعة هنا أقل من 0.25 m/s</text>
+    </svg>
+    </div>
+    <div class="tip tip-blue"><strong>قاعدة الرمي:</strong> الهواء يلتصق بالسقف (Coanda) ويمشي ثم ينزل بهدوء. نريد أن ينتهي الرمي قرب الجدار أو قرب منتصف المسافة للمخرج المجاور. رمي قصير = هواء بارد يسقط مباشرة على الرؤوس. رمي طويل = يصطدم بالجدار وينزل تيارًا.</div>
+    <span class="cls cls-ver">🔴 قيم إرشادية</span>
+    <table class="tbl">
+      <tr><th>المكان</th><th>حد الصوت NC</th></tr>
+      <tr><td>غرف النوم، غرف الفنادق، قاعات الاجتماعات</td><td>25 – 30</td></tr>
+      <tr><td>المكاتب، الفصول</td><td>30 – 35</td></tr>
+      <tr><td>المطاعم، المحلات، الممرات</td><td>35 – 45</td></tr>
+    </table>
+    <div class="tip tip-green"><strong>قواعد التوزيع:</strong> المخارج توزَّع بانتظام كتوزيع الرشاشات (من ملخصك). كل مخرج يغطي مساحة شبه مربعة. الراجع بعيد عن الإمداد حتى لا يُسحب الهواء البارد قبل أن يدور. ويُنسَّق مع الإضاءة والرشاشات في السقف.</div>
+  </div>
+</div>
+
+<!-- ══════════ الدكت ══════════ -->
+<div class="section" id="s-duct">
+  <div class="card">
+    <div class="card-title">📦 الدكت: الأشكال والمواد</div>
+    <div class="tip tip-blue"><strong>وظيفته:</strong> نقل الهواء من الوحدة إلى المخارج بأقل فقد وأقل صوت.</div>
+    <table class="tbl">
+      <tr><th>الشكل</th><th>المزايا</th><th>العيوب</th></tr>
+      <tr><td>Rectangular مستطيل</td><td>يدخل في فراغ السقف القليل</td><td>احتكاكه وتسريبه أعلى</td></tr>
+      <tr><td>Round / Spiral دائري</td><td>أقل احتكاكًا وصوتًا وتسريبًا، وأرخص تصنيعًا</td><td>يحتاج ارتفاعًا أكبر</td></tr>
+      <tr><td>Flat Oval بيضاوي</td><td>وسط بين الاثنين</td><td>أغلى</td></tr>
+    </table>
+    <div class="formula-box">Aspect Ratio = العرض / الارتفاع ≤ 4<span class="lbl">الأفضل قرب 1. كلما زاد زاد الاحتكاك والصاج والاهتزاز</span></div>
+    <table class="tbl">
+      <tr><th>المادة</th><th>الاستخدام</th></tr>
+      <tr><td>Galvanized Steel صاج مجلفن</td><td>الاستخدام العام. أغلب الدكت</td></tr>
+      <tr><td>Black Steel صاج أسود ملحوم</td><td>عادم المطابخ (يتحمل حريق الدهون) ودكت الدخان</td></tr>
+      <tr><td>Stainless Steel</td><td>عادم المطابخ الظاهر، والأبخرة الكيميائية Fume</td></tr>
+      <tr><td>Aluminum</td><td>الغرف النظيفة، المسابح، وغرفة الرنين المغناطيسي MRI (غير مغناطيسي)</td></tr>
+      <tr><td>Pre-insulated (PIR)</td><td>ألواح معزولة جاهزة، خفيفة وسريعة</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">طرق تحديد المقاس</div>
+    <table class="tbl">
+      <tr><th>الطريقة</th><th>الفكرة</th><th>متى</th></tr>
+      <tr><td><strong>Equal Friction</strong></td><td>نثبّت فقد الضغط لكل متر في كل الشبكة (≈ 0.8 Pa/m)</td><td>الأشيع. الدكت التجاري منخفض السرعة</td></tr>
+      <tr><td><strong>Velocity</strong></td><td>نختار سرعة لكل جزء ونحسب المساحة</td><td>حسابات سريعة، وعادم المطابخ</td></tr>
+      <tr><td><strong>Static Regain</strong></td><td>نصغّر السرعة تدريجيًا ليعوّض الضغط المسترجع فقد الاحتكاك</td><td>الشبكات الكبيرة عالية السرعة. تُحسب بالبرامج</td></tr>
+    </table>
+    <span class="cls cls-ver">🔴 قيم إرشادية</span>
+    <table class="tbl">
+      <tr><th>الجزء</th><th>السرعة المقترحة</th></tr>
+      <tr><td>الدكت الرئيسي</td><td>5 – 8 m/s</td></tr>
+      <tr><td>الفروع</td><td>3 – 5 m/s</td></tr>
+      <tr><td>الوصلة للمخرج</td><td>2 – 3 m/s</td></tr>
+    </table>
+    <div class="tip tip-purple"><strong>🟣 من ملخصك ("مع تغيّر السرعة... أظن فيه إشكالات"):</strong> السرعة العالية تعطي دكتًا أصغر وأرخص، لكن <strong>صوتًا أعلى وفقد ضغط أكبر</strong> ومروحة أقوى. والسرعة المنخفضة جدًا تعطي دكتًا كبيرًا مكلفًا لا يدخل السقف.</div>
+    <div class="ex-box">
+      <div class="ex-title">مثال بطريقة السرعة: دكت رئيسي يحمل 1000 L/s (≈ 2100 CFM) بسرعة 6 m/s، وارتفاع السقف المتاح 300 مم.</div>
+      <div class="ex-step ltr">A = Q / V = 1.0 / 6 = 0.167 m²</div>
+      <div class="ex-step ltr">Width = 0.167 / 0.30 = 0.556 m  → 600 × 300 mm</div>
+      <div class="ex-step">السرعة الفعلية: <span class="ltr">1.0 / 0.18 = 5.6 m/s</span> ✓ · النسبة: <span class="ltr">600/300 = 2</span> ✓</div>
+      <div class="ex-step"><span class="ans">المقاس: 600 × 300 مم</span></div>
+    </div>
+    <div class="tip tip-blue">في Equal Friction تدخل مخطط الاحتكاك أو الـDuctulator بكمية الهواء ومعدل الفقد وتقرأ القطر الدائري، ثم تحوّله لمستطيل مكافئ.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">القطع والملحقات والعزل</div>
+    <table class="tbl">
+      <tr><th>القطعة</th><th>وظيفتها</th></tr>
+      <tr><td>Elbow · Tee · Reducer · Transition</td><td>تغيير الاتجاه والتفريع والمقاس. كل واحدة تسبب فقد ضغط</td></tr>
+      <tr><td><strong>VD</strong> — Volume Damper</td><td>خانق يدوي لموازنة كمية الهواء في كل فرع</td></tr>
+      <tr><td><strong>FD</strong> — Fire Damper</td><td>يُغلق تلقائيًا بالحرارة عند عبور الدكت جدارًا مقاومًا للحريق</td></tr>
+      <tr><td>Motorized Damper</td><td>خانق بمحرك تتحكم به لوحة التحكم</td></tr>
+      <tr><td>Flexible Connection</td><td>وصلة قماشية بين الوحدة والدكت تمنع انتقال الاهتزاز</td></tr>
+      <tr><td>Flexible Duct</td><td>وصلة مرنة قصيرة للمخرج (لا تزيد عن نحو 1.5–2 م)</td></tr>
+      <tr><td>Sound Attenuator</td><td>كاتم صوت بعد الوحدة</td></tr>
+      <tr><td>Access Door</td><td>فتحة صيانة عند الخوانق والحساسات</td></tr>
+    </table>
+    <div class="tip tip-green"><strong>العزل:</strong> خارجي (صوف زجاجي مكسو برقائق ألمنيوم) لمنع التعرّق وفقد البرودة، وداخلي (Acoustic Liner) لكتم الصوت قرب الوحدة. دكت الراجع داخل المكان المكيف قد لا يُعزل. ويُحصر العزل بالمساحة السطحية للدكت.</div>
+    <div class="tip tip-blue"><strong>الحصر:</strong> الصاج يُحصر بالوزن: المساحة السطحية × سماكة الصاج (Gauge) × الكثافة. السماكة تزيد مع كبر المقاس حسب SMACNA.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">الضغط الساكن ESP — "تأخذ وقتًا طويلًا"</div>
+    <div class="tip tip-red"><strong>🔴 تصحيح:</strong> كتبتَ "Internal Static Pressure للمراوح". المطلوب منك حسابه هو <strong>External Static Pressure (ESP)</strong>: الضغط الذي تتغلب عليه المروحة <strong>خارج</strong> الوحدة. فقد المكونات الداخلية (ملف، فلاتر) يضيفه المصنّع.</div>
+    <div class="tip tip-purple"><strong>🟣 Critical Path من ملخصك:</strong> لا نجمع فقد كل الشبكة، بل فقد <strong>المسار الأصعب فقط</strong>: من الوحدة إلى أبعد مخرج أو أكثرها أكواعًا. إذا وصل الهواء لهذا المخرج وصل للبقية.</div>
+    <div class="formula-box">ESP = فقد الدكت المستقيم + فقد القطع + فقد الملحقات + فقد المخرج</div>
+    <div class="ex-box">
+      <div class="ex-title">مثال توضيحي على المسار الحرج لدكت الإمداد:</div>
+      <div class="ex-step">دكت مستقيم: <span class="ltr">40 m × 0.8 Pa/m = 32 Pa</span></div>
+      <div class="ex-step">أكواع وتفريعات (6 قطع): <span class="ltr">≈ 36 Pa</span></div>
+      <div class="ex-step">خانق حريق + خانق موازنة: <span class="ltr">≈ 25 Pa</span></div>
+      <div class="ex-step">وصلة مرنة + المخرج: <span class="ltr">≈ 30 Pa</span></div>
+      <div class="ex-step">المجموع <span class="ltr">123 Pa</span> + دكت الراجع وشبكه <span class="ltr">≈ 60 Pa</span> + هامش 10%</div>
+      <div class="ex-step"><span class="ans">ESP ≈ 200 Pa ≈ 0.8 in.wg</span></div>
+    </div>
+    <div class="tip tip-blue"><strong>ASHRAE Duct Fitting Database</strong> (من ملخصك): برنامج تدخل فيه نوع القطعة وأبعادها وكمية الهواء فيعطيك فقدها بدقة. وفي ملخصك أن حساب الضغط الداخلي مسؤولية المورد لا الاستشاري.</div>
+  </div>
+</div>
+
+<!-- ══════════ الماء المثلج ══════════ -->
+<div class="section" id="s-chw">
+  <div class="card">
+    <div class="card-title">🧊 مواسير الماء المثلج</div>
+    <table class="tbl">
+      <tr><th>البند</th><th>القيمة (من ملخصك)</th></tr>
+      <tr><td>المادة</td><td>Black Steel Schedule 40، غير ملحومة Seamless</td></tr>
+      <tr><td>التوصيل حتى 2 بوصة</td><td>قلاووظ Threaded</td></tr>
+      <tr><td>التوصيل فوق 2 بوصة</td><td>لحام Welded أو Grooved</td></tr>
+      <tr><td>حد السرعة للأقطار حتى 50 مم</td><td>1.2 m/s</td></tr>
+      <tr><td>حد الاحتكاك للأقطار الأكبر</td><td>400 Pa/m</td></tr>
+      <tr><td>العزل</td><td>إلزامي على كل الخط مع حاجز بخار، وإلا تعرّق وتآكل</td></tr>
+    </table>
+    <div class="tip tip-blue"><strong>لماذا حدّان؟</strong> في المواسير الصغيرة السرعة هي التي تسبب الصوت والتآكل فنقيّدها. في الكبيرة نقيّد الاحتكاك حتى لا تكبر المضخة.</div>
+    <div class="ex-box">
+      <div class="ex-title">مثال: وحدة AHU حملها 20 طنًّا، فرق حرارة الماء 10°F.</div>
+      <div class="ex-step ltr">Flow = 24 × 20 / 10 = 48 gpm = 3.03 L/s</div>
+      <div class="ex-step">تجربة 2 بوصة (قطر داخلي ≈ 52 مم): <span class="ltr">V = 0.00303 / 0.00212 = 1.43 m/s</span> ✗ فوق 1.2</div>
+      <div class="ex-step">تجربة 2.5 بوصة (≈ 63 مم): <span class="ltr">V = 0.00303 / 0.00312 = 0.97 m/s</span> ✓</div>
+      <div class="ex-step"><span class="ans">الاختيار: 2.5 بوصة</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">الـHook-up — ملحقات توصيل المعدة</div>
+    <div class="tip tip-blue"><strong>الفكرة:</strong> أي معدة ماء (ملف AHU، FCU، تشيلر، مضخة) لا توصل بالماسورة مباشرة، بل بمجموعة قطع ثابتة الترتيب تسمح بعزلها وحمايتها وضبط تدفقها وقياسه.</div>
+    <div style="overflow-x:auto">
+    <svg width="680" height="250" viewBox="0 0 680 250" style="display:block;min-width:600px;margin:10px auto;font-family:Tajawal,sans-serif">
+      <rect x="560" y="60" width="100" height="130" rx="8" fill="rgba(96,165,250,.18)" stroke="#60a5fa" stroke-width="2"/>
+      <text x="610" y="120" text-anchor="middle" font-size="12" fill="#60a5fa" font-weight="900">الملف Coil</text>
+      <text x="610" y="140" text-anchor="middle" font-size="9" fill="#60a5fa">AHU أو FCU</text>
+      <line x1="20" y1="85" x2="560" y2="85" stroke="#60a5fa" stroke-width="5"/>
+      <line x1="560" y1="165" x2="20" y2="165" stroke="#f87171" stroke-width="5"/>
+      <text x="24" y="74" font-size="10" fill="#60a5fa" font-weight="900">Supply ذاهب</text>
+      <text x="24" y="188" font-size="10" fill="#f87171" font-weight="900">Return راجع</text>
+      <g font-size="9" font-weight="900" text-anchor="middle">
+        <path d="M110,73 L134,97 M134,73 L110,97" stroke="#fbbf24" stroke-width="3"/><text x="122" y="58" fill="#fbbf24">Isolation</text><text x="122" y="46" fill="#fbbf24" font-weight="500">محبس عزل</text>
+        <polygon points="200,85 222,73 222,97" fill="none" stroke="#4ade80" stroke-width="3"/><text x="212" y="58" fill="#4ade80">Strainer</text><text x="212" y="46" fill="#4ade80" font-weight="500">مصفاة</text>
+        <circle cx="300" cy="85" r="9" fill="none" stroke="#c084fc" stroke-width="2"/><text x="300" y="58" fill="#c084fc">P · T</text><text x="300" y="46" fill="#c084fc" font-weight="500">عداد وترمومتر</text>
+        <path d="M470,77 Q480,69 490,77 Q500,85 510,77" fill="none" stroke="#94a3b8" stroke-width="3"/><text x="490" y="58" fill="#94a3b8">Flexible</text><text x="490" y="46" fill="#94a3b8" font-weight="500">وصلة مرنة</text>
+        <path d="M470,157 Q480,149 490,157 Q500,165 510,157" fill="none" stroke="#94a3b8" stroke-width="3"/>
+        <circle cx="400" cy="165" r="9" fill="none" stroke="#c084fc" stroke-width="2"/><text x="400" y="196" fill="#c084fc">P · T</text>
+        <path d="M290,153 L314,177 M314,153 L290,177" stroke="#f87171" stroke-width="3"/><circle cx="302" cy="145" r="7" fill="#f87171"/><text x="302" y="196" fill="#f87171">Control Valve</text><text x="302" y="208" fill="#f87171" font-weight="500">محبس تحكم</text>
+        <path d="M200,153 L224,177 M224,153 L200,177" stroke="#fbbf24" stroke-width="3"/><text x="212" y="196" fill="#fbbf24">Balancing</text><text x="212" y="208" fill="#fbbf24" font-weight="500">محبس موازنة</text>
+        <path d="M110,153 L134,177 M134,153 L110,177" stroke="#fbbf24" stroke-width="3"/><text x="122" y="196" fill="#fbbf24">Isolation</text>
+      </g>
+      <line x1="160" y1="85" x2="160" y2="165" stroke="#94a3b8" stroke-width="3" stroke-dasharray="5,4"/>
+      <text x="160" y="232" text-anchor="middle" font-size="9" fill="#94a3b8">Bypass للغسيل (مغلق عادة)</text>
+    </svg>
+    </div>
+    <table class="tbl">
+      <tr><th>القطعة</th><th>وظيفتها</th></tr>
+      <tr><td><strong>Isolation Valve</strong> (Gate أو Butterfly)</td><td>فتح وإغلاق فقط، لعزل المعدة للصيانة. واحد على الذاهب وواحد على الراجع</td></tr>
+      <tr><td><strong>Strainer</strong> مصفاة</td><td>تحجز الرواسب قبل دخولها الملف ومحبس التحكم</td></tr>
+      <tr><td><strong>Pressure Gauge</strong></td><td>قبل المصفاة وبعدها: إذا كبر الفرق فالمصفاة تحتاج تنظيفًا. وقبل الملف وبعده: يُعرف منه التدفق</td></tr>
+      <tr><td><strong>Thermometer</strong></td><td>على الذاهب والراجع، للتأكد أن فرق الحرارة ΔT هو المطلوب</td></tr>
+      <tr><td><strong>Flexible Connection</strong></td><td>تفصل المعدة المهتزة عن المواسير الثابتة</td></tr>
+      <tr><td><strong>Control Valve</strong></td><td>بمحرك، يتحكم بالتدفق باستمرار حسب حاجة الغرفة</td></tr>
+      <tr><td><strong>Balancing Valve</strong></td><td>يُضبط مرة واحدة ليحدد <strong>أقصى</strong> تدفق للمعدة، فلا تسرق القريبة ماء البعيدة</td></tr>
+      <tr><td><strong>Bypass + Gate Valve</strong></td><td>خط يتجاوز الملف، مغلق عادة. يُفتح عند <strong>غسيل الشبكة Flushing</strong> حتى لا تدخل الأوساخ الملف</td></tr>
+      <tr><td><strong>Flow Switch</strong></td><td>على التشيلر: يمنع تشغيله إذا لم يكن هناك جريان ماء</td></tr>
+      <tr><td><strong>Check Valve + Flow Meter</strong></td><td>على طرد كل مضخة</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">محبس التحكم: Two-Way أم Three-Way؟ — "المسارات ما عرفتها"</div>
+    <table class="tbl">
+      <tr><th></th><th>Two-Way مسارين</th><th>Three-Way ثلاثة مسارات</th></tr>
+      <tr><td>المنافذ</td><td>دخول وخروج</td><td>ثلاثة: من الذاهب، إلى الملف، وتجاوز Bypass</td></tr>
+      <tr><td>عند قلة الحمل</td><td><strong>يخنق</strong> الماء فيقل التدفق في الشبكة</td><td><strong>يحوّل</strong> جزءًا من الماء ليتجاوز الملف، والتدفق الكلي ثابت</td></tr>
+      <tr><td>تدفق الشبكة</td><td>متغير Variable Flow</td><td>ثابت Constant Flow</td></tr>
+      <tr><td>المضخة</td><td>بمغيّر سرعة VFD، فتوفر طاقة</td><td>سرعة ثابتة، تضخ الكل دائمًا</td></tr>
+      <tr><td>اليوم</td><td>المعتمد في أغلب المشاريع</td><td>أنظمة صغيرة أو قديمة</td></tr>
+    </table>
+    <div class="tip tip-red"><strong>🔴 تصحيح أسماء:</strong> <strong>Three-Way</strong> (كتبتَ free way)، ومغيّر السرعة <strong>VSD أو VFD</strong> (كتبتَ pump variable VRS)، و <strong>Gate Valve</strong> (كتبتَ Gage).</div>
+    <div class="tip tip-purple"><strong>🟣 "Bypass إيش فكرتها؟" — لها معنيان في المحاضرة:</strong>
+      <br><strong>1) Bypass الغسيل</strong> عند كل ملف (في الرسمة فوق).
+      <br><strong>2) Bypass الحد الأدنى للتدفق</strong> عند التشيلر في نظام Two-Way: إذا أغلقت أغلب المحابس قلّ التدفق في مبخر التشيلر، ولو نزل تحت الحد الأدنى <strong>تجمّد الماء في المبخر وكسر أنابيبه</strong>. فيُفتح خط تجاوز يعيد ماء من الذاهب للراجع ويحافظ على أقل تدفق. هذا ما كتبتَه: "لو دخل أقل من كدا الإيفابوريتر حيتكسر من التجمد".</div>
+  </div>
+</div>
+
+<!-- ══════════ التهوية ══════════ -->
+<div class="section" id="s-vent">
+  <div class="card">
+    <div class="card-title">🌬️ التهوية بعدد مرات تغيير الهواء</div>
+    <span class="cls cls-mem">🟢 للحفظ</span>
+    <div class="formula-box">Q (m³/h) = الحجم (m³) × ACH<span class="lbl">ACH = Air Changes per Hour عدد مرات تبديل هواء الغرفة في الساعة</span></div>
+    <div class="formula-box">CFM = الحجم (ft³) × ACH / 60</div>
+    <div class="ex-box">
+      <div class="ex-title">مثال: غرفة مضخات 8 × 6 × 4 م تحتاج 10 ACH.</div>
+      <div class="ex-step ltr">Volume = 192 m³   →   Q = 192 × 10 = 1920 m³/h = <span class="ans">533 L/s ≈ 1130 CFM</span></div>
+    </div>
+    <div class="tip tip-blue"><strong>إذا كان الغرض طرد حرارة معدات</strong> (غرفة كهرباء، مولد) لا نستخدم ACH بل معادلة الحرارة: <span class="ltr">Q = Heat / (1.2 × ΔT)</span>، وهي <span class="ltr">Q = ṁ·c_p·ΔT</span> في ملخصك.</div>
+    <span class="cls cls-ver">🔴 قيم إرشادية</span>
+    <table class="tbl">
+      <tr><th>المكان</th><th>ACH تقريبًا</th></tr>
+      <tr><td>دورات المياه</td><td>10 – 15 (عادم)</td></tr>
+      <tr><td>غرف المضخات والمعدات</td><td>6 – 10</td></tr>
+      <tr><td>مواقف السيارات — عادي</td><td>6</td></tr>
+      <tr><td>مواقف السيارات — وضع الدخان</td><td>10</td></tr>
+      <tr><td>المطابخ التجارية</td><td>تُحسب من الهود، لا بالـACH</td></tr>
+    </table>
+    <div class="tip tip-green"><strong>مضاف — الهواء النقي للأشخاص (ASHRAE 62.1):</strong> لا يُحسب بالـACH بل لكل شخص ولكل متر مربع. للمكاتب نحو <span class="ltr">2.5 L/s</span> للشخص + <span class="ltr">0.3 L/s</span> لكل م².</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🚗 تهوية المواقف</div>
+    <table class="tbl">
+      <tr><th>النظام</th><th>الوصف</th></tr>
+      <tr><td><strong>Ducted</strong></td><td>شبكة دكت تسحب العادم من نقاط موزعة. تأخذ من ارتفاع السقف</td></tr>
+      <tr><td><strong>Ductless (Jet Fans)</strong></td><td>مراوح نفاثة معلقة تدفع الهواء أفقيًا نحو مراوح السحب الرئيسية. بلا دكت، وتوفر الارتفاع</td></tr>
+    </table>
+    <table class="tbl">
+      <tr><th>الوضع</th><th>المعدل (من ملخصك)</th></tr>
+      <tr><td>Normal — طرد عوادم السيارات</td><td>6 ACH أو 7.5 L/s لكل م²</td></tr>
+      <tr><td>Smoke — عند الحريق</td><td>10 ACH أو 10 L/s لكل م²</td></tr>
+    </table>
+    <div class="tip tip-purple"><strong>🟣 من ملخصك:</strong> فتحات السحب تُوزَّع على مستويين، علوي وسفلي (غالبًا نصف ونصف)، لتلتقط الغازات على اختلاف حرارتها وكثافتها. والأرقام تختلف بين الدول ومتطلبات الدفاع المدني. وتعمل المراوح على حساسات CO.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🍳 تهوية المطابخ التجارية</div>
+    <table class="tbl">
+      <tr><th>نوع الهود</th><th>المكان</th></tr>
+      <tr><td>Wall-Mounted Canopy</td><td>معدات على الجدار. الأشيع والأقل هواءً</td></tr>
+      <tr><td>Single Island Canopy</td><td>صف معدات في وسط المطبخ</td></tr>
+      <tr><td>Double Island Canopy</td><td>صفان ظهرًا لظهر في الوسط</td></tr>
+    </table>
+    <div class="tip tip-blue"><strong>كمية العادم</strong> تعتمد على نوع الهود وطوله و<strong>تصنيف المعدات</strong> (Light و Medium و Heavy و Extra Heavy): شواية الفحم تحتاج أضعاف ما تحتاجه غلاية الماء. يحددها استشاري المطابخ.</div>
+    <span class="cls cls-mem">🟢 للحفظ</span>
+    <div class="formula-box">هواء التعويض Makeup ≈ 80 – 90% من العادم</div>
+    <div class="tip tip-purple"><strong>🟣 لماذا ليس 100%؟</strong> حتى يبقى المطبخ تحت <strong>ضغط سالب</strong> خفيف، فتدخل الـ10–20% الباقية من صالة الطعام إلى المطبخ، ولا تخرج روائح الطبخ إلى الصالة.</div>
+    <div class="tip tip-green"><strong>من ملخصك:</strong> المطبخ يُبرَّد بـAHU لا بـFCU، لأن حمله الكامن وهواءه النقي عاليان والـFCU لا يتحكم بالرطوبة. ودكت العادم من صاج أسود ملحوم أو ستانلس. والمراجع: NFPA 96 و ASHRAE 154.</div>
+  </div>
+</div>
+
+<!-- ══════════ تصحيحات ══════════ -->
+<div class="section" id="s-fix">
+  <div class="card">
+    <div class="card-title">🔴 ما صححته في ملخصك</div>
+    <table class="tbl">
+      <tr><th>ما كتبتَه</th><th>الصحيح</th></tr>
+      <tr><td>الماء يخرج من الكوندنسر ويروح للـAHU</td><td>الماء المثلج يخرج من <strong>المبخر</strong></td></tr>
+      <tr><td>الهواء دخل AHU 22 ورجع 28</td><td>يدخل الملف نحو 24–27°C ويخرج نحو 13°C</td></tr>
+      <tr><td>نسبة الرطوبة = بخار الهواء ÷ بخار الماء</td><td>كتلة البخار ÷ كتلة الهواء الجاف</td></tr>
+      <tr><td>Wet Bulb: أقل درجة نقدر نبخّر بها</td><td>قراءة ترمومتر مبلول يبرّده التبخر</td></tr>
+      <tr><td>VAV تتحكم بدرجة حرارة الهواء</td><td>تتحكم بكمية الهواء</td></tr>
+      <tr><td>Internal Static Pressure</td><td>المطلوب External Static Pressure (ESP)</td></tr>
+      <tr><td>معايير المطابخ "50"</td><td>ASHRAE 154 و NFPA 96</td></tr>
+      <tr><td>الترددي "انتهى وما عاد له استخدام"</td><td>قلّ في التشيلرات، وما زال في التبريد الصغير</td></tr>
+      <tr><td>نسوي Over size حتى لو هدر</td><td>هامش 5–10% فقط. التكبير الزائد يضر بالرطوبة وعمر المعدة</td></tr>
+      <tr><td>Bedding · free way · Gage valve · dumper · Misting box · نيرف · هيبو</td><td>Bidding · Three-way · Gate valve · Damper · Mixing box · MERV · HEPA</td></tr>
+    </table>
+    <div class="tip tip-amber"><strong>محاضرات ناقصة في ملخصك:</strong> الثالثة والخامسة والسادسة كانت قراءة كتالوجات أو لم تُكتب. عوّضتها بتبويب "اختيار المعدات" وتبويب "توزيع الهواء"، وهما مكتوبان من المراجع وليسا من المحاضرة.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">🧭 قلتَ إنك تريد مراجعة الديناميكا الحرارية وانتقال الحرارة</div>
+    <div class="tip tip-blue">ما تحتاجه منهما للتكييف محدود، وهو موجود في هذه الصفحة:</div>
+    <table class="tbl">
+      <tr><th>المفهوم</th><th>أين في الصفحة</th></tr>
+      <tr><td>المحسوس والكامن والإنثالبي</td><td>تبويب الأساسيات</td></tr>
+      <tr><td>طرق انتقال الحرارة و <span class="ltr">Q = U·A·ΔT</span></td><td>الأساسيات والأحمال</td></tr>
+      <tr><td><span class="ltr">Q = ṁ·c_p·ΔT</span> للهواء والماء</td><td>الأساسيات</td></tr>
+      <tr><td>دورة التبريد والتبخر والتكثف</td><td>تبويب الأنظمة</td></tr>
+      <tr><td>خصائص الهواء الرطب</td><td>تبويب السايكرومتري</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════ أسئلة ══════════ -->
+<div class="section" id="s-quiz">
+  <div class="card">
+    <div class="card-title">📝 اختبر نفسك — جاوب قبل ما تفتح الحل</div>
+    <details class="qa"><summary>1) ما الفرق بين الحمل المحسوس والكامن؟ وأعطِ مصدرًا لكل منهما.</summary><div class="ans-box">المحسوس يغيّر درجة الحرارة (شمس، إضاءة). الكامن يغيّر كمية بخار الماء (تنفس وعرق الناس، الطبخ).</div></details>
+    <details class="qa"><summary>2) حوّل 10 أطنان تبريد إلى kW وإلى Btu/h.</summary><div class="ans-box"><span class="ltr">35.17 kW = 120,000 Btu/h</span></div></details>
+    <details class="qa"><summary>3) هواء عند 100% رطوبة نسبية. ما العلاقة بين الحرارة الجافة والرطبة ونقطة الندى؟</summary><div class="ans-box">الثلاث متساوية.</div></details>
+    <details class="qa"><summary>4) لماذا يتكوّن ماء على ماسورة الماء المثلج غير المعزولة؟</summary><div class="ans-box">سطحها أبرد من نقطة ندى الهواء المحيط، فيتكثف بخار الماء عليها.</div></details>
+    <details class="qa"><summary>5) ما العملية السايكرومترية التي تحدث على ملف المكيف؟ وما اتجاهها على الخريطة؟</summary><div class="ans-box">تبريد وإزالة رطوبة. يسار وأسفل.</div></details>
+    <details class="qa"><summary>6) غرفة حملها المحسوس 24,000 Btu/h وفرق الحرارة 20°F. كم CFM؟</summary><div class="ans-box"><span class="ltr">24,000 / (1.08 × 20) = 1111 CFM</span></div></details>
+    <details class="qa"><summary>7) تشيلر 200 طن وفرق حرارة الماء 10°F. كم تدفق الماء المثلج؟</summary><div class="ans-box"><span class="ltr">24 × 200 / 10 = 480 gpm</span></div></details>
+    <details class="qa"><summary>8) رتّب مكونات دورة التبريد واذكر أين يتبخر الفريون وأين يتكثف.</summary><div class="ans-box">ضاغط ← مكثف (يتكثف ويطرد الحرارة) ← صمام تمدد ← مبخر (يتبخر ويسحب الحرارة) ← ضاغط.</div></details>
+    <details class="qa"><summary>9) ماذا يعني DX؟</summary><div class="ans-box">Direct Expansion: الفريون يتبخر في الملف الذي يلمسه هواء الغرفة مباشرة، بلا وسيط.</div></details>
+    <details class="qa"><summary>10) اذكر ثلاثة أسباب لاستخدام الماء المثلج بدل الفريون في المباني الكبيرة.</summary><div class="ans-box">حدود طول مواسير الفريون ورجوع الزيت · خطر تسرب كمية فريون كبيرة · كفاءة وسعة التشيلر المركزي · سهولة الصيانة · توفير المساحة.</div></details>
+    <details class="qa"><summary>11) مشروع 1500 طن والماء متوفر. هوائي أم مائي؟ ولماذا؟</summary><div class="ans-box">مائي Water-Cooled: السعة كبيرة وكفاءته أعلى بنحو النصف في استهلاك الكهرباء.</div></details>
+    <details class="qa"><summary>12) مكيف سعته الاسمية 5 طن. لماذا قد لا يكفي حملًا قدره 5 طن في مكة؟</summary><div class="ans-box">السعة الاسمية عند جو 35°C. عند 46–48°C تنزل 10–20%.</div></details>
+    <details class="qa"><summary>13) ما معنى Throw و NC و Ak في جدول المخارج؟</summary><div class="ans-box">Throw مدى الرمي. NC مستوى الصوت. Ak المساحة الفعالة للمخرج.</div></details>
+    <details class="qa"><summary>14) دكت يحمل 600 L/s بسرعة 5 m/s وارتفاعه 250 مم. كم عرضه؟ وهل النسبة مقبولة؟</summary><div class="ans-box"><span class="ltr">A = 0.6/5 = 0.12 m²</span>، العرض <span class="ltr">0.12/0.25 = 0.48 → 500 mm</span>. النسبة <span class="ltr">500/250 = 2</span> ✓.</div></details>
+    <details class="qa"><summary>15) ما هو المسار الحرج Critical Path؟ ولماذا نحسب الضغط الساكن عليه فقط؟</summary><div class="ans-box">المسار الأكبر فقدًا من الوحدة لأبعد مخرج. إذا تغلبت المروحة عليه وصل الهواء لكل المخارج الأخرى.</div></details>
+    <details class="qa"><summary>16) ما الفرق بين محبس الموازنة ومحبس التحكم؟</summary><div class="ans-box">الموازنة يُضبط مرة واحدة ليحدد أقصى تدفق. التحكم بمحرك ويغيّر التدفق باستمرار حسب الحمل.</div></details>
+    <details class="qa"><summary>17) لماذا يُعمل Bypass للحد الأدنى من التدفق عند التشيلر؟</summary><div class="ans-box">حتى لا ينزل تدفق المبخر تحت الحد الأدنى فيتجمد الماء ويكسر الأنابيب.</div></details>
+    <details class="qa"><summary>18) موقف 40 × 30 × 3 م. كم هواء العادم في الوضع العادي (6 ACH)؟</summary><div class="ans-box"><span class="ltr">3600 m³ × 6 = 21,600 m³/h = 6000 L/s</span></div></details>
+    <details class="qa"><summary>19) عادم هود مطبخ 3000 L/s. كم هواء التعويض؟ ولماذا ليس مساويًا؟</summary><div class="ans-box"><span class="ltr">2400 – 2700 L/s</span>. ليبقى المطبخ بضغط سالب فلا تخرج الروائح للصالة.</div></details>
+    <details class="qa"><summary>20) لماذا لا يصلح FCU لمطبخ أو قاعة مزدحمة؟</summary><div class="ans-box">لا يتحكم بالرطوبة ولا يعالج هواءً نقيًّا كثيرًا، والحمل الكامن في هذه الأماكن عالٍ.</div></details>
+  </div>
+</div>
+
+<!-- JS -->
+<script>
+function show(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('s-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+function toggleTheme(){
+  const html=document.documentElement;
+  const isLight=html.getAttribute('data-theme')==='light';
+  html.setAttribute('data-theme',isLight?'dark':'light');
+  document.getElementById('themeBtn').textContent=isLight?'🌙':'☀️';
+  try{localStorage.setItem('mech-theme',isLight?'dark':'light')}catch(e){}
+}
+(function(){
+  try{
+    const t=localStorage.getItem('mech-theme');
+    if(t==='light'){
+      document.documentElement.setAttribute('data-theme','light');
+      document.addEventListener('DOMContentLoaded',()=>{
+        const b=document.getElementById('themeBtn');
+        if(b)b.textContent='☀️';
+      });
+    }
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
