@@ -1,4 +1,13 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px sans-serif;background:#fff;color:#000}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px sans-serif;background:#fff;color:#000}[hidden]:not([hidden=until-found i]){display:none!important}/* ── Added 2026-11: notes merge ── */
+.tip-purple{background:rgba(192,132,252,.13);border-right:3px solid #c084fc}
+.ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
+td.ltr,div.ltr{display:revert}
+div.formula.ltr{text-align:center}
+.ltr-svg{direction:ltr}
+.qa{border:1px solid var(--border);border-radius:8px;margin:8px 0;background:rgba(148,163,184,.08)}
+.qa summary{cursor:pointer;padding:10px 12px;font-weight:700;line-height:1.6;font-size:13px}
+.qa .ans-box{padding:10px 12px;border-top:1px solid var(--border);color:var(--green,#16a34a);font-weight:700;line-height:1.8;font-size:13px}
+</style></head><body>
 <title>مرجع إطفاء الحريق</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -266,6 +275,12 @@ tr:nth-child(even) td{background:var(--surface2);}
   <button class="nav-btn" onclick="show('coord',this)">📐 التنسيق</button>
   <button class="nav-btn" onclick="show('codes',this)">📜 الاستثناءات</button>
   <button class="nav-btn" onclick="show('site',this)">🔩 الموقع</button>
+  <button class="nav-btn" onclick="show('life',this)">🚨 السلامة والإنذار</button>
+  <button class="nav-btn" onclick="show('ext',this)">🧯 الطفايات والعساكر</button>
+  <button class="nav-btn" onclick="show('gasc',this)">💨 مكونات الغاز والمطابخ</button>
+  <button class="nav-btn" onclick="show('itm',this)">🛠️ الصيانة NFPA 25</button>
+  <button class="nav-btn" onclick="show('mine',this)">🟣 أسئلتي وتصحيحاتي</button>
+  <button class="nav-btn" onclick="show('quiz',this)">📝 أسئلة</button>
 </nav>
 
 <div class="content">
@@ -413,7 +428,7 @@ tr:nth-child(even) td{background:var(--surface2);}
         <tr><td>&gt; 13 bar</td><td><strong>17 bar</strong></td></tr>
       </table>
     </div>
-    <div class="tip tip-amber"><strong>المبدأ:</strong> ضغط اختبار ≈ ضغط الشبكة + 3 bar (بحد أدنى 14 bar). تحقق من الكود المعتمد لمشروعك.</div>
+    <div class="tip tip-amber"><strong>المبدأ:</strong> ضغط اختبار ≈ ضغط الشبكة + 3 bar (بحد أدنى 14 bar). تحقق من الكود المعتمد لمشروعك. نص NFPA 13: 200 psi (13.8 bar) لمدة ساعتين، أو ضغط التشغيل + 50 psi إذا تجاوز 150 psi، بلا تسريب ظاهر.</div>
   </div>
 </div>
 
@@ -470,7 +485,8 @@ tr:nth-child(even) td{background:var(--surface2);}
     <div class="tbl-wrap">
       <table>
         <tr><th>البند</th><th>القيمة المرجعية</th></tr>
-        <tr><td>أقل مسافة بين رشاشين</td><td>~100 مم</td></tr>
+        <tr><td>أقل مسافة بين رشاشين</td><td>~1.8 م (6 ft)</td></tr>
+        <tr><td>أقل مسافة بين الرشاش والجدار</td><td>~100 مم</td></tr>
         <tr><td>أكبر مسافة بين رشاشين</td><td>~4.6 م</td></tr>
         <tr><td>أقصى ضغط في الشبكة</td><td>~24.1 bar</td></tr>
         <tr><td>ضغط عسكر الحريق (Hydrant)</td><td>~6.9 bar</td></tr>
@@ -2332,6 +2348,420 @@ tr:nth-child(even) td{background:var(--surface2);}
     <div class="tip tip-amber" style="margin-top:8px">نتيجة هذا الاختبار هي الحد الأقصى للضغط والتدفق الذي يمكن الاعتماد عليه في التصميم. لا تصمّم نظاماً يطلب أكثر مما توفّره شبكة المدينة.</div>
   </div>
 
+</div>
+
+
+<!-- ══════════ السلامة والإنذار (مضاف 2026-11) ══════════ -->
+<div class="section" id="s-life">
+
+  <div class="card">
+    <div class="card-title">🚨 الحريق ليس شغل الميكانيكي وحده</div>
+    <div class="tip tip-purple"><strong>🟣 من ملخصك (المحاضرة الأولى):</strong> تقرير السلامة الذي يُرفع للدفاع المدني يجمع ثلاثة تخصصات. الدفاع المدني يعتمد التصميم على الورق ثم يطابقه على الواقع قبل إصدار الترخيص.</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>التخصص</th><th>مسؤوليته</th></tr>
+        <tr><td><strong>المعماري</strong></td><td>مخارج الهروب وعددها وعرضها، مسافات الارتحال، الممرات، مقاومة الجدران والأبواب للحريق، خطة الإخلاء</td></tr>
+        <tr><td><strong>الكهربائي</strong></td><td>نظام الإنذار، الإضاءة ولوحات الطوارئ، ربط الأنظمة بلوحة الإنذار</td></tr>
+        <tr><td><strong>الميكانيكي</strong></td><td>شبكة الإطفاء، المضخات والخزانات، التحكم بالدخان وتضغيط السلالم</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🚪 مفاهيم الهروب (شغل المعماري الذي لازم تفهمه)</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>المفهوم</th><th>المعنى</th><th>ملاحظة</th></tr>
+        <tr><td><strong>Travel Distance</strong><br>مسافة الارتحال</td><td>أطول مسافة يمشيها الشخص من أي نقطة حتى يصل مخرجًا محميًا</td><td>تقصر في المستشفيات لأن المرضى بطيئون، وتزيد إذا كان المبنى مرشوشًا</td></tr>
+        <tr><td><strong>Dead End</strong><br>الممر الميت</td><td>ممر نهايته جدار، من يدخله يضطر للرجوع</td><td>له طول أقصى في الكود</td></tr>
+        <tr><td><strong>Exit Stair</strong><br>سلم الهروب</td><td>سلم داخل غلاف مقاوم للحريق يربط كل الأدوار ويؤدي للخارج</td><td>لهذا يوضع فيه صاعد الحريق</td></tr>
+        <tr><td><strong>Door Swing</strong></td><td>باب المخرج يفتح <strong>باتجاه الهروب</strong></td><td>حتى لا يسده تدافع الناس</td></tr>
+        <tr><td><strong>Occupant Load</strong></td><td>عدد الأشخاص المحسوب للمكان</td><td>يحدد عدد المخارج وعرضها</td></tr>
+        <tr><td><strong>Evacuation Plan</strong></td><td>سيناريو الإخلاء ومساراته</td><td>يُعلّق في الممرات</td></tr>
+      </table>
+    </div>
+    <div class="warn">⚠️ الأرقام (مسافة الارتحال، طول الممر الميت، عدد المخارج) تختلف حسب نوع الإشغال. مرجعها SBC 801 و NFPA 101، ولا تُحفظ كرقم واحد.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔔 لوحة الإنذار — ماذا تفعل عند الحريق؟</div>
+    <div class="tip tip-purple"><strong>🟣 من ملخصك:</strong> نظام الإنذار ليس مجرد حساس. اللوحة تستقبل إشارة ثم تُصدر أوامر لأنظمة المبنى. هذا يسمى <strong>Cause &amp; Effect</strong>.</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>النظام</th><th>أمر اللوحة</th><th>السبب</th></tr>
+        <tr><td>المصاعد</td><td>تنزل للدور الأرضي، تفتح أبوابها، وتخرج من الخدمة</td><td>حتى لا يُحبس أحد عند انقطاع الكهرباء</td></tr>
+        <tr><td>السلالم الكهربائية</td><td>تتوقف</td><td>منع التكدس والسقوط</td></tr>
+        <tr><td>الأبواب الآلية والمقفلة إلكترونيًا</td><td>تُفتح وتُحرَّر</td><td>لا يتعطل الهروب</td></tr>
+        <tr><td>وحدات التكييف AHU</td><td>تتوقف وتُغلق خوانق الدخان</td><td>الهواء ينشر الدخان ويغذي النار</td></tr>
+        <tr><td>مراوح تضغيط السلالم وسحب الدخان</td><td>تشتغل</td><td>تبقى مسارات الهروب صافية</td></tr>
+        <tr><td>صمام الغاز الرئيسي</td><td>يُغلق</td><td>قطع الوقود</td></tr>
+      </table>
+    </div>
+    <div class="tip tip-red"><strong>🔴 تصحيح:</strong> كتبتَ أن المصاعد "تبقى أبوابها مفتوحة وينقطع عنها الكهرباء". الصحيح أنها <strong>تنزل أولًا للدور المحدد</strong> ثم تفتح وتتوقف.</div>
+    <div class="tip tip-blue"><strong>مضخات الحريق لا تنتظر اللوحة:</strong> تشتغل تلقائيًا من هبوط الضغط في الشبكة. اللوحة فقط تراقب حالتها.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔗 نقاط الربط بين شبكة الإطفاء والإنذار</div>
+    <span class="cls cls-mem">🟢 للحفظ</span>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>القطعة</th><th>مكانها</th><th>الإشارة</th></tr>
+        <tr><td><strong>Flow Switch</strong><br>مفتاح التدفق</td><td>مجموعة التحكم ZCV لكل دور أو منطقة</td><td><strong>إنذار حريق:</strong> ماء يجري = رشاش انفتح، ويحدد الدور</td></tr>
+        <tr><td><strong>Tamper Switch</strong><br>مفتاح المراقبة</td><td>على كل محبس عزل (OS&amp;Y أو Butterfly)</td><td><strong>إشارة إشرافية:</strong> أحد أغلق المحبس أو حرّكه</td></tr>
+        <tr><td><strong>Pressure Switch</strong></td><td>خطوط المضخات، ومحابس Dry و Pre-action</td><td>تشغيل المضخة أو تأكيد انطلاق النظام</td></tr>
+      </table>
+    </div>
+    <div class="tip tip-green">هذا معنى "المحبس المراقب" في ملخصك: المراقبة الكهربائية = Tamper Switch، والميكانيكية = جنزير وقفل.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🚗 حساسات أول أكسيد الكربون في المواقف</div>
+    <div class="tip tip-red"><strong>🔴 تصحيح:</strong> كتبتَ "نظام الكربون... إذا قل الأكسجين". الحساس يقيس <strong>ارتفاع غاز CO</strong> (عادم السيارات) وليس نقص الأكسجين. وهو نظام <strong>تهوية</strong> وليس مكافحة حريق.</div>
+    <div class="tip tip-blue">إذا تجاوز تركيز CO الحد المضبوط تشتغل مراوح السحب. وعند الحريق تتحول نفس المراوح إلى وضع سحب الدخان بسرعة أعلى.</div>
+  </div>
+</div>
+
+<!-- ══════════ الطفايات والعساكر ══════════ -->
+<div class="section" id="s-ext">
+
+  <div class="card">
+    <div class="card-title">🧯 أنواع الطفايات وماذا تطفئ</div>
+    <div class="tip tip-red"><strong>🔴 تصحيحان:</strong> (1) كتبتَ "مافي طفايات موية". توجد طفايات ماء، وتستخدم لحرائق A فقط وتعمل بالتبريد. (2) كتبتَ أن CO2 يسيطر على زيوت الطعام. حرائق المطابخ K تُطفأ بالـ<strong>Wet Chemical</strong>.</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>الطفاية</th><th>الفئات</th><th>طريقة الإطفاء</th><th>أين</th></tr>
+        <tr><td><strong>ماء Water</strong></td><td>A</td><td>تبريد</td><td>مخازن ورق وخشب</td></tr>
+        <tr><td><strong>بودرة ABC</strong> Dry Chemical</td><td>A · B · C</td><td>قطع التفاعل الكيميائي</td><td>الأشيع في المباني (6 كجم)</td></tr>
+        <tr><td><strong>CO2</strong></td><td>B · C</td><td>إزاحة الأكسجين</td><td>لوحات الكهرباء والسيرفرات (لا تترك أثرًا)</td></tr>
+        <tr><td><strong>رغوة Foam</strong></td><td>A · B</td><td>غطاء يعزل السطح</td><td>وقود وسوائل</td></tr>
+        <tr><td><strong>Wet Chemical</strong></td><td>K (و A)</td><td>تصبّن: طبقة رغوية تعزل الزيت وتبرده</td><td>المطابخ التجارية</td></tr>
+        <tr><td><strong>Dry Powder</strong></td><td>D</td><td>خنق المعدن المشتعل</td><td>ورش المعادن</td></tr>
+      </table>
+    </div>
+    <div class="tip tip-red"><strong>🔴 تصحيح:</strong> كتبتَ "اللايت هزرد A". فئة A هي حرائق <strong>المواد الصلبة العادية</strong> (خشب، ورق، قماش). تصنيف الخطورة Light/Ordinary/Extra موضوع مختلف عن فئات الحرائق.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🏷️ قراءة ملصق الطفاية — Rating</div>
+    <div class="formula ltr">2-A : 10-B : C</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>الجزء</th><th>معناه</th></tr>
+        <tr><td><strong>الرقم قبل A</strong></td><td>قدرة الإطفاء مقارنة بالماء. كلما كبر الرقم كبرت القدرة</td></tr>
+        <tr><td><strong>الرقم قبل B</strong></td><td>مساحة حريق السائل (بالقدم المربع) التي يطفئها شخص غير محترف</td></tr>
+        <tr><td><strong>C</strong></td><td>بدون رقم: يعني أن المادة غير موصلة للكهرباء فقط</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📍 توزيع الطفايات — NFPA 10</div>
+    <span class="cls cls-ver">🔴 تحقق من الكود</span>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>الفئة</th><th>أقصى مسافة مشي للوصول لطفاية</th></tr>
+        <tr><td>A</td><td>≈ 23 م (75 ft)</td></tr>
+        <tr><td>B</td><td>≈ 9 أو 15 م (30 أو 50 ft) حسب حجم الطفاية</td></tr>
+        <tr><td>K</td><td>≈ 9 م (30 ft) من مصدر الخطر</td></tr>
+      </table>
+    </div>
+    <div class="tip tip-blue"><strong>التركيب:</strong> ظاهرة وغير محجوبة، على مسار الخروج، وقمتها لا تعلو نحو 1.5 م عن الأرض. الأوزان المتوفرة 1، 2، 6 (الأشهر)، 9، 12 كجم كما في ملخصك.</div>
+    <div class="tip tip-green"><strong>طريقة الاستخدام PASS:</strong> Pull اسحب المسمار · Aim وجّه لقاعدة اللهب · Squeeze اضغط · Sweep حرّك يمينًا ويسارًا.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🚒 عساكر الحريق Hydrants — "ما فهمتها"</div>
+    <div class="tip tip-purple"><strong>🟣 سؤالك عن النوعين:</strong> الذي سمعته على الأرجح أحد هذين التقسيمين، وكلاهما مستخدم:</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>التقسيم</th><th>النوع الأول</th><th>النوع الثاني</th></tr>
+        <tr><td><strong>حسب مصدر الماء</strong></td><td><strong>عسكري عام:</strong> على شبكة البلدية في الشارع</td><td><strong>عسكري خاص Yard Hydrant:</strong> داخل حدود المشروع ويتغذى من مضخات المشروع</td></tr>
+        <tr><td><strong>حسب المخارج</strong></td><td>مخرجان 2.5 بوصة للخراطيم فقط</td><td>مخرجان 2.5 بوصة + مخرج كبير (Pumper) تشبك منه سيارة الإطفاء لتعبئة خزانها أو السحب بمضختها</td></tr>
+        <tr><td><strong>حسب البرميل</strong></td><td><strong>Wet Barrel:</strong> الماء واصل للمخارج (المناخ الحار)</td><td><strong>Dry Barrel:</strong> المحبس تحت الأرض والبرميل فارغ (مناطق الصقيع)</td></tr>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>البند</th><th>القيمة من ملخصك</th><th>ملاحظة</th></tr>
+        <tr><td>الضغط</td><td>6.9 bar</td><td>—</td></tr>
+        <tr><td>التدفق</td><td>500 gpm</td><td>لكل عسكري</td></tr>
+        <tr><td>المسافة بين عسكريين</td><td>100 م</td><td>🔴 هذه مسافة <strong>قصوى</strong> وليست دنيا كما كتبتَ</td></tr>
+        <tr><td>البعد عن المبنى</td><td>لا يقل عن 12.2 م (40 ft)</td><td>لسلامة رجل الإطفاء من انهيار الواجهة</td></tr>
+        <tr><td>قطر التغذية</td><td>5 بوصة حسب المحاضر</td><td>NFPA 24 يطلب 6 بوصة كحد أدنى. راجع الكود</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ مكونات نظام الغاز والمطابخ ══════════ -->
+<div class="section" id="s-gasc">
+
+  <div class="card">
+    <div class="card-title">💨 مكونات نظام الغاز — "أغلب الأدوات ما فهمتها"</div>
+    <div class="tip tip-purple"><strong>🟣 الفكرة:</strong> غرفة مغلقة فيها معدات حساسة (سيرفرات، لوحات). عند الحريق تُغمر بغاز يطفئ دون أن يتلف المعدات. تخيّل النظام ثلاثة أجزاء: <strong>يكشف</strong>، <strong>ينبّه ويقرر</strong>، <strong>يطلق</strong>.</div>
+    <div style="overflow-x:auto">
+    <svg class="ltr-svg" width="640" height="330" viewBox="0 0 640 330" style="display:block;min-width:540px;margin:10px auto;font-family:Tajawal,sans-serif">
+      <rect x="150" y="40" width="330" height="230" fill="rgba(96,165,250,.08)" stroke="#94a3b8" stroke-width="3"/>
+      <text x="315" y="262" text-anchor="middle" font-size="11" fill="#94a3b8">الغرفة المحمية</text>
+      <rect x="150" y="150" width="6" height="70" fill="#fbbf24"/>
+      <text x="162" y="236" font-size="10" fill="#fbbf24">الباب</text>
+      <!-- cylinder -->
+      <rect x="40" y="130" width="44" height="130" rx="16" fill="rgba(248,113,113,.25)" stroke="#f87171" stroke-width="2"/>
+      <text x="62" y="205" text-anchor="middle" font-size="10" fill="#f87171" font-weight="900">الأسطوانة</text>
+      <rect x="52" y="108" width="20" height="22" fill="#f87171"/>
+      <text x="62" y="100" text-anchor="middle" font-size="9" fill="#f87171">رأس الإطلاق</text>
+      <circle cx="96" cy="150" r="9" fill="none" stroke="#4ade80" stroke-width="2"/><text x="110" y="154" font-size="9" fill="#4ade80">عداد</text>
+      <!-- pipe -->
+      <path d="M62,108 L62,70 L400,70" fill="none" stroke="#f87171" stroke-width="5"/>
+      <line x1="230" y1="70" x2="230" y2="92" stroke="#f87171" stroke-width="5"/><line x1="400" y1="70" x2="400" y2="92" stroke="#f87171" stroke-width="5"/>
+      <path d="M218,92 L242,92 L236,104 L224,104 Z" fill="#f87171"/><path d="M388,92 L412,92 L406,104 L394,104 Z" fill="#f87171"/>
+      <text x="315" y="112" text-anchor="middle" font-size="10" fill="#f87171" font-weight="900">Nozzles فوهات التوزيع</text>
+      <!-- detectors -->
+      <circle cx="290" cy="48" r="7" fill="#60a5fa"/><circle cx="350" cy="48" r="7" fill="#60a5fa"/>
+      <text x="320" y="34" text-anchor="middle" font-size="10" fill="#60a5fa" font-weight="900">كاشفا دخان (منطقتان)</text>
+      <!-- panel -->
+      <rect x="500" y="130" width="100" height="70" rx="6" fill="rgba(192,132,252,.2)" stroke="#c084fc" stroke-width="2"/>
+      <text x="550" y="160" text-anchor="middle" font-size="11" fill="#c084fc" font-weight="900">Control Panel</text>
+      <text x="550" y="178" text-anchor="middle" font-size="9" fill="#c084fc">لوحة التحكم</text>
+      <line x1="350" y1="48" x2="550" y2="48" stroke="#60a5fa" stroke-dasharray="4,3"/><line x1="550" y1="48" x2="550" y2="130" stroke="#60a5fa" stroke-dasharray="4,3"/>
+      <path d="M550,200 L550,300 L62,300 L62,260" fill="none" stroke="#c084fc" stroke-dasharray="4,3"/>
+      <text x="300" y="316" text-anchor="middle" font-size="10" fill="#c084fc">أمر الإطلاق إلى Solenoid</text>
+      <!-- outside devices -->
+      <rect x="100" y="48" width="38" height="16" fill="#fbbf24"/><text x="119" y="42" text-anchor="middle" font-size="9" fill="#fbbf24">جرس + فلاش</text>
+      <rect x="112" y="168" width="14" height="14" fill="#f87171"/><text x="96" y="194" font-size="8" fill="#f87171">Manual</text>
+      <rect x="130" y="168" width="14" height="14" fill="#4ade80"/><text x="128" y="206" font-size="8" fill="#4ade80">Abort</text>
+    </svg>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>القطعة</th><th>وظيفتها بكلمات بسيطة</th></tr>
+        <tr><td><strong>Cylinder</strong></td><td>تخزّن الغاز مضغوطًا</td></tr>
+        <tr><td><strong>Pressure Gauge</strong></td><td>أخضر: سليم. أصفر: الضغط نازل (تسريب أو برودة). أحمر: زائد</td></tr>
+        <tr><td><strong>Electrical Actuator</strong> (Solenoid)</td><td>يفتح الأسطوانة بإشارة كهربائية من اللوحة</td></tr>
+        <tr><td><strong>Manual Actuator</strong></td><td>ذراع على رأس الأسطوانة يفتحها يدويًا إذا تعطلت الكهرباء</td></tr>
+        <tr><td><strong>Flexible Hose</strong></td><td>وصلة مرنة بين الأسطوانة والماسورة لتسهيل التركيب والاستبدال</td></tr>
+        <tr><td><strong>Check Valve</strong></td><td>يمنع رجوع الغاز، ضروري عند توصيل أكثر من أسطوانة على خط واحد</td></tr>
+        <tr><td><strong>Smoke Detectors</strong></td><td>تكشف الحريق. تُقسم على <strong>منطقتين</strong> حتى لا ينطلق الغاز من إنذار كاذب</td></tr>
+        <tr><td><strong>Control Panel</strong></td><td>تستقبل الكواشف وتشغّل الإنذارات والعدّ التنازلي وتأمر بالإطلاق</td></tr>
+        <tr><td><strong>Alarm Bell</strong></td><td>ينبّه عند أول كاشف</td></tr>
+        <tr><td><strong>Horn / Strobe</strong></td><td>بوق وفلاش عند الكاشف الثاني: "اخرج الآن، الغاز سينطلق"</td></tr>
+        <tr><td><strong>Manual Release</strong></td><td>زر عند الباب يطلق الغاز يدويًا فورًا</td></tr>
+        <tr><td><strong>Abort Station</strong></td><td>زر <strong>يوقف العدّ التنازلي ما دمت ضاغطًا عليه</strong></td></tr>
+        <tr><td><strong>Pressure Switch</strong></td><td>يتأكد أن الغاز انطلق فعلًا، ويضيء لوحة "الغاز انطلق"</td></tr>
+        <tr><td><strong>Discharge Nozzle</strong></td><td>توزّع الغاز في الغرفة بانتظام</td></tr>
+      </table>
+    </div>
+    <div class="tip tip-purple"><strong>🟣 سؤالك "Abort ما فهمت فائدتها":</strong> إذا كان الإنذار كاذبًا أو فيه شخص لم يخرج بعد، يضغط عليه فيتوقف العدّ. إذا تركه يُكمل العدّ. فائدته منع إطلاق غاز غالٍ بلا داعٍ وحماية من في الغرفة. والإطلاق اليدوي أقوى منه.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⏱️ تسلسل التشغيل</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>الكاشف الأول</strong> يكشف دخانًا ← يرن الجرس. لا إطلاق.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>الكاشف الثاني</strong> (من المنطقة الأخرى) يؤكد ← بوق وفلاش، ويتوقف التكييف وتُغلق الخوانق.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>عدّ تنازلي</strong> (عادة 30 ثانية) ليخرج الأشخاص. زر Abort يوقفه مؤقتًا.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body">اللوحة تأمر الـ<strong>Solenoid</strong> ← ينطلق الغاز خلال نحو 10 ثوانٍ.</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><strong>Pressure Switch</strong> يؤكد الإطلاق ← تضيء لوحة التحذير خارج الباب.</div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-body">تبقى الغرفة مغلقة نحو 10 دقائق ليحافظ الغاز على تركيزه.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚖️ أي غاز آمن للأشخاص؟</div>
+    <div class="tip tip-red"><strong>🔴 تصحيح مهم:</strong> كتبتَ عن نظام الغاز عمومًا "لو المكان يدخل فيه أشخاص حيموتوا". هذا يخص <strong>CO2 فقط</strong>. وكتبتَ أن FM200 "يكسر الأكسجين إلى أتوم". الصحيح أنه يطفئ أساسًا <strong>بامتصاص الحرارة</strong>.</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>الغاز</th><th>طريقة الإطفاء</th><th>تركيز التصميم تقريبًا</th><th>الغرف المأهولة</th></tr>
+        <tr><td><strong>FM-200</strong></td><td>امتصاص الحرارة</td><td>7–8.5%</td><td>✅ آمن عند تركيز التصميم</td></tr>
+        <tr><td><strong>Novec 1230</strong></td><td>امتصاص الحرارة</td><td>4.5–6%</td><td>✅ آمن وهامش أمانه الأكبر</td></tr>
+        <tr><td><strong>Inergen</strong></td><td>يخفض الأكسجين لنحو 12.5%</td><td>35–40%</td><td>✅ آمن لفترة قصيرة</td></tr>
+        <tr><td><strong>CO2</strong></td><td>يزيح الأكسجين</td><td>34% فأكثر</td><td>❌ قاتل. للأماكن غير المأهولة فقط</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🧮 الحساب الذي يعمله المهندس — كمية الغاز</div>
+    <div class="tip tip-purple"><strong>🟣 من ملخصك:</strong> "اللي نحسبه الغرفة وكمية الغاز فقط". صحيح: توزيع المواسير والفوهات تحسبه الشركة المصنّعة ببرنامجها المعتمد، والدفاع المدني لا يستلم بدونه.</div>
+    <div class="tip tip-red"><strong>🔴 تصحيح:</strong> كتبتَ "الأنظمة الخاصة مش موجودة في الكود". لها معايير: <strong>NFPA 2001</strong> للغازات النظيفة و <strong>NFPA 12</strong> لـCO2. الذي لا يوجد في الكود هو حساب جريان الغاز في المواسير.</div>
+    <div class="formula ltr">W = (V / s) × C / (100 − C)</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>الرمز</th><th>المعنى</th></tr>
+        <tr><td class="ltr">W</td><td>وزن الغاز (كجم)</td></tr>
+        <tr><td class="ltr">V</td><td>حجم الغرفة الصافي (م³)</td></tr>
+        <tr><td class="ltr">C</td><td>تركيز التصميم (%)</td></tr>
+        <tr><td class="ltr">s</td><td>الحجم النوعي للغاز (م³/كجم). لـFM-200: <span class="ltr">s = 0.1269 + 0.000513·T</span> (T بالمئوية)</td></tr>
+      </table>
+    </div>
+    <div class="tip tip-green"><strong>مثال:</strong> غرفة 100 م³ عند 20°C بتركيز 7%: <span class="ltr">s = 0.1372</span>، <span class="ltr">W = (100/0.1372) × 7/93 ≈ 55 kg</span> FM-200.</div>
+    <div class="warn">⚠️ ثوابت s وتركيز التصميم تؤخذ من NFPA 2001 وبيانات المصنّع للمشروع الفعلي. الأرقام هنا للفهم.</div>
+    <div class="tip tip-blue"><strong>مكان الأسطوانة (من ملخصك):</strong> الأفضل خارج الغرفة بجانب الباب، وإلا فداخلها بجانب الباب.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🍳 مضاف — نظام إطفاء المطابخ Wet Chemical</div>
+    <div class="tip tip-blue"><strong>لماذا يهمك:</strong> كل مطعم وفندق فيه هذا النظام فوق معدات القلي. مرجعه NFPA 96 (الهود) و NFPA 17A (النظام).</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>القطعة</th><th>وظيفتها</th></tr>
+        <tr><td>أسطوانة المادة الكيميائية</td><td>تخزّن المحلول</td></tr>
+        <tr><td>فوهات فوق كل معدة وداخل الهود والدكت</td><td>ترش المحلول على الزيت ومسار الدهون</td></tr>
+        <tr><td>Fusible Link وصلة منصهرة</td><td>تنقطع بالحرارة فتطلق النظام تلقائيًا</td></tr>
+        <tr><td>Manual Pull Station</td><td>ذراع سحب يدوي على طريق الخروج</td></tr>
+        <tr><td>قطع الغاز والكهرباء تلقائيًا</td><td>يوقف مصدر الحرارة عن المعدات</td></tr>
+        <tr><td>طفاية Class K قريبة</td><td>مساندة يدوية</td></tr>
+      </table>
+    </div>
+    <div class="tip tip-amber"><strong>لماذا لا ماء؟</strong> الماء على زيت مغلي يتبخر فجأة وينثر الزيت المشتعل. المادة الرطبة تتفاعل مع الزيت وتكوّن طبقة رغوية تعزله عن الهواء وتبرده.</div>
+  </div>
+</div>
+
+<!-- ══════════ الصيانة NFPA 25 ══════════ -->
+<div class="section" id="s-itm">
+
+  <div class="card">
+    <div class="card-title">🛠️ مضاف — الفحص والاختبار والصيانة (NFPA 25)</div>
+    <div class="tip tip-blue"><strong>لماذا هذا أهم باب لوظائفك المستهدفة:</strong> مهندس الصيانة والتشغيل لا يصمم الشبكة، بل يحافظ عليها جاهزة. NFPA 13 للتصميم والتركيب، و <strong>NFPA 25 لما بعد التسليم</strong>. هذا الباب لم يكن في الدورة.</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>المصطلح</th><th>المعنى</th></tr>
+        <tr><td><strong>Inspection</strong> فحص</td><td>نظر بالعين: هل القطعة موجودة وسليمة وفي وضعها الصحيح؟</td></tr>
+        <tr><td><strong>Testing</strong> اختبار</td><td>تشغيل فعلي للتأكد من الأداء</td></tr>
+        <tr><td><strong>Maintenance</strong> صيانة</td><td>إصلاح واستبدال وتشحيم</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📅 جدول الدوريات</div>
+    <span class="cls cls-ver">🔴 تحقق من إصدار الكود المعتمد</span>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>الدورية</th><th>العمل</th></tr>
+        <tr><td><strong>أسبوعي</strong></td><td>تشغيل مضخة الديزل بدون تدفق 30 دقيقة · فحص غرفة المضخات · فحص المحابس المختومة</td></tr>
+        <tr><td><strong>أسبوعي أو شهري</strong></td><td>تشغيل المضخة الكهربائية بدون تدفق 10 دقائق (أسبوعيًا إذا كانت تسحب من خزان أرضي)</td></tr>
+        <tr><td><strong>شهري</strong></td><td>فحص المحابس المقفلة أو المراقبة كهربائيًا · قراءة العدادات · فحص الطفايات بالنظر</td></tr>
+        <tr><td><strong>ربع سنوي</strong></td><td>اختبار أجهزة إنذار التدفق · فحص وصلة الدفاع المدني</td></tr>
+        <tr><td><strong>سنوي</strong></td><td>اختبار أداء المضخة بالتدفق الكامل · اختبار Main Drain · فتح وإغلاق كل محبس · فحص الرشاشات والمواسير بالنظر · فحص الكبائن والخراطيم · صيانة الطفايات</td></tr>
+        <tr><td><strong>كل 5 سنوات</strong></td><td>فحص داخلي للمواسير · اختبار تدفق الصواعد · معايرة أو استبدال العدادات</td></tr>
+        <tr><td><strong>بعد عقود</strong></td><td>اختبار عينة من الرشاشات: السريعة بعد نحو 20 سنة، والعادية بعد 50 سنة</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔍 أهم اختبارين تُسأل عنهما</div>
+    <div class="tip tip-green"><strong>التشغيل الأسبوعي بدون تدفق (Churn Test):</strong> نفتح خط الاختبار عند مفتاح الضغط فيهبط الضغط وتشتغل المضخة تلقائيًا. نسجّل ضغط السحب والطرد، ونراقب التسريب من الحشو، والحرارة والاهتزاز. الهدف التأكد أنها <strong>تبدأ وحدها</strong>.</div>
+    <div class="tip tip-green"><strong>اختبار الأداء السنوي:</strong> نقيس الضغط عند ثلاث نقاط ونقارنها بمنحنى المصنع: بدون تدفق (Churn)، عند 100% من التدفق الاسمي، وعند 150%. شروط المضخة السليمة: الضغط عند الـChurn لا يتجاوز 140% من الاسمي، وعند 150% تدفق لا ينزل عن 65%.</div>
+    <div class="tip tip-amber"><strong>اختبار Main Drain:</strong> نفتح المحبس 2 بوصة ونقارن هبوط الضغط بالسنوات السابقة. إذا زاد الهبوط فهناك محبس مغلق جزئيًا أو انسداد في خط التغذية.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚠️ أعطال شائعة يكتشفها الفحص</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>الملاحظة</th><th>السبب المحتمل</th></tr>
+        <tr><td>مضخة الجوكي تشتغل كل بضع دقائق</td><td>تسريب في الشبكة أو محبس عدم رجوع لا يمسك</td></tr>
+        <tr><td>المضخة الرئيسية اشتغلت بلا حريق</td><td>الجوكي معطلة أو ضبط مفاتيح الضغط خاطئ</td></tr>
+        <tr><td>رشاش عليه دهان أو صدأ أو محمّل بالغبار</td><td>يُستبدل، ولا يُنظّف</td></tr>
+        <tr><td>تخزين قريب من الرشاش</td><td>يجب ترك نحو 46 سم (18 بوصة) تحت الرشاش</td></tr>
+        <tr><td>محبس عزل مغلق</td><td>نُسي بعد صيانة. لهذا وُجد الـTamper Switch</td></tr>
+        <tr><td>عداد أسطوانة غاز في الأصفر</td><td>تسريب. يُعاد التعبئة إذا نقص الوزن 5% أو الضغط 10%</td></tr>
+      </table>
+    </div>
+    <div class="tip tip-blue"><strong>صندوق الرشاشات الاحتياطية:</strong> يُحفظ في المبنى صندوق فيه ستة رشاشات احتياطية على الأقل من كل نوع مع مفتاحها.</div>
+  </div>
+</div>
+
+<!-- ══════════ أسئلتي وتصحيحاتي ══════════ -->
+<div class="section" id="s-mine">
+
+  <div class="card">
+    <div class="card-title">🟣 أسئلة كتبتَها في ملخصك</div>
+
+    <div class="tip tip-purple"><strong>"الفرق بين الكود والستاندرد مش واضح... وهل يوجد حد أعلى؟"</strong></div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th></th><th>الكود Code</th><th>الستاندرد Standard</th></tr>
+        <tr><td>السؤال الذي يجيبه</td><td><strong>متى</strong> يلزم النظام وأين؟</td><td><strong>كيف</strong> أصممه وأركّبه؟</td></tr>
+        <tr><td>القوة</td><td>إلزام قانوني من الجهة المختصة</td><td>مرجع فني، يصير ملزمًا حين يحيل إليه الكود</td></tr>
+        <tr><td>مثال</td><td>SBC 801: "المستشفى يجب أن يُرش بالكامل"</td><td>NFPA 13: "المسافة بين الرشاشات كذا"</td></tr>
+      </table>
+    </div>
+    <div class="tip tip-blue"><strong>"الحد الأدنى":</strong> الكود يحدد أقل مستوى أمان مقبول. يحق للمالك أو الاستشاري أن يزيد (رشاشات أكثر، خزان أكبر)، ولا يحق له أن ينقص. <strong>لا يوجد حد أعلى</strong>. وإذا اختلف الكود المحلي عن NFPA يُتّبع المحلي، وغالبًا الأشد منهما.</div>
+
+    <div class="tip tip-purple" style="margin-top:14px"><strong>"ليش ما أستخدم دش الاستحمام بدل الرشاش؟"</strong></div>
+    <div class="tip tip-blue">الرشاش فيه ثلاثة أشياء لا توجد في الدش: (1) <strong>عنصر حراري</strong> يفتحه وحده عند حرارة محددة، فلا يشتغل إلا الرشاش الذي فوق النار. (2) <strong>Deflector</strong> يشكّل الماء مظلة بقطرات محسوبة الحجم تخترق اللهب. (3) <strong>K-factor معتمد</strong> يضمن كمية ماء معلومة عند ضغط معلوم.</div>
+
+    <div class="tip tip-purple" style="margin-top:14px"><strong>"مين اللي يحدد الـK-factor؟"</strong></div>
+    <div class="tip tip-red"><strong>🔴 تصحيح:</strong> كتبتَ أن الارتفاع هو المحدِّد. المحدِّد هو <strong>كمية الماء المطلوبة</strong> (الكثافة × مساحة التغطية). الارتفاع ونوع التخزين يرفعان الكثافة المطلوبة، ولهذا يظهر أثرهما.</div>
+    <div class="formula ltr">Q = K × √P</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>لتحصل على 30 gpm من رشاش</th><th>الضغط المطلوب</th></tr>
+        <tr><td class="ltr">K = 5.6</td><td class="ltr">(30/5.6)² = 28.7 psi</td></tr>
+        <tr><td class="ltr">K = 8.0</td><td class="ltr">(30/8)² = 14.1 psi</td></tr>
+        <tr><td class="ltr">K = 11.2</td><td class="ltr">(30/11.2)² = 7.2 psi</td></tr>
+      </table>
+    </div>
+    <div class="tip tip-green">الخلاصة: K أكبر = نفس الماء بضغط أقل = مضخة أصغر. لهذا المخازن تستخدم K كبيرًا، والمكاتب يكفيها 5.6.</div>
+
+    <div class="tip tip-purple" style="margin-top:14px"><strong>"Return Bend بيتعمل..."</strong></div>
+    <div class="tip tip-blue">وصلة على شكل عصا تأخذ الماء من <strong>أعلى</strong> الماسورة الفرعية ثم تنزل للرشاش المتدلي. فائدتها أن الرواسب تبقى في قاع الماسورة ولا تنزل لتسد الرشاش. تُطلب حين يكون مصدر الماء غير نظيف.</div>
+
+    <div class="tip tip-purple" style="margin-top:14px"><strong>"البيت لا يخضع للكود"</strong></div>
+    <div class="tip tip-blue">الأدق: الفلل السكنية الخاصة غالبًا لا يُلزمها الكود المحلي بنظام رش. لكن توجد معايير للسكن إذا طُلب: NFPA 13D للبيوت و 13R للعمائر السكنية المنخفضة.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔴 ما صححته في ملخصك</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>ما كتبتَه</th><th>الصحيح</th></tr>
+        <tr><td>أقل مسافة بين الرشاشات 10 سم</td><td>أقل مسافة بين رشاشين نحو <strong>1.8 م</strong> (حتى لا يبرّد أحدهما الآخر). الـ10 سم أقل مسافة عن الجدار</td></tr>
+        <tr><td>كلما بعدنا باتجاه السقف تقل الحرارة</td><td>الغازات الساخنة تصعد وتتجمع تحت السقف، فالحرارة هناك <strong>الأعلى</strong>، ولهذا الرشاش فوق</td></tr>
+        <tr><td>النظام الجاف: مع الحرارة يزيد الضغط وينكسر الرشاش</td><td>الحرارة تكسر الرشاش ← يخرج الهواء ← <strong>ينخفض</strong> الضغط ← ينفتح الـDry Valve ← يدخل الماء</td></tr>
+        <tr><td>المحبس يقفل أو يفتح خلال 5 ثوانٍ</td><td>يجب <strong>ألا</strong> يُغلق في أقل من 5 ثوانٍ (منعًا للمطرقة المائية)</td></tr>
+        <tr><td>درجات الرشاش 92 و 140 و 190</td><td>57 · 68 · 79 · 93 · 141 · 182 °C</td></tr>
+        <tr><td>الرشاش يغطي 18.6 م و 12.1 م و 8.4 م</td><td>الوحدة <strong>م²</strong> (مساحة تغطية الرشاش الواحد)</td></tr>
+        <tr><td>كل المطاعم Light Hazard</td><td>صالة الطعام Light، والمطبخ Ordinary</td></tr>
+        <tr><td>Pressure decreases</td><td>Pressure <strong>Reducing</strong> Valve (PRV)</td></tr>
+        <tr><td>Anti fortix blade</td><td>Anti-<strong>Vortex</strong> Plate (لوح منع الدوامة)</td></tr>
+        <tr><td>الكود محلي والستاندرد عالمي</td><td>الكود = الإلزام (متى)، والستاندرد = الطريقة (كيف)</td></tr>
+        <tr><td>انخفاض الضغط المسموح في الاختبار نصف بار</td><td>حسب المحاضر. NFPA 13: ساعتان بلا تسريب ظاهر وبلا هبوط في العداد</td></tr>
+      </table>
+    </div>
+    <div class="tip tip-amber"><strong>أرقام من المحاضر أبقيتها بعلامة "راجع الكود":</strong> أقل خزان 60 م³، المسافة 36 م بين الكبائن (هي نصف قطر تغطية: خرطوم 30 م + 6 م رذاذ)، وقطر تغذية العسكري 5 بوصة.</div>
+    <div class="tip tip-blue"><strong>توضيح عن المواسير:</strong> "أسود للجاف ومجلفن للرطب" تصف <strong>المكان</strong> (جاف أو رطب) وليس نوع النظام. وعمليًا تُستخدم المجلفنة أيضًا في أنظمة Dry و Pre-action لأن داخلها هواء رطب يسبب الصدأ.</div>
+    <div class="tip tip-blue"><strong>محاضرة رشاشات المخازن التي لم تُسجَّل:</strong> محتواها موجود في تبويب "أنظمة خاصة" (ESFR) وتبويب "الاستثناءات" (نوع التخزين).</div>
+  </div>
+</div>
+
+<!-- ══════════ أسئلة ══════════ -->
+<div class="section" id="s-quiz">
+  <div class="card">
+    <div class="card-title">📝 اختبر نفسك — جاوب قبل ما تفتح الحل</div>
+    <details class="qa"><summary>1) ما الفرق بين كبينة Class I و Class II؟</summary><div class="ans-box">Class I: مخرج 2.5 بوصة لرجال الدفاع المدني المدربين. Class II: خرطوم 1.5 بوصة لشاغلي المبنى. Class III تجمع الاثنين.</div></details>
+    <details class="qa"><summary>2) ما وظيفة مضخة الجوكي ومتى تشتغل؟</summary><div class="ans-box">تعوّض التسريبات الصغيرة وتحافظ على ضغط الشبكة. تشتغل أولًا عند هبوط بسيط في الضغط، فلا تشتغل المضخة الرئيسية بلا داعٍ.</div></details>
+    <details class="qa"><summary>3) ما مكونات مجموعة التحكم ZCV؟</summary><div class="ans-box">محبس عزل مراقب (Tamper)، مفتاح تدفق Flow Switch، عداد ضغط، ومحبس اختبار وتصريف Test &amp; Drain.</div></details>
+    <details class="qa"><summary>4) كيف تختار درجة حرارة الرشاش؟</summary><div class="ans-box">أعلى من أقصى حرارة متوقعة عند السقف بنحو 30°C. المكاتب 68°C (أحمر)، والأماكن الحارة كالمطابخ وغرف الغلايات 93°C أو أعلى.</div></details>
+    <details class="qa"><summary>5) ما الفرق بين توصيل Tree و Loop و Grid؟</summary><div class="ans-box">Tree: فروع من ماسورة رئيسية والماء يصل الرشاش من مسار واحد. Loop: الرئيسية حلقة فيصل الماء من جهتين. Grid: الفروع موصولة من طرفيها، وهو الأقل فقدًا والأصعب حسابًا.</div></details>
+    <details class="qa"><summary>6) كيف تحدد حجم خزان الحريق؟</summary><div class="ans-box">تدفق المضخة × مدة التشغيل حسب الخطورة. مثال: <span class="ltr">1000 gpm × 60 min = 60,000 gal ÷ 264 = 227 m³</span>. Light 30 دقيقة، Ordinary 60–90، Extra 90–120.</div></details>
+    <details class="qa"><summary>7) متى تستخدم الغاز بدل الماء؟</summary><div class="ans-box">حين يتلف الماء ما نحميه أو يزيد الخطر: غرف السيرفرات واللوحات الكهربائية والأرشيف الثمين.</div></details>
+    <details class="qa"><summary>8) ما فائدة وصلة الدفاع المدني FDC؟</summary><div class="ans-box">تضخ منها سيارة الإطفاء الماء في شبكة المبنى إذا فرغ الخزان أو تعطلت المضخات. عليها محبس عدم رجوع.</div></details>
+    <details class="qa"><summary>9) انفتح رشاش في نظام Wet. ما الذي يُبلّغ لوحة الإنذار؟</summary><div class="ans-box">الـFlow Switch في مجموعة تحكم ذلك الدور.</div></details>
+    <details class="qa"><summary>10) أغلق فني محبس العزل ونسيه. كيف يُكتشف؟</summary><div class="ans-box">الـTamper Switch يرسل إشارة إشرافية للوحة فور تحريك المحبس.</div></details>
+    <details class="qa"><summary>11) لماذا يُطلب كاشفان في نظام الغاز قبل الإطلاق؟</summary><div class="ans-box">لمنع الإطلاق من إنذار كاذب لكاشف واحد (Cross-zoning). الغاز غالٍ ويُطلق مرة واحدة.</div></details>
+    <details class="qa"><summary>12) أي غاز لا يصلح للغرف المأهولة؟ ولماذا؟</summary><div class="ans-box">CO2، لأن تركيز الإطفاء (34% فأكثر) يخنق الإنسان.</div></details>
+    <details class="qa"><summary>13) كم مرة تُشغَّل مضخة الديزل للاختبار وكم مدتها؟</summary><div class="ans-box">أسبوعيًا، 30 دقيقة، بدون تدفق.</div></details>
+    <details class="qa"><summary>14) مضخة الجوكي تشتغل كل دقيقتين. ما تشخيصك؟</summary><div class="ans-box">تسريب في الشبكة أو محبس عدم رجوع لا يمسك. نبدأ بفحص المحابس والوصلات ومحابس التصريف.</div></details>
+    <details class="qa"><summary>15) رشاش K = 8 عند ضغط 16 psi. كم تدفقه؟</summary><div class="ans-box"><span class="ltr">Q = 8 × √16 = 32 gpm</span></div></details>
+    <details class="qa"><summary>16) حريق زيت في مقلاة مطعم. أي طفاية ولماذا لا الماء؟</summary><div class="ans-box">Class K (Wet Chemical). الماء يتبخر فجأة داخل الزيت المغلي وينثره مشتعلًا.</div></details>
+    <details class="qa"><summary>17) ما الفرق بين Single Interlock و Double Interlock في نظام Pre-action؟</summary><div class="ans-box">Single: يكفي كاشف الحريق ليدخل الماء المواسير. Double: لازم الكاشف <strong>و</strong>انكسار رشاش معًا. يُستخدم في الأماكن التي لا تحتمل أي ماء بالخطأ.</div></details>
+    <details class="qa"><summary>18) لماذا يوضع صاعد الحريق داخل سلم الهروب؟</summary><div class="ans-box">لأن السلم غلاف مقاوم للحريق فيبقى الصاعد محميًا، ولأن رجل الإطفاء يصل منه لكل دور بأمان.</div></details>
+  </div>
 </div>
 
 </div><!-- /content -->
