@@ -2062,7 +2062,7 @@ tr:nth-child(even) td{background:var(--surface2);}
       <div class="tip tip-blue"><strong>آلية العمل</strong><br>امتصاص حرارة عالٍ جداً (حرارة كامنة مرتفعة) + تعطيل سلسلة الجذور الحرة — أكثر كفاءة من FM-200</div>
       <div class="tip tip-green"><strong>المميزات</strong><br>تركيز تصميم ~4-6%، لا ضرر بالبيئة (GWP=1)، لا يضر المعدات الحساسة، بديل FM-200 الأحدث</div>
     </div>
-    <div class="info-row"><span>نقطة الغليان</span><span class="info-val">49.2°C (سائل في الدرجات العادية)</span></div>
+    <div class="info-row"><span>نقطة الغليان</span><span class="info-val"><span class="ltr">49.2°C</span> (سائل في الدرجات العادية)</span></div>
     <div class="info-row"><span>تركيز التصميم</span><span class="info-val">~4-6% (🔴 من المصنّع والكود)</span></div>
     <div class="info-row"><span>NFPA المرجع</span><span class="info-val">NFPA 2001</span></div>
     <div class="warn">⚠️ مثل FM-200 — الإخلاء الفوري إلزامي عند التفعيل. التحقق من سلامة الغرفة (Room Integrity Test) مطلوب.</div>
@@ -2595,7 +2595,7 @@ tr:nth-child(even) td{background:var(--surface2);}
         <tr><td class="ltr">s</td><td>الحجم النوعي للغاز (م³/كجم). لـFM-200: <span class="ltr">s = 0.1269 + 0.000513·T</span> (T بالمئوية)</td></tr>
       </table>
     </div>
-    <div class="tip tip-green"><strong>مثال:</strong> غرفة 100 م³ عند 20°C بتركيز 7%: <span class="ltr">s = 0.1372</span>، <span class="ltr">W = (100/0.1372) × 7/93 ≈ 55 kg</span> FM-200.</div>
+    <div class="tip tip-green"><strong>مثال:</strong> غرفة 100 م³ عند <span class="ltr">20°C</span> بتركيز 7%: <span class="ltr">s = 0.1372</span>، <span class="ltr">W = (100/0.1372) × 7/93 ≈ 55 kg</span> FM-200.</div>
     <div class="warn">⚠️ ثوابت s وتركيز التصميم تؤخذ من NFPA 2001 وبيانات المصنّع للمشروع الفعلي. الأرقام هنا للفهم.</div>
     <div class="tip tip-blue"><strong>مكان الأسطوانة (من ملخصك):</strong> الأفضل خارج الغرفة بجانب الباب، وإلا فداخلها بجانب الباب.</div>
   </div>
@@ -2724,7 +2724,7 @@ tr:nth-child(even) td{background:var(--surface2);}
         <tr><td>كلما بعدنا باتجاه السقف تقل الحرارة</td><td>الغازات الساخنة تصعد وتتجمع تحت السقف، فالحرارة هناك <strong>الأعلى</strong>، ولهذا الرشاش فوق</td></tr>
         <tr><td>النظام الجاف: مع الحرارة يزيد الضغط وينكسر الرشاش</td><td>الحرارة تكسر الرشاش ← يخرج الهواء ← <strong>ينخفض</strong> الضغط ← ينفتح الـDry Valve ← يدخل الماء</td></tr>
         <tr><td>المحبس يقفل أو يفتح خلال 5 ثوانٍ</td><td>يجب <strong>ألا</strong> يُغلق في أقل من 5 ثوانٍ (منعًا للمطرقة المائية)</td></tr>
-        <tr><td>درجات الرشاش 92 و 140 و 190</td><td>57 · 68 · 79 · 93 · 141 · 182 °C</td></tr>
+        <tr><td>درجات الرشاش 92 و 140 و 190</td><td>57 · 68 · 79 · 93 · 141 · <span class="ltr">182 °C</span></td></tr>
         <tr><td>الرشاش يغطي 18.6 م و 12.1 م و 8.4 م</td><td>الوحدة <strong>م²</strong> (مساحة تغطية الرشاش الواحد)</td></tr>
         <tr><td>كل المطاعم Light Hazard</td><td>صالة الطعام Light، والمطبخ Ordinary</td></tr>
         <tr><td>Pressure decreases</td><td>Pressure <strong>Reducing</strong> Valve (PRV)</td></tr>
@@ -2746,7 +2746,7 @@ tr:nth-child(even) td{background:var(--surface2);}
     <details class="qa"><summary>1) ما الفرق بين كبينة Class I و Class II؟</summary><div class="ans-box">Class I: مخرج 2.5 بوصة لرجال الدفاع المدني المدربين. Class II: خرطوم 1.5 بوصة لشاغلي المبنى. Class III تجمع الاثنين.</div></details>
     <details class="qa"><summary>2) ما وظيفة مضخة الجوكي ومتى تشتغل؟</summary><div class="ans-box">تعوّض التسريبات الصغيرة وتحافظ على ضغط الشبكة. تشتغل أولًا عند هبوط بسيط في الضغط، فلا تشتغل المضخة الرئيسية بلا داعٍ.</div></details>
     <details class="qa"><summary>3) ما مكونات مجموعة التحكم ZCV؟</summary><div class="ans-box">محبس عزل مراقب (Tamper)، مفتاح تدفق Flow Switch، عداد ضغط، ومحبس اختبار وتصريف Test &amp; Drain.</div></details>
-    <details class="qa"><summary>4) كيف تختار درجة حرارة الرشاش؟</summary><div class="ans-box">أعلى من أقصى حرارة متوقعة عند السقف بنحو 30°C. المكاتب 68°C (أحمر)، والأماكن الحارة كالمطابخ وغرف الغلايات 93°C أو أعلى.</div></details>
+    <details class="qa"><summary>4) كيف تختار درجة حرارة الرشاش؟</summary><div class="ans-box">أعلى من أقصى حرارة متوقعة عند السقف بنحو <span class="ltr">30°C</span>. المكاتب <span class="ltr">68°C</span> (أحمر)، والأماكن الحارة كالمطابخ وغرف الغلايات <span class="ltr">93°C</span> أو أعلى.</div></details>
     <details class="qa"><summary>5) ما الفرق بين توصيل Tree و Loop و Grid؟</summary><div class="ans-box">Tree: فروع من ماسورة رئيسية والماء يصل الرشاش من مسار واحد. Loop: الرئيسية حلقة فيصل الماء من جهتين. Grid: الفروع موصولة من طرفيها، وهو الأقل فقدًا والأصعب حسابًا.</div></details>
     <details class="qa"><summary>6) كيف تحدد حجم خزان الحريق؟</summary><div class="ans-box">تدفق المضخة × مدة التشغيل حسب الخطورة. مثال: <span class="ltr">1000 gpm × 60 min = 60,000 gal ÷ 264 = 227 m³</span>. Light 30 دقيقة، Ordinary 60–90، Extra 90–120.</div></details>
     <details class="qa"><summary>7) متى تستخدم الغاز بدل الماء؟</summary><div class="ans-box">حين يتلف الماء ما نحميه أو يزيد الخطر: غرف السيرفرات واللوحات الكهربائية والأرشيف الثمين.</div></details>
@@ -2775,4 +2775,5 @@ function show(id,btn){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
+<!-- temps-wrapped -->
 </body></html>
