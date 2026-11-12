@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>تصميم الآلات — مراجعة FE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f172a;--surface:#1e293b;--surface2:#263348;--border:#334155;
+  --fg:#f1f5f9;--fg-muted:#94a3b8;--fg-dim:#64748b;
+  --blue:#60a5fa;--blue-bg:rgba(96,165,250,.13);--blue-border:rgba(96,165,250,.3);
+  --green:#4ade80;--green-bg:rgba(74,222,128,.13);--green-border:rgba(74,222,128,.3);
+  --red:#f87171;--red-bg:rgba(248,113,113,.13);--red-border:rgba(248,113,113,.3);
+  --amber:#fbbf24;--amber-bg:rgba(251,191,36,.13);--amber-border:rgba(251,191,36,.3);
+  --purple:#c084fc;--purple-bg:rgba(192,132,252,.13);--purple-border:rgba(192,132,252,.3);
+  --navy:#1e3a5f;--navy-light:#2d5a8e;
+  --radius:12px;--radius-sm:7px;
+}
+/* ── Light Theme ── */
+[data-theme="light"]{
+  --bg:#f0f4f8;--surface:#ffffff;--surface2:#e8edf2;--border:#cbd5e1;
+  --fg:#0f172a;--fg-muted:#475569;--fg-dim:#94a3b8;
+  --blue:#2563eb;--blue-bg:rgba(37,99,235,.1);--blue-border:rgba(37,99,235,.3);
+  --green:#16a34a;--green-bg:rgba(22,163,74,.1);--green-border:rgba(22,163,74,.3);
+  --red:#dc2626;--red-bg:rgba(220,38,38,.1);--red-border:rgba(220,38,38,.3);
+  --amber:#d97706;--amber-bg:rgba(217,119,6,.1);--amber-border:rgba(217,119,6,.3);
+  --purple:#7c3aed;--purple-bg:rgba(124,58,237,.1);--purple-border:rgba(124,58,237,.3);
+}
+[data-theme="light"] .topbar{background:#1e3a5f}
+[data-theme="light"] .nav-wrap{background:#f8fafc}
+[data-theme="light"] .formula-box{background:#e8edf2;border-color:#cbd5e1}
+[data-theme="light"] .ex-box{background:#f8fafc;border-color:#cbd5e1}
+[data-theme="light"] .in-g{background:rgba(22,163,74,.08)}
+[data-theme="light"] .in-a{background:rgba(217,119,6,.08)}
+[data-theme="light"] .in-b{background:rgba(37,99,235,.08)}
+[data-theme="light"] .in-r{background:rgba(220,38,38,.08)}
+[data-theme="light"] .in-p{background:rgba(124,58,237,.08)}
+[data-theme="light"] .steps .step-num{background:#2563eb}
+[data-theme="light"] svg text{fill:var(--fg)}
+/* ── Subject select ── */
+.subj-select{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:8px;color:#fff;font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;padding:6px 10px;cursor:pointer;outline:none;margin-right:auto}
+.subj-select option{background:#1e3a5f;color:#fff}
+/* ── Theme toggle ── */
+.theme-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:8px;color:#fff;font-size:16px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s}
+.theme-btn:hover{background:rgba(255,255,255,.25)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--fg);direction:rtl;font-size:14px;transition:background .2s,color .2s}
+/* ── Nav ── */
+.topbar{background:#0a0f1e;border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.topbar-title{font-size:17px;font-weight:900;color:var(--fg)}
+.topbar-sub{font-size:11px;color:var(--fg-muted)}
+.nav-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--surface);border-bottom:1px solid var(--border)}
+.nav{display:flex;gap:0;padding:0;min-width:max-content}
+.nav-btn{background:none;border:none;border-bottom:3px solid transparent;padding:11px 14px;color:var(--fg-muted);font-family:'Tajawal',sans-serif;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s}
+.nav-btn:hover{color:var(--fg)}
+.nav-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
+/* ── Sections ── */
+.section{display:none;padding:16px;max-width:820px;margin:0 auto}
+.section.active{display:block}
+/* ── Cards ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:14px}
+.card-title{font-size:15px;font-weight:900;margin-bottom:10px;color:var(--fg)}
+.cls{font-size:10px;font-weight:900;padding:2px 9px;border-radius:99px;margin-bottom:8px;display:inline-block}
+.cls-mem{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.cls-var{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.cls-ver{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+/* ── Tips ── */
+.tip{border-radius:var(--radius-sm);padding:10px 14px;margin:8px 0;line-height:1.65;font-size:13px}
+.tip-blue{background:var(--blue-bg);border-right:3px solid var(--blue)}
+.tip-green{background:var(--green-bg);border-right:3px solid var(--green)}
+.tip-amber{background:var(--amber-bg);border-right:3px solid var(--amber)}
+.tip-red{background:var(--red-bg);border-right:3px solid var(--red)}
+.tip-purple{background:var(--purple-bg);border-right:3px solid var(--purple)}
+.warn{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--radius-sm);padding:9px 12px;font-size:12.5px;color:var(--amber);margin:8px 0}
+/* ── Formula ── */
+.formula-box{background:#0a0f1e;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin:10px 0;text-align:center;font-size:16px;font-weight:700;letter-spacing:.5px;color:var(--fg)}
+.formula-box .lbl{font-size:11px;color:var(--fg-muted);font-weight:500;display:block;margin-top:4px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 3px;font-size:15px}
+.frac .num{border-bottom:1.5px solid currentColor;padding:0 4px;line-height:1.4}
+.frac .den{padding:0 4px;line-height:1.4}
+.sym{font-style:italic;color:var(--blue)}
+/* ── Table ── */
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin:10px 0}
+.tbl th{background:var(--surface2);padding:7px 10px;text-align:right;font-weight:800;border:1px solid var(--border)}
+.tbl td{padding:7px 10px;border:1px solid var(--border)}
+.tbl tr:nth-child(even){background:rgba(255,255,255,.02)}
+/* ── Steps ── */
+.steps{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.step{display:flex;gap:10px;align-items:flex-start}
+.step-num{min-width:26px;height:26px;border-radius:50%;background:var(--blue);color:white;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body{flex:1;line-height:1.6;font-size:13px}
+/* ── Illustrations ── */
+.illus-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin:12px 0}
+.illus-item{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 6px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.illus-name{font-size:11.5px;font-weight:800;margin:6px 0 2px;color:var(--fg);line-height:1.3}
+.illus-en{font-size:10px;color:var(--fg-muted);margin-bottom:4px}
+.illus-note{font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;margin-top:4px;display:inline-block}
+.in-g{background:var(--green-bg);color:var(--green)}
+.in-a{background:var(--amber-bg);color:var(--amber)}
+.in-b{background:var(--blue-bg);color:var(--blue)}
+.in-r{background:var(--red-bg);color:var(--red)}
+.in-p{background:var(--purple-bg);color:var(--purple)}
+/* ── Solved example ── */
+.ex-box{background:#0a0f1e;border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin:10px 0}
+.ex-title{font-size:13px;font-weight:900;color:var(--amber);margin-bottom:8px}
+.ex-step{font-size:12.5px;line-height:1.7;margin:4px 0}
+.ex-step .ans{color:var(--green);font-weight:900}
+/* ── Big concept grid ── */
+.concept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:12px 0}
+.concept-card{border-radius:var(--radius-sm);padding:12px;border:1px solid}
+/* ── Distribution badge ── */
+.dist-tag{display:inline-block;font-size:10px;font-weight:900;padding:2px 8px;border-radius:4px;margin-top:6px}
+.dist-u{background:var(--green-bg);color:var(--green)}
+.dist-nu{background:var(--red-bg);color:var(--red)}
+/* ── Added for FE pages ── */
+.formula-box,.ltr{direction:ltr;unicode-bidi:isolate}
+.ltr{display:inline-block}
+td.ltr,div.ltr{display:revert;text-align:left}
+.formula-box .lbl{direction:rtl}
+.qa{border:1px solid var(--border);border-radius:var(--radius-sm);margin:8px 0;background:var(--surface2)}
+.qa summary{cursor:pointer;padding:10px 12px;font-weight:700;line-height:1.6;font-size:13px}
+.qa .ans-box{padding:10px 12px;border-top:1px solid var(--border);color:var(--green);font-weight:700;line-height:1.8;font-size:13px}
+.card{line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <div class="topbar-title">🔩 تصميم الآلات</div>
+    <div class="topbar-sub">Machine Design — مراجعة FE من ملخصي + تصحيحات وإضافات</div>
+  </div>
+  <select class="subj-select" onchange="if(this.value)window.location.href=this.value">
+    <option value="">📚 اختر المادة</option>
+    <option value="index.html">🏠 الرئيسية</option>
+    <option value="mechanics.html">⚙️ ميكانيكا المواد</option>
+    <option value="fluid-mechanics.html">💧 ميكانيكا الموائع</option>
+    <option value="machine-design.html" selected>🔩 تصميم الآلات</option>
+    <option value="fire-fighting.html">🔥 إطفاء الحريق</option>
+  </select>
+  <button class="theme-btn" onclick="toggleTheme()" title="تبديل الإضاءة" id="themeBtn">🌙</button>
+</div>
+
+<div class="nav-wrap">
+<div class="nav">
+  <button class="nav-btn active" onclick="show('map',this)">🗺️ خريطة</button>
+  <button class="nav-btn" onclick="show('spring',this)">🌀 الزنبركات</button>
+  <button class="nav-btn" onclick="show('bearing',this)">⚪ كراسي المحاور</button>
+  <button class="nav-btn" onclick="show('screw',this)">🔧 براغي القدرة</button>
+  <button class="nav-btn" onclick="show('bolt',this)">🔩 أدوات الربط</button>
+  <button class="nav-btn" onclick="show('gear',this)">⚙️ التروس</button>
+  <button class="nav-btn" onclick="show('link',this)">🦾 الآلية الرباعية</button>
+  <button class="nav-btn" onclick="show('fail',this)">💔 الانهيار والكلل</button>
+  <button class="nav-btn" onclick="show('quiz',this)">📝 أسئلة</button>
+</div>
+</div>
+
+<!-- ══════════ خريطة ══════════ -->
+<div class="section active" id="s-map">
+  <div class="card">
+    <div class="card-title">🗺️ كل عنصر في سطر</div>
+    <div class="tip tip-blue"><strong>منطق المادة:</strong> لكل عنصر آلة ثلاثة أسئلة: ما وظيفته؟ ما الإجهاد الذي يتحمله؟ ما المعادلة التي تختاره أو تتحقق منه؟</div>
+    <table class="tbl">
+      <tr><th>العنصر</th><th>الوظيفة</th><th>الإجهاد أو المعيار</th><th>المعادلة المفتاح</th></tr>
+      <tr><td>زنبرك حلزوني</td><td>تخزين طاقة وامتصاص صدمات</td><td>قص (التواء في السلك)</td><td class="ltr">τ = K·8FD/(πd³)</td></tr>
+      <tr><td>كرسي محور</td><td>حمل عمود دوّار باحتكاك قليل</td><td>العمر L10</td><td class="ltr">L = (C/P)ᵃ</td></tr>
+      <tr><td>برغي قدرة</td><td>تحويل الدوران إلى حركة خطية</td><td>العزم والاحتكاك</td><td class="ltr">T = F·dm/2 · (…)</td></tr>
+      <tr><td>مسمار ربط</td><td>ربط جزئين</td><td>شد وقص</td><td class="ltr">F_b = C·P + F_i</td></tr>
+      <tr><td>ترس</td><td>نقل الحركة والعزم</td><td>انحناء السن</td><td class="ltr">m = d/N</td></tr>
+      <tr><td>آلية رباعية</td><td>تحويل نوع الحركة</td><td>شرط غراشوف</td><td class="ltr">s + l ≤ p + q</td></tr>
+    </table>
+    <div class="warn">ملخصك في هذه المادة كان رؤوس أقلام، فأغلب هذه الصفحة مكتوب من المراجع (Shigley وكتيّب الـFE). ما جاء من ملخصك معلَّم بـ🟣، وما صُحّح معلَّم بـ🔴.</div>
+  </div>
+</div>
+
+<!-- ══════════ الزنبركات ══════════ -->
+<div class="section" id="s-spring">
+  <div class="card">
+    <div class="card-title">🌀 الزنبرك الحلزوني الانضغاطي</div>
+    <div class="tip tip-purple"><strong>🟣 من ملخصك:</strong> الزنبرك جسم مرن يرجع لشكله بعد زوال القوة. أشكاله: أسطواني Cylindrical ومخروطي Conical.</div>
+    <div style="overflow-x:auto">
+    <svg width="560" height="250" viewBox="0 0 560 250" style="display:block;min-width:460px;margin:8px auto;font-family:Tajawal,sans-serif">
+      <path d="M150,30 L250,48 L150,66 L250,84 L150,102 L250,120 L150,138 L250,156 L150,174 L250,192 L150,210" fill="none" stroke="#60a5fa" stroke-width="7" stroke-linejoin="round"/>
+      <line x1="150" y1="225" x2="250" y2="225" stroke="#fbbf24" stroke-width="2"/>
+      <line x1="150" y1="219" x2="150" y2="231" stroke="#fbbf24" stroke-width="2"/><line x1="250" y1="219" x2="250" y2="231" stroke="#fbbf24" stroke-width="2"/>
+      <text x="200" y="244" text-anchor="middle" font-size="12" fill="#fbbf24" font-weight="900">D القطر المتوسط للملف</text>
+      <line x1="285" y1="48" x2="285" y2="84" stroke="#4ade80" stroke-width="2"/>
+      <line x1="279" y1="48" x2="291" y2="48" stroke="#4ade80" stroke-width="2"/><line x1="279" y1="84" x2="291" y2="84" stroke="#4ade80" stroke-width="2"/>
+      <text x="296" y="70" font-size="12" fill="#4ade80" font-weight="900">p الخطوة Pitch</text>
+      <line x1="100" y1="30" x2="100" y2="210" stroke="#c084fc" stroke-width="2"/>
+      <line x1="94" y1="30" x2="106" y2="30" stroke="#c084fc" stroke-width="2"/><line x1="94" y1="210" x2="106" y2="210" stroke="#c084fc" stroke-width="2"/>
+      <text x="92" y="124" text-anchor="end" font-size="12" fill="#c084fc" font-weight="900">L₀ الطول الحر</text>
+      <circle cx="250" cy="156" r="9" fill="none" stroke="#f87171" stroke-width="2"/>
+      <text x="268" y="160" font-size="12" fill="#f87171" font-weight="900">d قطر السلك</text>
+      <line x1="200" y1="6" x2="200" y2="24" stroke="#f87171" stroke-width="3"/><polygon points="194,22 200,32 206,22" fill="#f87171"/>
+      <text x="212" y="16" font-size="12" fill="#f87171" font-weight="900">F</text>
+    </svg>
+    </div>
+    <span class="cls cls-mem">🟢 للحفظ</span>
+    <div class="formula-box">C = D / d<span class="lbl">مؤشر الزنبرك Spring Index — المدى العملي 4 إلى 12</span></div>
+    <div class="formula-box">F = k·x  ،  k = G·d⁴ / (8·D³·N_a)<span class="lbl">صلابة الزنبرك — G معامل القص، N_a عدد اللفات الفعالة</span></div>
+    <div class="formula-box">τ = K_s · 8·F·D / (π·d³)<span class="lbl">إجهاد القص الأقصى في السلك</span></div>
+    <div class="formula-box">K_s = (2C + 1) / (2C)<span class="lbl">معامل القص المباشر (المستخدم في كتيّب الـFE)</span></div>
+    <div class="formula-box" style="font-size:14px">K_w = (4C − 1)/(4C − 4) + 0.615/C<span class="lbl">معامل Wahl — يضيف أثر الانحناء، للأحمال المتكررة</span></div>
+    <div class="tip tip-red"><strong>🔴 تصحيح:</strong> كتبتَ المعادلة <span class="ltr">τ = k·8fd/(d³·3.14)</span>. البسط فيه <strong>D الكبيرة</strong> (قطر الملف) والمقام فيه <strong>d الصغيرة</strong> (قطر السلك) مكعبة. وكتبتَ المدى 5–15، والمعتمد 4–12.</div>
+    <div class="tip tip-blue"><strong>لماذا قص وليس شد؟</strong> القوة المحورية F تلوي السلك حول نفسه بعزم <span class="ltr">T = F·D/2</span>، فالسلك في حقيقته عمود ملتوٍ. التصميم على <strong>Shear yield strength</strong> كما كتبتَ: <span class="ltr">S_sy ≈ 0.577·S_y</span>.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">أنواع النهايات — جدول اللفات والأطوال</div>
+    <div class="tip tip-purple"><strong>🟣 من ملخصك:</strong> هذا هو "جدول قياسات الزنبرك": End coils، Total coils، Free length، Solid length، Pitch.</div>
+    <div style="overflow-x:auto">
+    <table class="tbl" style="min-width:560px">
+      <tr><th>النهاية</th><th>لفات النهاية N_e</th><th>الكلي N_t</th><th>الطول الحر L₀</th><th>الطول المصمت L_s</th></tr>
+      <tr><td>Plain</td><td>0</td><td class="ltr">N_a</td><td class="ltr">p·N_a + d</td><td class="ltr">d·(N_t + 1)</td></tr>
+      <tr><td>Plain &amp; Ground</td><td>1</td><td class="ltr">N_a + 1</td><td class="ltr">p·(N_a + 1)</td><td class="ltr">d·N_t</td></tr>
+      <tr><td>Squared (Closed)</td><td>2</td><td class="ltr">N_a + 2</td><td class="ltr">p·N_a + 3d</td><td class="ltr">d·(N_t + 1)</td></tr>
+      <tr><td>Squared &amp; Ground</td><td>2</td><td class="ltr">N_a + 2</td><td class="ltr">p·N_a + 2d</td><td class="ltr">d·N_t</td></tr>
+    </table>
+    </div>
+    <div class="tip tip-green"><strong>الطول المصمت Solid length:</strong> طول الزنبرك وهو مضغوط تمامًا واللفات متلامسة. لا يُسمح بالوصول إليه في التشغيل.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">التوالي والتوازي + زنبرك الالتواء</div>
+    <table class="tbl">
+      <tr><th>التوصيل</th><th>الصلابة المكافئة</th><th>يتساوى فيه</th></tr>
+      <tr><td>توازي</td><td class="ltr">k = k₁ + k₂</td><td>الإزاحة</td></tr>
+      <tr><td>توالي</td><td class="ltr">1/k = 1/k₁ + 1/k₂</td><td>القوة</td></tr>
+    </table>
+    <div class="tip tip-amber">عكس المقاومات الكهربائية: الزنبركات على التوازي تُجمع مباشرة.</div>
+    <div class="formula-box">σ = K_i · 32·M / (π·d³)<span class="lbl">Helical Torsion Spring — الإجهاد هنا <strong>انحناء</strong> وليس قصًّا</span></div>
+    <div class="ex-box">
+      <div class="ex-title">مثال: زنبرك d = 4 مم، D = 32 مم، N_a = 10، G = 79 GPa، عليه 200 N. أوجد k والإزاحة والإجهاد.</div>
+      <div class="ex-step ltr">C = 32/4 = 8,   K_s = (16+1)/16 = 1.0625</div>
+      <div class="ex-step ltr">k = 79×10⁹ × (0.004)⁴ / (8 × (0.032)³ × 10) = 20.22 / 2.621×10⁻³ = <span class="ans">7.71 kN/m</span></div>
+      <div class="ex-step ltr">x = 200 / 7715 = <span class="ans">25.9 mm</span></div>
+      <div class="ex-step ltr">τ = 1.0625 × 8×200×0.032 / (π × (0.004)³) = 1.0625 × 51.2 / 2.011×10⁻⁷ = <span class="ans">270.6 MPa</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ كراسي المحاور ══════════ -->
+<div class="section" id="s-bearing">
+  <div class="card">
+    <div class="card-title">⚪ كراسي المحاور الدحروجية Rolling Bearings</div>
+    <div class="tip tip-purple"><strong>🟣 من ملخصك:</strong> تُسمى في السوق "رمان بلي" أو "بلي". مكوناتها أربعة. والشركات (SKF, FAG, NSK, NKE, TIMKEN, NTN) كلها تتبع مقاسات <strong>ISO</strong> الموحدة، فالكرسي 6205 مثلًا له نفس الأبعاد عند أي شركة.</div>
+    <div style="overflow-x:auto">
+    <svg width="520" height="250" viewBox="0 0 520 250" style="display:block;margin:8px auto;font-family:Tajawal,sans-serif">
+      <circle cx="170" cy="125" r="105" fill="none" stroke="#60a5fa" stroke-width="14"/>
+      <circle cx="170" cy="125" r="52" fill="none" stroke="#4ade80" stroke-width="14"/>
+      <g fill="#fbbf24"><circle cx="170" cy="46" r="15"/><circle cx="238" cy="85" r="15"/><circle cx="238" cy="165" r="15"/><circle cx="170" cy="204" r="15"/><circle cx="102" cy="165" r="15"/><circle cx="102" cy="85" r="15"/></g>
+      <circle cx="170" cy="125" r="79" fill="none" stroke="#c084fc" stroke-width="2" stroke-dasharray="6,4"/>
+      <line x1="270" y1="60" x2="330" y2="40" stroke="#60a5fa"/><text x="336" y="44" font-size="12" fill="#60a5fa" font-weight="900">Outer ring الحلقة الخارجية</text>
+      <line x1="252" y1="90" x2="330" y2="90" stroke="#fbbf24"/><text x="336" y="94" font-size="12" fill="#fbbf24" font-weight="900">Rolling element الكرات</text>
+      <line x1="246" y1="140" x2="330" y2="140" stroke="#c084fc"/><text x="336" y="144" font-size="12" fill="#c084fc" font-weight="900">Cage القفص (يفصل الكرات)</text>
+      <line x1="215" y1="155" x2="330" y2="190" stroke="#4ade80"/><text x="336" y="194" font-size="12" fill="#4ade80" font-weight="900">Inner ring الحلقة الداخلية</text>
+    </svg>
+    </div>
+    <span class="cls cls-mem">🟢 للحفظ</span>
+    <div class="formula-box">L₁₀ = (C / P)ᵃ   × 10⁶ دورة<span class="lbl">العمر الاسمي — C الحمل الديناميكي من الكتالوج، P الحمل المكافئ</span></div>
+    <table class="tbl">
+      <tr><th>النوع</th><th>الأس a</th></tr>
+      <tr><td>كرات Ball</td><td>3</td></tr>
+      <tr><td>أسطوانات Roller</td><td>10/3</td></tr>
+    </table>
+    <div class="formula-box">L_h = 10⁶ / (60·n) · (C/P)ᵃ<span class="lbl">العمر بالساعات — n السرعة rpm</span></div>
+    <div class="formula-box">P = X·V·F_r + Y·F_a<span class="lbl">الحمل المكافئ عند وجود حمل قطري F_r ومحوري F_a</span></div>
+    <div class="tip tip-blue"><strong>معنى L₁₀:</strong> العمر الذي يتجاوزه 90% من مجموعة كراسٍ متطابقة (يفشل 10% قبله). وهذا تفسير "L equal life, C equal load rating" في ملخصك.</div>
+    <div class="tip tip-amber"><strong>حساسية العمر للحمل:</strong> لو تضاعف الحمل على كرسي كرات نزل العمر إلى <span class="ltr">1/2³ = 1/8</span>.</div>
+    <div class="ex-box">
+      <div class="ex-title">مثال: كرسي كرات C = 30 kN يحمل P = 5 kN بسرعة 1500 rpm. كم عمره؟</div>
+      <div class="ex-step ltr">L₁₀ = (30/5)³ = 216 × 10⁶ rev</div>
+      <div class="ex-step ltr">L_h = 216×10⁶ / (60 × 1500) = <span class="ans">2400 hours</span></div>
+    </div>
+    <table class="tbl">
+      <tr><th>النوع</th><th>يتحمل</th></tr>
+      <tr><td>Deep groove ball</td><td>قطري أساسًا + محوري خفيف (الأشهر)</td></tr>
+      <tr><td>Angular contact</td><td>قطري + محوري باتجاه واحد</td></tr>
+      <tr><td>Cylindrical roller</td><td>قطري عالٍ فقط</td></tr>
+      <tr><td>Tapered roller</td><td>قطري ومحوري عاليان (محاور السيارات)</td></tr>
+      <tr><td>Thrust</td><td>محوري فقط</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════ براغي القدرة ══════════ -->
+<div class="section" id="s-screw">
+  <div class="card">
+    <div class="card-title">🔧 براغي القدرة Power Screws</div>
+    <div class="tip tip-blue"><strong>الفكرة:</strong> تدوير البرغي يحرك الصامولة خطيًا (أو العكس). أمثلة: الرافعة (الجاك)، ملزمة الورشة، عمود المخرطة.</div>
+    <div style="overflow-x:auto">
+    <svg width="560" height="210" viewBox="0 0 560 210" style="display:block;min-width:460px;margin:8px auto;font-family:Tajawal,sans-serif">
+      <path d="M40,120 L70,60 L100,120 L130,60 L160,120 L190,60 L220,120 L250,60 L280,120 L310,60 L340,120" fill="none" stroke="#60a5fa" stroke-width="3"/>
+      <line x1="40" y1="120" x2="340" y2="120" stroke="#60a5fa" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="70" y1="40" x2="130" y2="40" stroke="#4ade80" stroke-width="2"/><line x1="70" y1="34" x2="70" y2="46" stroke="#4ade80" stroke-width="2"/><line x1="130" y1="34" x2="130" y2="46" stroke="#4ade80" stroke-width="2"/>
+      <text x="100" y="30" text-anchor="middle" font-size="12" fill="#4ade80" font-weight="900">p الخطوة</text>
+      <line x1="70" y1="150" x2="190" y2="150" stroke="#fbbf24" stroke-width="2"/><line x1="70" y1="144" x2="70" y2="156" stroke="#fbbf24" stroke-width="2"/><line x1="190" y1="144" x2="190" y2="156" stroke="#fbbf24" stroke-width="2"/>
+      <text x="130" y="172" text-anchor="middle" font-size="12" fill="#fbbf24" font-weight="900">l التقدم (سن مزدوج = 2p)</text>
+      <text x="450" y="60" text-anchor="middle" font-size="12" fill="#94a3b8">Pitch: المسافة بين سنّين متجاورين</text>
+      <text x="450" y="84" text-anchor="middle" font-size="12" fill="#94a3b8">Lead: تقدم الصامولة في لفة كاملة</text>
+    </svg>
+    </div>
+    <span class="cls cls-mem">🟢 للحفظ</span>
+    <div class="formula-box">l = n · p<span class="lbl">التقدم = عدد بدايات السن × الخطوة (Single: n=1، Double: n=2)</span></div>
+    <div class="tip tip-red"><strong>🔴 توضيح:</strong> كتبتَ "L = no" وأن إحداهما "خطوة ظاهرية". الصحيح: Pitch هي <strong>الخطوة</strong>، و Lead هو <strong>التقدم</strong>، والعلاقة <span class="ltr">l = n·p</span>.</div>
+    <div class="formula-box" style="font-size:14px">T_R = (F·d_m / 2) · (l + π·μ·d_m) / (π·d_m − μ·l)<span class="lbl">عزم الرفع — ضد الحمل (against load)</span></div>
+    <div class="formula-box" style="font-size:14px">T_L = (F·d_m / 2) · (π·μ·d_m − l) / (π·d_m + μ·l)<span class="lbl">عزم الإنزال — مع الحمل (with load)</span></div>
+    <div class="formula-box">T_c = F · μ_c · d_c / 2<span class="lbl">عزم احتكاك الطوق Collar — يُضاف للعزمين</span></div>
+    <div class="tip tip-purple"><strong>🟣 من ملخصك:</strong> هناك احتكاكان: <strong>Thread friction</strong> بين السن والصامولة (قطره d_m المتوسط)، و<strong>Collar friction</strong> عند سطح الارتكاز (قطره d_c). ومعادلتك <span class="ltr">T = F·μ·d/2</span> هي معادلة الطوق.</div>
+    <div class="formula-box">الإقفال الذاتي: π·μ·d_m &gt; l   أي   μ &gt; tan λ<span class="lbl">Self-locking — الحمل لا ينزل وحده عند ترك البرغي</span></div>
+    <div class="formula-box">e = F·l / (2π·T)<span class="lbl">الكفاءة</span></div>
+    <div class="warn">المعادلات للسن المربع. لسن Acme استبدل μ بـ <span class="ltr">μ / cos α</span> (α = 14.5°).</div>
+    <div class="ex-box">
+      <div class="ex-title">مثال: برغي سن مربع مفرد، d_m = 30 مم، p = 6 مم، μ = 0.10، يرفع 10 kN (بدون طوق). أوجد عزم الرفع والكفاءة.</div>
+      <div class="ex-step ltr">l = 6 mm,  π·d_m = 94.25 mm</div>
+      <div class="ex-step ltr">T_R = (10,000 × 0.030/2) × (6 + 9.425)/(94.25 − 0.6) = 150 × 0.1647 = <span class="ans">24.7 N·m</span></div>
+      <div class="ex-step ltr">e = 10,000 × 0.006 / (2π × 24.7) = <span class="ans">38.7%</span></div>
+      <div class="ex-step">الإقفال الذاتي: <span class="ltr">π·μ·d_m = 9.425 &gt; 6</span> ← <span class="ans">نعم، مقفل ذاتيًا</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ أدوات الربط ══════════ -->
+<div class="section" id="s-bolt">
+  <div class="card">
+    <div class="card-title">🔩 المسمار المشدود مسبقًا</div>
+    <div class="tip tip-blue"><strong>الفكرة:</strong> عند شد المسمار يتمدد هو وتنضغط القطع. إذا جاء حمل خارجي P فلا يذهب كله للمسمار، بل يتقاسمه المسمار والقطع حسب صلابتيهما.</div>
+    <span class="cls cls-mem">🟢 للحفظ</span>
+    <div class="formula-box">C = k_b / (k_b + k_m)<span class="lbl">ثابت الوصلة — k_b صلابة المسمار، k_m صلابة القطع</span></div>
+    <div class="formula-box">F_b = C·P + F_i<span class="lbl">القوة في المسمار — F_i الشد المسبق Preload</span></div>
+    <div class="formula-box">F_m = (1 − C)·P − F_i<span class="lbl">القوة في القطع (سالبة = ضغط). إذا صارت صفرًا انفصلت الوصلة</span></div>
+    <div class="formula-box">T = K · F_i · d<span class="lbl">عزم الشد — K ≈ 0.2 للمسمار غير المزيّت</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">الوصلة المحمّلة لا مركزيًا Eccentric Loading</div>
+    <div class="tip tip-purple"><strong>🟣 من ملخصك:</strong> هذا هو "eccentrically loaded bolted connections": القوة لا تمر بمركز مجموعة المسامير، فتولّد قصًّا مباشرًا <strong>وعزمًا</strong> يدوّر المجموعة.</div>
+    <div style="overflow-x:auto">
+    <svg width="560" height="230" viewBox="0 0 560 230" style="display:block;min-width:460px;margin:8px auto;font-family:Tajawal,sans-serif">
+      <rect x="60" y="40" width="170" height="150" fill="none" stroke="#94a3b8" stroke-width="2"/>
+      <rect x="140" y="95" width="330" height="40" fill="rgba(96,165,250,.15)" stroke="#60a5fa"/>
+      <g fill="#fbbf24"><circle cx="100" cy="75" r="9"/><circle cx="190" cy="75" r="9"/><circle cx="100" cy="155" r="9"/><circle cx="190" cy="155" r="9"/></g>
+      <circle cx="145" cy="115" r="4" fill="#f87171"/><text x="145" y="108" text-anchor="middle" font-size="10" fill="#f87171" font-weight="900">G المركز</text>
+      <line x1="145" y1="115" x2="190" y2="75" stroke="#c084fc" stroke-dasharray="3,2"/><text x="176" y="100" font-size="11" fill="#c084fc" font-weight="900">r</text>
+      <line x1="440" y1="50" x2="440" y2="92" stroke="#f87171" stroke-width="4"/><polygon points="433,90 440,102 447,90" fill="#f87171"/>
+      <text x="452" y="66" font-size="13" fill="#f87171" font-weight="900">P</text>
+      <line x1="145" y1="210" x2="440" y2="210" stroke="#4ade80" stroke-width="2"/><line x1="145" y1="204" x2="145" y2="216" stroke="#4ade80" stroke-width="2"/><line x1="440" y1="204" x2="440" y2="216" stroke="#4ade80" stroke-width="2"/>
+      <text x="292" y="204" text-anchor="middle" font-size="12" fill="#4ade80" font-weight="900">e اللامركزية ← العزم M = P·e</text>
+    </svg>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body">أوجد مركز مجموعة المسامير G.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>القص الأولي</strong> (يتوزع بالتساوي، باتجاه P): <span class="ltr">F′ = P / n</span></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>القص الثانوي</strong> من العزم (عمودي على r): <span class="ltr">F″ = M·r / Σr²</span></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body">اجمعهما <strong>جمعًا متجهًا</strong>. المسمار الأخطر هو الأبعد عن G والذي تتوافق عنده المركّبتان.</div></div>
+    </div>
+    <div class="ex-box">
+      <div class="ex-title">مثال: 4 مسامير على زوايا مربع ضلعه 100 مم، P = 8 kN رأسية على بعد 250 مم من G.</div>
+      <div class="ex-step ltr">F′ = 8/4 = 2 kN (رأسي)</div>
+      <div class="ex-step ltr">r = √(50² + 50²) = 70.7 mm,  Σr² = 4 × 5000 = 20,000 mm²</div>
+      <div class="ex-step ltr">M = 8 × 250 = 2000 kN·mm,  F″ = 2000 × 70.7 / 20,000 = 7.07 kN</div>
+      <div class="ex-step">المركّبة الرأسية لـF″ = 5 kN والأفقية 5 kN. للمسمار الأخطر:</div>
+      <div class="ex-step ltr">F = √(5² + (5 + 2)²) = <span class="ans">8.6 kN</span></div>
+    </div>
+    <div class="tip tip-green"><strong>إجهادات المسمار في القص:</strong> قص <span class="ltr">τ = F/A</span>، دكّ <span class="ltr">σ_b = F/(d·t)</span>. (مشروحة في صفحة ميكانيكا المواد.)</div>
+  </div>
+</div>
+
+<!-- ══════════ التروس ══════════ -->
+<div class="section" id="s-gear">
+  <div class="card">
+    <div class="card-title">⚙️ مصطلحات سن الترس</div>
+    <div style="overflow-x:auto">
+    <svg width="600" height="270" viewBox="0 0 600 270" style="display:block;min-width:500px;margin:8px auto;font-family:Tajawal,sans-serif">
+      <path d="M30,210 L110,210 L135,70 L205,70 L230,210 L330,210 L355,70 L425,70 L450,210 L530,210" fill="rgba(96,165,250,.15)" stroke="#60a5fa" stroke-width="3" stroke-linejoin="round"/>
+      <line x1="20" y1="140" x2="560" y2="140" stroke="#fbbf24" stroke-width="2" stroke-dasharray="8,4"/>
+      <text x="560" y="134" text-anchor="end" font-size="11" fill="#fbbf24" font-weight="900">Pitch circle دائرة الخطوة</text>
+      <line x1="20" y1="70" x2="560" y2="70" stroke="#94a3b8" stroke-dasharray="3,3"/><text x="560" y="64" text-anchor="end" font-size="10" fill="#94a3b8">Addendum circle</text>
+      <line x1="20" y1="210" x2="560" y2="210" stroke="#94a3b8" stroke-dasharray="3,3"/><text x="560" y="226" text-anchor="end" font-size="10" fill="#94a3b8">Root (Dedendum) circle</text>
+      <line x1="170" y1="70" x2="170" y2="140" stroke="#4ade80" stroke-width="3"/><text x="178" y="110" font-size="11" fill="#4ade80" font-weight="900">Addendum a</text>
+      <line x1="280" y1="140" x2="280" y2="210" stroke="#f87171" stroke-width="3"/><text x="240" y="232" font-size="11" fill="#f87171" font-weight="900">Dedendum b</text>
+      <line x1="122" y1="140" x2="342" y2="140" stroke="#c084fc" stroke-width="4"/>
+      <text x="232" y="158" text-anchor="middle" font-size="11" fill="#c084fc" font-weight="900">Circular pitch p</text>
+      <line x1="390" y1="70" x2="390" y2="210" stroke="#60a5fa" stroke-width="2"/><text x="398" y="180" font-size="11" fill="#60a5fa" font-weight="900">Whole depth</text>
+      <text x="300" y="258" text-anchor="middle" font-size="11" fill="#94a3b8">الخلوص Clearance = b − a (فراغ بين رأس سن وقاع السن المقابل)</text>
+    </svg>
+    </div>
+    <span class="cls cls-mem">🟢 للحفظ</span>
+    <div class="formula-box">m = d / N<span class="lbl">الموديول Module (مم) — النظام المتري. d قطر دائرة الخطوة، N عدد الأسنان</span></div>
+    <div class="formula-box">P_d = N / d<span class="lbl">Diametral Pitch (سن لكل بوصة) — النظام الأمريكي. m = 25.4 / P_d</span></div>
+    <div class="formula-box">p = π·m = π / P_d<span class="lbl">Circular Pitch الخطوة الدائرية</span></div>
+    <div class="tip tip-purple"><strong>🟣 من ملخصك:</strong> "الاسم مختلف في أوروبا وأمريكا والوحدة 1 على بوصة" = أوروبا تستخدم <strong>Module</strong> بالمليمتر، وأمريكا تستخدم <strong>Diametral Pitch</strong> ووحدته 1/in. وشرط التعشيق صحيح: <span class="ltr">m₁ = m₂</span> (ونفس زاوية الضغط).</div>
+    <div class="tip tip-red"><strong>🔴 تصحيح إملائي:</strong> Addendum و <strong>Dedendum</strong> (وليس Deddmam).</div>
+    <table class="tbl">
+      <tr><th>البعد (سن قياسي كامل العمق)</th><th>بالموديول</th><th>بالـP_d</th></tr>
+      <tr><td>Addendum a</td><td class="ltr">1.0 m</td><td class="ltr">1 / P_d</td></tr>
+      <tr><td>Dedendum b</td><td class="ltr">1.25 m</td><td class="ltr">1.25 / P_d</td></tr>
+      <tr><td>Clearance c</td><td class="ltr">0.25 m</td><td class="ltr">0.25 / P_d</td></tr>
+      <tr><td>Working depth</td><td class="ltr">2.0 m</td><td class="ltr">2 / P_d</td></tr>
+      <tr><td>Whole depth</td><td class="ltr">2.25 m</td><td class="ltr">2.25 / P_d</td></tr>
+      <tr><td>القطر الخارجي</td><td class="ltr">d + 2m = m(N + 2)</td><td class="ltr">(N + 2) / P_d</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">نسبة السرعة والقوى</div>
+    <div class="formula-box">ω₁/ω₂ = N₂/N₁ = d₂/d₁<span class="lbl">نسبة السرعة — الترس الأصغر أسرع</span></div>
+    <div class="formula-box">C = (d₁ + d₂)/2 = m·(N₁ + N₂)/2<span class="lbl">المسافة بين المركزين</span></div>
+    <div class="formula-box">W_t = 2T / d = Power / v<span class="lbl">القوة المماسية — هي التي تنقل القدرة</span></div>
+    <div class="formula-box">W_r = W_t · tan φ<span class="lbl">القوة القطرية — φ زاوية الضغط (غالبًا 20°)</span></div>
+    <div class="formula-box">σ = W_t / (F · m · Y)<span class="lbl">معادلة Lewis لانحناء السن — F عرض الوجه Face width، Y معامل الشكل</span></div>
+    <div class="tip tip-blue"><strong>قطار التروس:</strong> النسبة الكلية = حاصل ضرب أسنان التروس <strong>القائدة</strong> ÷ حاصل ضرب أسنان <strong>المقودة</strong>. الترس الوسيط Idler يغيّر الاتجاه فقط ولا يغيّر النسبة.</div>
+    <div class="ex-box">
+      <div class="ex-title">مثال: ترس قائد 20 سنًّا بموديول 4 يدور 1200 rpm ويعشّق مع ترس 60 سنًّا وينقل 10 kW.</div>
+      <div class="ex-step ltr">d₁ = 4×20 = 80 mm,  d₂ = 4×60 = 240 mm,  C = (80+240)/2 = <span class="ans">160 mm</span></div>
+      <div class="ex-step ltr">n₂ = 1200 × 20/60 = <span class="ans">400 rpm</span></div>
+      <div class="ex-step ltr">v = π × 0.080 × 1200/60 = 5.03 m/s,  W_t = 10,000/5.03 = <span class="ans">1989 N</span></div>
+      <div class="ex-step ltr">W_r = 1989 × tan 20° = <span class="ans">724 N</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ الآلية الرباعية ══════════ -->
+<div class="section" id="s-link">
+  <div class="card">
+    <div class="card-title">🦾 الآلية ذات الأربعة قضبان Four-Bar Linkage</div>
+    <div class="tip tip-purple"><strong>🟣 من ملخصك:</strong> قلتَ إن الزوايا والسرعات والعجلة الدورانية "ما فهمتها في الجامعة". ابدأ من الأبسط: أربعة قضبان موصولة بمفاصل، واحد منها ثابت.</div>
+    <div style="overflow-x:auto">
+    <svg width="560" height="250" viewBox="0 0 560 250" style="display:block;min-width:460px;margin:8px auto;font-family:Tajawal,sans-serif">
+      <line x1="90" y1="200" x2="430" y2="200" stroke="#94a3b8" stroke-width="7"/>
+      <text x="260" y="226" text-anchor="middle" font-size="12" fill="#94a3b8" font-weight="900">1 — Ground (الثابت)</text>
+      <line x1="90" y1="200" x2="150" y2="110" stroke="#f87171" stroke-width="7"/>
+      <text x="78" y="150" text-anchor="end" font-size="12" fill="#f87171" font-weight="900">2 — Crank (المرفق: الداخل)</text>
+      <line x1="150" y1="110" x2="400" y2="60" stroke="#60a5fa" stroke-width="7"/>
+      <text x="275" y="62" text-anchor="middle" font-size="12" fill="#60a5fa" font-weight="900">3 — Coupler (ذراع التوصيل)</text>
+      <line x1="400" y1="60" x2="430" y2="200" stroke="#4ade80" stroke-width="7"/>
+      <text x="446" y="130" font-size="12" fill="#4ade80" font-weight="900">4 — Rocker (الخارج)</text>
+      <g fill="#fbbf24"><circle cx="90" cy="200" r="8"/><circle cx="150" cy="110" r="8"/><circle cx="400" cy="60" r="8"/><circle cx="430" cy="200" r="8"/></g>
+      <path d="M118,200 A28,28 0 0 0 106,177" fill="none" stroke="#f87171" stroke-width="2"/><text x="128" y="186" font-size="11" fill="#f87171" font-weight="900">θ₂, ω₂</text>
+    </svg>
+    </div>
+    <span class="cls cls-mem">🟢 للحفظ — شرط غراشوف Grashof</span>
+    <div class="formula-box">s + l ≤ p + q<span class="lbl">s أقصر قضيب، l أطول قضيب، p و q الباقيان. إذا تحقق: قضيب واحد على الأقل يدور دورة كاملة</span></div>
+    <table class="tbl">
+      <tr><th>الثابت هو</th><th>نوع الآلية</th></tr>
+      <tr><td>المجاور للأقصر</td><td>Crank–Rocker (مرفق يدور وذراع يتأرجح)</td></tr>
+      <tr><td>الأقصر نفسه</td><td>Double-Crank (الاثنان يدوران)</td></tr>
+      <tr><td>المقابل للأقصر</td><td>Double-Rocker (غراشوف)</td></tr>
+      <tr><td>الشرط غير متحقق</td><td>Triple-Rocker (لا شيء يدور دورة كاملة)</td></tr>
+    </table>
+    <div class="formula-box">M = 3(L − 1) − 2·J₁ − J₂<span class="lbl">معادلة Gruebler لدرجات الحرية — L عدد القضبان، J₁ مفاصل بدرجة حرية واحدة</span></div>
+    <div class="tip tip-green">للرباعية: <span class="ltr">M = 3(4−1) − 2(4) = 1</span>. درجة حرية واحدة = محرك واحد يكفي لتحديد حركة كل الآلية.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">السرعة والعجلة — الأساسيات فقط</div>
+    <div class="formula-box">v = ω · r<span class="lbl">سرعة نقطة على قضيب دوّار — عمودية على القضيب</span></div>
+    <div class="formula-box">a_n = ω²·r   ،   a_t = α·r<span class="lbl">العجلة العمودية (نحو المركز) والمماسية</span></div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body">سرعة طرف المرفق معلومة: <span class="ltr">v_A = ω₂·r₂</span>، عمودية على المرفق.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body">سرعة طرف الذراع الخارج عمودية على الذراع 4 (اتجاه معلوم، قيمة مجهولة).</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body">السرعة النسبية بين طرفي ذراع التوصيل عمودية عليه: <span class="ltr">v_B = v_A + v_B/A</span>.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body">ارسم مثلث السرعات أو حلّ المعادلتين (x و y) لإيجاد ω₃ و ω₄.</div></div>
+    </div>
+    <div class="tip tip-amber"><strong>طريقة المركز اللحظي:</strong> لأي قضيب نقطة سرعتها صفر لحظيًا (IC). سرعة أي نقطة عليه <span class="ltr">v = ω·(بعدها عن IC)</span>. تقع IC عند تقاطع العمودين على اتجاهي سرعتي نقطتين.</div>
+  </div>
+</div>
+
+<!-- ══════════ الانهيار ══════════ -->
+<div class="section" id="s-fail">
+  <div class="card">
+    <div class="card-title">🟡 مضاف — نظريات الانهيار الساكن</div>
+    <div class="warn">هذا الباب ليس في ملخصك، وهو من أكثر أبواب تصميم الآلات ورودًا في الـFE.</div>
+    <table class="tbl">
+      <tr><th>النظرية</th><th>تُستخدم لـ</th><th>الشرط</th></tr>
+      <tr><td>أقصى إجهاد قص — Tresca (MSS)</td><td>المواد المطيلة (متحفظة)</td><td class="ltr">τ_max = S_y / (2n)</td></tr>
+      <tr><td>طاقة التشوه — von Mises (DE)</td><td>المواد المطيلة (الأدق)</td><td class="ltr">σ′ = S_y / n</td></tr>
+      <tr><td>أقصى إجهاد عمودي — Rankine</td><td>المواد الهشة</td><td class="ltr">σ₁ = S_ut / n</td></tr>
+    </table>
+    <div class="formula-box" style="font-size:14px">σ′ = √( σ_x² − σ_x·σ_y + σ_y² + 3·τ_xy² )<span class="lbl">إجهاد von Mises في المستوي</span></div>
+    <div class="formula-box">σ′ = √( σ² + 3·τ² )<span class="lbl">الحالة الأشهر: عمود عليه انحناء σ والتواء τ</span></div>
+    <div class="formula-box">n = S_y / σ′<span class="lbl">معامل الأمان Factor of Safety</span></div>
+    <div class="ex-box">
+      <div class="ex-title">مثال: نقطة على عمود σ = 80 MPa (انحناء) و τ = 40 MPa (التواء)، S_y = 300 MPa.</div>
+      <div class="ex-step ltr">σ′ = √(80² + 3×40²) = √(6400 + 4800) = 105.8 MPa</div>
+      <div class="ex-step ltr">n = 300 / 105.8 = <span class="ans">2.83</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🟡 مضاف — الكلل Fatigue</div>
+    <div class="tip tip-blue"><strong>الفكرة:</strong> القطعة تنكسر تحت إجهاد <strong>متكرر</strong> أقل بكثير من إجهاد الخضوع. أغلب أعطال الأعمدة والزنبركات كلل.</div>
+    <div class="formula-box">σ_a = (σ_max − σ_min)/2   ،   σ_m = (σ_max + σ_min)/2<span class="lbl">الإجهاد المتناوب والمتوسط</span></div>
+    <div class="formula-box">S_e′ ≈ 0.5 · S_ut<span class="lbl">حد التحمل للفولاذ (S_ut حتى 1400 MPa)، ثم يُضرب في معاملات التصحيح</span></div>
+    <div class="formula-box">σ_a / S_e + σ_m / S_ut = 1 / n<span class="lbl">معيار Goodman المعدّل</span></div>
+    <div class="formula-box">σ_a / S_e + σ_m / S_y = 1 / n<span class="lbl">معيار Soderberg (الأكثر تحفظًا)</span></div>
+    <div class="tip tip-amber">تركّز الإجهاد (كتف، مجرى خابور، ثقب) يضاعف الإجهاد المتناوب: <span class="ltr">σ = K_f · σ_nominal</span>.</div>
+  </div>
+</div>
+
+<!-- ══════════ أسئلة ══════════ -->
+<div class="section" id="s-quiz">
+  <div class="card">
+    <div class="card-title">📝 أسئلة بنمط FE — حاول قبل ما تفتح الحل</div>
+    <details class="qa"><summary>1) زنبرك D = 40 مم و d = 5 مم. ما مؤشره؟ وهل هو في المدى العملي؟</summary><div class="ans-box"><span class="ltr">C = 40/5 = 8</span>، نعم (بين 4 و12).</div></details>
+    <details class="qa"><summary>2) زنبركان k₁ = 10 و k₂ = 15 kN/m. ما الصلابة المكافئة على التوازي وعلى التوالي؟</summary><div class="ans-box">توازي: <span class="ltr">25 kN/m</span>. توالي: <span class="ltr">(10×15)/(10+15) = 6 kN/m</span>.</div></details>
+    <details class="qa"><summary>3) إذا تضاعف قطر السلك d مع ثبات كل شيء، كم تتغير صلابة الزنبرك؟</summary><div class="ans-box">k تتناسب مع d⁴ ← تزيد <strong>16 مرة</strong>.</div></details>
+    <details class="qa"><summary>4) زنبرك Squared &amp; Ground فيه 12 لفة كلية. كم لفة فعالة؟</summary><div class="ans-box"><span class="ltr">N_a = 12 − 2 = 10</span></div></details>
+    <details class="qa"><summary>5) كرسي كرات C = 20 kN تحت حمل 4 kN. ما عمره L₁₀ بملايين الدورات؟</summary><div class="ans-box"><span class="ltr">(20/4)³ = 125 × 10⁶ rev</span></div></details>
+    <details class="qa"><summary>6) تضاعف الحمل على كرسي كرات. ماذا يحدث للعمر؟</summary><div class="ans-box">ينزل إلى <strong>الثُّمن</strong> <span class="ltr">(1/2³)</span>.</div></details>
+    <details class="qa"><summary>7) برغي سن مزدوج Double-start خطوته 5 مم. كم يتقدم في لفة واحدة؟</summary><div class="ans-box"><span class="ltr">l = 2 × 5 = 10 mm</span></div></details>
+    <details class="qa"><summary>8) برغي d_m = 20 مم، l = 4 مم، μ = 0.08. هل هو مقفل ذاتيًا؟</summary><div class="ans-box"><span class="ltr">π·μ·d_m = π × 0.08 × 20 = 5.03 &gt; 4</span> ← نعم.</div></details>
+    <details class="qa"><summary>9) ترس موديوله 3 وعدد أسنانه 40. ما قطر دائرة الخطوة والقطر الخارجي؟</summary><div class="ans-box"><span class="ltr">d = 120 mm</span>، الخارجي <span class="ltr">= 3(40+2) = 126 mm</span></div></details>
+    <details class="qa"><summary>10) ترس 18 سنًّا يدور 900 rpm يقود ترسًا 54 سنًّا. كم سرعة المقود؟</summary><div class="ans-box"><span class="ltr">900 × 18/54 = 300 rpm</span></div></details>
+    <details class="qa"><summary>11) ترس P_d = 8 (سن/بوصة) وعدد أسنانه 32. ما قطر الخطوة وما الموديول المقابل؟</summary><div class="ans-box"><span class="ltr">d = 32/8 = 4 in</span>، <span class="ltr">m = 25.4/8 = 3.175 mm</span></div></details>
+    <details class="qa"><summary>12) آلية رباعية أطوالها 40، 100، 80، 90 مم. هل تحقق شرط غراشوف؟</summary><div class="ans-box"><span class="ltr">s + l = 40 + 100 = 140 ≤ 80 + 90 = 170</span> ← نعم.</div></details>
+    <details class="qa"><summary>13) وصلة مسامير C = 0.25، شد مسبق 20 kN، حمل خارجي 12 kN. كم القوة في المسمار؟</summary><div class="ans-box"><span class="ltr">F_b = 0.25×12 + 20 = 23 kN</span></div></details>
+    <details class="qa"><summary>14) عمود عليه σ = 60 MPa و τ = 30 MPa، S_y = 250 MPa. ما معامل الأمان بنظرية von Mises؟</summary><div class="ans-box"><span class="ltr">σ′ = √(3600 + 2700) = 79.4 MPa</span>، <span class="ltr">n = 250/79.4 = 3.15</span></div></details>
+    <details class="qa"><summary>15) مفهوم: ما نوع الإجهاد الرئيسي في سلك زنبرك انضغاطي حلزوني؟ وفي زنبرك الالتواء الحلزوني؟</summary><div class="ans-box">الانضغاطي: <strong>قص</strong> (السلك يلتوي). زنبرك الالتواء: <strong>انحناء</strong>.</div></details>
+  </div>
+</div>
+
+<!-- JS -->
+<script>
+function show(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('s-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+function toggleTheme(){
+  const html=document.documentElement;
+  const isLight=html.getAttribute('data-theme')==='light';
+  html.setAttribute('data-theme',isLight?'dark':'light');
+  document.getElementById('themeBtn').textContent=isLight?'🌙':'☀️';
+  try{localStorage.setItem('mech-theme',isLight?'dark':'light')}catch(e){}
+}
+(function(){
+  try{
+    const t=localStorage.getItem('mech-theme');
+    if(t==='light'){
+      document.documentElement.setAttribute('data-theme','light');
+      document.addEventListener('DOMContentLoaded',()=>{
+        const b=document.getElementById('themeBtn');
+        if(b)b.textContent='☀️';
+      });
+    }
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
