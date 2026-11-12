@@ -256,7 +256,7 @@ svg{direction:ltr}
     </table>
     <div class="formula-box">Q_s = 1.08 × CFM × ΔT(°F)   =   1.2 × L/s × ΔT(°C)<span class="lbl">الحمل المحسوس للهواء (Btu/h أو W)</span></div>
     <div class="formula-box">Q_total = 4.5 × CFM × Δh   =   1.2 × L/s × Δh(kJ/kg)<span class="lbl">الحمل الكلي للهواء، من فرق الإنثالبي</span></div>
-    <div class="formula-box">gpm = 24 × TR / ΔT(°F)<span class="lbl">تدفق الماء المثلج. عند ΔT = 10°F: كل طن يحتاج 2.4 gpm</span></div>
+    <div class="formula-box">gpm = 24 × TR / ΔT(°F)<span class="lbl">تدفق الماء المثلج. عند ΔT = <span class="ltr">10°F</span>: كل طن يحتاج 2.4 gpm</span></div>
     <div class="formula-box">L/s = kW / (4.19 × ΔT°C)<span class="lbl">نفس المعادلة بالنظام المتري</span></div>
     <div class="tip tip-purple"><strong>🟣 من ملخصك:</strong> "1 طن = 1.5 حصان". هذا عُرف سوق تقريبي للمكيفات المنزلية، والحصان هنا ليس وحدة تبريد علمية. لا تستخدمه في أي حساب.</div>
     <div class="tip tip-blue"><strong>قاعدة تحقق سريعة:</strong> كل طن تبريد يحتاج نحو <strong>400 CFM</strong> هواء. إذا خرج حسابك بعيدًا عنها فراجعه.</div>
@@ -295,9 +295,9 @@ svg{direction:ltr}
     <div class="tip tip-purple"><strong>🟣 Dew Point:</strong> قارورة الماء الباردة يتكوّن عليها ماء من الخارج. السبب: سطحها أبرد من نقطة ندى هواء الغرفة، فالهواء الملامس لها "صغرت إسفنجته" حتى قطرت. نقطة الندى تعتمد فقط على <strong>كمية البخار</strong> في الهواء.</div>
     <div class="tip tip-green"><strong>لماذا تهمك في الشغل؟</strong> (1) ملف التبريد لازم يكون <strong>أبرد من نقطة الندى</strong> حتى يزيل الرطوبة. (2) أي سطح أبرد منها يتعرّق: لهذا نعزل مواسير الماء المثلج والدكت. (3) في جدة نقطة الندى عالية، فالتعرّق والعفن مشكلة يومية.</div>
     <div class="ex-box">
-      <div class="ex-title">حالة التصميم الداخلية المعتادة: 24°C و 50% RH. بقية الخصائص من الخريطة:</div>
-      <div class="ex-step">نسبة الرطوبة ≈ <span class="ltr">9.3 g/kg</span> · نقطة الندى ≈ <span class="ltr">13°C</span> · الرطبة ≈ <span class="ltr">17°C</span> · الإنثالبي ≈ <span class="ltr">48 kJ/kg</span></div>
-      <div class="ex-step"><span class="ans">لهذا يخرج الهواء من ملف التبريد عند نحو 13°C: قريب من نقطة الندى ليكثّف الرطوبة.</span></div>
+      <div class="ex-title">حالة التصميم الداخلية المعتادة: <span class="ltr">24°C</span> و 50% RH. بقية الخصائص من الخريطة:</div>
+      <div class="ex-step">نسبة الرطوبة ≈ <span class="ltr">9.3 g/kg</span> · نقطة الندى ≈ <span class="ltr"><span class="ltr">13°C</span></span> · الرطبة ≈ <span class="ltr"><span class="ltr">17°C</span></span> · الإنثالبي ≈ <span class="ltr">48 kJ/kg</span></div>
+      <div class="ex-step"><span class="ans">لهذا يخرج الهواء من ملف التبريد عند نحو <span class="ltr">13°C</span>: قريب من نقطة الندى ليكثّف الرطوبة.</span></div>
     </div>
   </div>
 
@@ -492,11 +492,11 @@ svg{direction:ltr}
       <text x="565" y="124" text-anchor="middle" font-size="12" fill="#60a5fa" font-weight="900">AHU / FCU</text>
       <text x="565" y="144" text-anchor="middle" font-size="10" fill="#60a5fa">الماء يبرّد الهواء</text>
       <path d="M370,110 L500,110" stroke="#60a5fa" stroke-width="5"/>
-      <text x="435" y="100" text-anchor="middle" font-size="10" fill="#60a5fa" font-weight="900">ذاهب بارد ≈ 6–7°C</text>
+      <text x="412" y="100" text-anchor="middle" font-size="10" fill="#60a5fa" font-weight="900">ذاهب بارد</text><text x="470" y="100" text-anchor="middle" font-size="10" fill="#60a5fa" font-weight="900">6–7°C</text>
       <path d="M500,150 L370,150" stroke="#f87171" stroke-width="5" stroke-dasharray="8,4"/>
-      <text x="435" y="170" text-anchor="middle" font-size="10" fill="#f87171" font-weight="900">راجع ≈ 12–13°C</text>
-      <circle cx="420" cy="110" r="11" fill="rgba(74,222,128,.3)" stroke="#4ade80" stroke-width="2"/>
-      <text x="420" y="86" text-anchor="middle" font-size="9" fill="#4ade80" font-weight="900">مضخة</text>
+      <text x="452" y="172" text-anchor="middle" font-size="10" fill="#f87171" font-weight="900">راجع</text><text x="478" y="188" text-anchor="middle" font-size="10" fill="#f87171" font-weight="900">12–13°C</text>
+      <circle cx="400" cy="150" r="11" fill="rgba(74,222,128,.3)" stroke="#4ade80" stroke-width="2"/>
+      <text x="400" y="178" text-anchor="middle" font-size="9" fill="#4ade80" font-weight="900">مضخة</text>
       <rect x="30" y="80" width="120" height="100" rx="8" fill="rgba(192,132,252,.18)" stroke="#c084fc" stroke-width="2"/>
       <text x="90" y="120" text-anchor="middle" font-size="12" fill="#c084fc" font-weight="900">Cooling Tower</text>
       <text x="90" y="140" text-anchor="middle" font-size="10" fill="#c084fc">أو مراوح هواء</text>
@@ -514,7 +514,7 @@ svg{direction:ltr}
       <br><strong>3) السعة والكفاءة:</strong> تشيلر واحد كبير أكفأ من مئات الضواغط الصغيرة، ويستفيد من أن المبنى لا يحتاج كل سعته في نفس الوقت.
       <br><strong>4) الصيانة والتحكم:</strong> المعدات المعقدة كلها في غرفة واحدة، وفي الغرف ملف ماء ومروحة فقط.
       <br><strong>5) المساحة:</strong> صاعد ماء واحد يخدم عشرة أدوار، بدل وحدات خارجية على كل واجهة.</div>
-    <div class="tip tip-red"><strong>🔴 تصحيحان:</strong> (1) كتبتَ "الموية تخرج من الكوندنسر وتروح للـAHU". الماء المثلج يخرج من <strong>المبخر</strong>. (2) كتبتَ "الهواء دخل AHU 22 ورجع 28". الهواء يدخل ملف التبريد نحو 24–27°C ويخرج نحو 13°C.</div>
+    <div class="tip tip-red"><strong>🔴 تصحيحان:</strong> (1) كتبتَ "الموية تخرج من الكوندنسر وتروح للـAHU". الماء المثلج يخرج من <strong>المبخر</strong>. (2) كتبتَ "الهواء دخل AHU 22 ورجع 28". الهواء يدخل ملف التبريد نحو <span class="ltr">24–27°C</span> ويخرج نحو <span class="ltr">13°C</span>.</div>
   </div>
 
   <div class="card">
@@ -553,7 +553,7 @@ svg{direction:ltr}
       <div class="step"><div class="step-num">4</div><div class="step-body"><strong>اختر أول موديل يساوي المطلوب أو يزيد قليلًا</strong> (هامش 5–10%).</div></div>
       <div class="step"><div class="step-num">5</div><div class="step-body"><strong>تحقق من القيود:</strong> الصوت، الأبعاد، الكهرباء، الضغط الساكن.</div></div>
     </div>
-    <div class="tip tip-red"><strong>أشهر خطأ:</strong> السعة الاسمية في الكتالوج تُقاس عند جو خارجي 35°C. في السعودية التصميم عند 46–48°C، وعندها تنزل سعة المعدة 10–20%. مكيف "5 طن" على الغلاف قد يعطي 4.2 طن فعليًا. <strong>اقرأ دائمًا السعة عند حرارة التصميم.</strong></div>
+    <div class="tip tip-red"><strong>أشهر خطأ:</strong> السعة الاسمية في الكتالوج تُقاس عند جو خارجي <span class="ltr">35°C</span>. في السعودية التصميم عند <span class="ltr">46–48°C</span>، وعندها تنزل سعة المعدة 10–20%. مكيف "5 طن" على الغلاف قد يعطي 4.2 طن فعليًا. <strong>اقرأ دائمًا السعة عند حرارة التصميم.</strong></div>
   </div>
 
   <div class="card">
@@ -563,7 +563,7 @@ svg{direction:ltr}
       <tr><td>الحمل الكلي والحمل المحسوس</td><td>تقرير الأحمال (HAP)</td></tr>
       <tr><td>كمية الهواء CFM</td><td>تقرير الأحمال</td></tr>
       <tr><td>حرارة الجو الخارجي للتصميم</td><td>بيانات المدينة</td></tr>
-      <tr><td>حالة الهواء الداخل للملف (DB/WB)</td><td>غالبًا 27/19°C أو حسب خلط الهواء النقي</td></tr>
+      <tr><td>حالة الهواء الداخل للملف (DB/WB)</td><td>غالبًا <span class="ltr">27/19°C</span> أو حسب خلط الهواء النقي</td></tr>
       <tr><td>الضغط الساكن الخارجي ESP (للأنواع الدكت)</td><td>حساب الدكت</td></tr>
     </table>
     <table class="tbl">
@@ -577,9 +577,9 @@ svg{direction:ltr}
       <tr><td>Piping Length / Height</td><td>أقصى طول وارتفاع لمواسير الفريون</td><td>المسافة الفعلية بين الوحدتين</td></tr>
     </table>
     <div class="ex-box">
-      <div class="ex-title">مثال: صالة حملها 4.5 طن (محسوس 3.6 طن)، الهواء 1800 CFM، الجو 46°C، فقد الدكت 0.5 in.wg.</div>
-      <div class="ex-step">موديل "5 طن" اسمي: عند 46°C يعطي مثلًا 4.3 طن ← <strong>أقل من المطلوب ✗</strong></div>
-      <div class="ex-step">موديل "6 طن" اسمي: عند 46°C يعطي 5.1 طن كلي و4.0 محسوس، هواء 2000 CFM، ESP حتى 0.6 ← <span class="ans">يحقق الكل ✓</span></div>
+      <div class="ex-title">مثال: صالة حملها 4.5 طن (محسوس 3.6 طن)، الهواء 1800 CFM، الجو <span class="ltr">46°C</span>، فقد الدكت 0.5 in.wg.</div>
+      <div class="ex-step">موديل "5 طن" اسمي: عند <span class="ltr">46°C</span> يعطي مثلًا 4.3 طن ← <strong>أقل من المطلوب ✗</strong></div>
+      <div class="ex-step">موديل "6 طن" اسمي: عند <span class="ltr">46°C</span> يعطي 5.1 طن كلي و4.0 محسوس، هواء 2000 CFM، ESP حتى 0.6 ← <span class="ans">يحقق الكل ✓</span></div>
     </div>
     <div class="warn">أرقام الأداء في المثال توضيحية. الأرقام الفعلية من جدول أداء المصنّع.</div>
   </div>
@@ -591,7 +591,7 @@ svg{direction:ltr}
       <tr><th>ماذا تجهّز</th><th>عمود الكتالوج المقابل</th></tr>
       <tr><td>الحمل الكلي والمحسوس للغرفة</td><td>Total / Sensible Capacity عند سرعة المروحة المتوسطة</td></tr>
       <tr><td>CFM</td><td>Airflow (له ثلاث سرعات: نختار على المتوسطة ليبقى احتياط)</td></tr>
-      <tr><td>حرارة الماء الداخل والخارج (7/12°C)</td><td>EWT / LWT</td></tr>
+      <tr><td>حرارة الماء الداخل والخارج (<span class="ltr">7/12°C</span>)</td><td>EWT / LWT</td></tr>
       <tr><td>—</td><td>Water Flow: تدفق الماء، تأخذه لحساب المواسير</td></tr>
       <tr><td>—</td><td>Water Pressure Drop: فقد الضغط في الملف، تأخذه لحساب المضخة</td></tr>
       <tr><td>فقد الدكت القصير</td><td>ESP</td></tr>
@@ -627,8 +627,8 @@ svg{direction:ltr}
       <tr><td>كمية الهواء الكلية وكمية الهواء النقي</td><td>من تقرير الأحمال</td></tr>
       <tr><td>الضغط الساكن الخارجي ESP</td><td>من حساب الدكت. المورد يضيف فقد مكونات الوحدة ليحسب الضغط الكلي للمروحة</td></tr>
       <tr><td>الحمل الكلي والمحسوس للملف</td><td>يشمل حمل الهواء النقي</td></tr>
-      <tr><td>حالة الهواء الداخل للملف والخارج منه (DB/WB)</td><td>الداخل = خليط الراجع والنقي. الخارج ≈ 13°C</td></tr>
-      <tr><td>حرارة الماء المثلج الداخل والخارج</td><td>7/12°C مثلًا</td></tr>
+      <tr><td>حالة الهواء الداخل للملف والخارج منه (DB/WB)</td><td>الداخل = خليط الراجع والنقي. الخارج ≈ <span class="ltr">13°C</span></td></tr>
+      <tr><td>حرارة الماء المثلج الداخل والخارج</td><td><span class="ltr">7/12°C</span> مثلًا</td></tr>
       <tr><td>مراحل الفلاتر</td><td>حسب التطبيق</td></tr>
       <tr><td>نوع المروحة والموتور والكهرباء</td><td>—</td></tr>
     </table>
@@ -662,8 +662,8 @@ svg{direction:ltr}
     <table class="tbl">
       <tr><th>ماذا تجهّز</th><th>ملاحظة</th></tr>
       <tr><td>الحمل الكلي للمبنى بالطن</td><td>مجموع أحمال الوحدات × معامل التزامن، لا مجموعها المباشر</td></tr>
-      <tr><td>حرارة الماء المثلج الخارج والراجع</td><td>6.7/12.2°C (44/54°F) المعتاد</td></tr>
-      <tr><td>حرارة الجو (للهوائي) أو ماء المكثف (للمائي)</td><td>46–50°C للهوائي في السعودية. اقرأ السعة عندها</td></tr>
+      <tr><td>حرارة الماء المثلج الخارج والراجع</td><td><span class="ltr">6.7/12.2°C</span> (<span class="ltr">44/54°F</span>) المعتاد</td></tr>
+      <tr><td>حرارة الجو (للهوائي) أو ماء المكثف (للمائي)</td><td><span class="ltr">46–50°C</span> للهوائي في السعودية. اقرأ السعة عندها</td></tr>
       <tr><td>عدد الوحدات</td><td>نقسم الحمل على أكثر من تشيلر + واحد احتياط (N+1) للمباني المهمة</td></tr>
       <tr><td>حد الصوت والمساحة المتاحة</td><td>الهوائي يحتاج مساحة مكشوفة وتهوية حوله</td></tr>
     </table>
@@ -690,8 +690,8 @@ svg{direction:ltr}
     <table class="tbl">
       <tr><th>برج التبريد</th><th>المعنى</th><th>قيمة معتادة</th></tr>
       <tr><td>Flow تدفق ماء المكثف</td><td>أكبر من الماء المثلج لأنه يحمل حرارة المبنى + شغل الضاغط</td><td>≈ 3 gpm لكل طن</td></tr>
-      <tr><td>Range</td><td>حرارة الماء الداخل للبرج − الخارج منه</td><td>≈ 5.5°C</td></tr>
-      <tr><td>Approach</td><td>حرارة الماء الخارج − الحرارة الرطبة للجو</td><td>3 – 4°C. كلما صغر كبر البرج وغلا</td></tr>
+      <tr><td>Range</td><td>حرارة الماء الداخل للبرج − الخارج منه</td><td>≈ <span class="ltr">5.5°C</span></td></tr>
+      <tr><td>Approach</td><td>حرارة الماء الخارج − الحرارة الرطبة للجو</td><td><span class="ltr">3 – 4°C</span>. كلما صغر كبر البرج وغلا</td></tr>
       <tr><td>Design Wet Bulb</td><td>الحرارة الرطبة للمدينة. <strong>لا يمكن للبرج أن يبرّد الماء تحتها</strong></td><td>من بيانات الطقس</td></tr>
       <tr><td>Makeup ماء التعويض</td><td>تبخر + رذاذ + تصريف الأملاح</td><td>1 – 2% من التدفق</td></tr>
     </table>
@@ -748,9 +748,9 @@ svg{direction:ltr}
   <div class="card">
     <div class="card-title">🌀 كمية الهواء لكل غرفة</div>
     <span class="cls cls-mem">🟢 للحفظ</span>
-    <div class="formula-box">CFM = Q_sensible (Btu/h) / (1.08 × ΔT°F)<span class="lbl">ΔT = حرارة الغرفة − حرارة هواء الإمداد ≈ 20°F (11°C)</span></div>
+    <div class="formula-box">CFM = Q_sensible (Btu/h) / (1.08 × ΔT°F)<span class="lbl">ΔT = حرارة الغرفة − حرارة هواء الإمداد ≈ <span class="ltr">20°F</span> (<span class="ltr">11°C</span>)</span></div>
     <div class="ex-box">
-      <div class="ex-title">مثال: غرفة حملها المحسوس 18,000 Btu/h، الغرفة 75°F والإمداد 55°F.</div>
+      <div class="ex-title">مثال: غرفة حملها المحسوس 18,000 Btu/h، الغرفة <span class="ltr">75°F</span> والإمداد <span class="ltr">55°F</span>.</div>
       <div class="ex-step ltr">CFM = 18,000 / (1.08 × 20) = <span class="ans">833 CFM</span></div>
     </div>
     <div class="tip tip-blue">الهواء يُحسب من الحمل <strong>المحسوس</strong> لأن وظيفة الهواء الداخل رفع حرارة الغرفة من 55 إلى 75، وهذا محسوس. الكامن يُعالَج عند الملف.</div>
@@ -900,7 +900,7 @@ svg{direction:ltr}
     </table>
     <div class="tip tip-blue"><strong>لماذا حدّان؟</strong> في المواسير الصغيرة السرعة هي التي تسبب الصوت والتآكل فنقيّدها. في الكبيرة نقيّد الاحتكاك حتى لا تكبر المضخة.</div>
     <div class="ex-box">
-      <div class="ex-title">مثال: وحدة AHU حملها 20 طنًّا، فرق حرارة الماء 10°F.</div>
+      <div class="ex-title">مثال: وحدة AHU حملها 20 طنًّا، فرق حرارة الماء <span class="ltr">10°F</span>.</div>
       <div class="ex-step ltr">Flow = 24 × 20 / 10 = 48 gpm = 3.03 L/s</div>
       <div class="ex-step">تجربة 2 بوصة (قطر داخلي ≈ 52 مم): <span class="ltr">V = 0.00303 / 0.00212 = 1.43 m/s</span> ✗ فوق 1.2</div>
       <div class="ex-step">تجربة 2.5 بوصة (≈ 63 مم): <span class="ltr">V = 0.00303 / 0.00312 = 0.97 m/s</span> ✓</div>
@@ -1029,7 +1029,7 @@ svg{direction:ltr}
     <table class="tbl">
       <tr><th>ما كتبتَه</th><th>الصحيح</th></tr>
       <tr><td>الماء يخرج من الكوندنسر ويروح للـAHU</td><td>الماء المثلج يخرج من <strong>المبخر</strong></td></tr>
-      <tr><td>الهواء دخل AHU 22 ورجع 28</td><td>يدخل الملف نحو 24–27°C ويخرج نحو 13°C</td></tr>
+      <tr><td>الهواء دخل AHU 22 ورجع 28</td><td>يدخل الملف نحو <span class="ltr">24–27°C</span> ويخرج نحو <span class="ltr">13°C</span></td></tr>
       <tr><td>نسبة الرطوبة = بخار الهواء ÷ بخار الماء</td><td>كتلة البخار ÷ كتلة الهواء الجاف</td></tr>
       <tr><td>Wet Bulb: أقل درجة نقدر نبخّر بها</td><td>قراءة ترمومتر مبلول يبرّده التبخر</td></tr>
       <tr><td>VAV تتحكم بدرجة حرارة الهواء</td><td>تتحكم بكمية الهواء</td></tr>
@@ -1064,13 +1064,13 @@ svg{direction:ltr}
     <details class="qa"><summary>3) هواء عند 100% رطوبة نسبية. ما العلاقة بين الحرارة الجافة والرطبة ونقطة الندى؟</summary><div class="ans-box">الثلاث متساوية.</div></details>
     <details class="qa"><summary>4) لماذا يتكوّن ماء على ماسورة الماء المثلج غير المعزولة؟</summary><div class="ans-box">سطحها أبرد من نقطة ندى الهواء المحيط، فيتكثف بخار الماء عليها.</div></details>
     <details class="qa"><summary>5) ما العملية السايكرومترية التي تحدث على ملف المكيف؟ وما اتجاهها على الخريطة؟</summary><div class="ans-box">تبريد وإزالة رطوبة. يسار وأسفل.</div></details>
-    <details class="qa"><summary>6) غرفة حملها المحسوس 24,000 Btu/h وفرق الحرارة 20°F. كم CFM؟</summary><div class="ans-box"><span class="ltr">24,000 / (1.08 × 20) = 1111 CFM</span></div></details>
-    <details class="qa"><summary>7) تشيلر 200 طن وفرق حرارة الماء 10°F. كم تدفق الماء المثلج؟</summary><div class="ans-box"><span class="ltr">24 × 200 / 10 = 480 gpm</span></div></details>
+    <details class="qa"><summary>6) غرفة حملها المحسوس 24,000 Btu/h وفرق الحرارة <span class="ltr">20°F</span>. كم CFM؟</summary><div class="ans-box"><span class="ltr">24,000 / (1.08 × 20) = 1111 CFM</span></div></details>
+    <details class="qa"><summary>7) تشيلر 200 طن وفرق حرارة الماء <span class="ltr">10°F</span>. كم تدفق الماء المثلج؟</summary><div class="ans-box"><span class="ltr">24 × 200 / 10 = 480 gpm</span></div></details>
     <details class="qa"><summary>8) رتّب مكونات دورة التبريد واذكر أين يتبخر الفريون وأين يتكثف.</summary><div class="ans-box">ضاغط ← مكثف (يتكثف ويطرد الحرارة) ← صمام تمدد ← مبخر (يتبخر ويسحب الحرارة) ← ضاغط.</div></details>
     <details class="qa"><summary>9) ماذا يعني DX؟</summary><div class="ans-box">Direct Expansion: الفريون يتبخر في الملف الذي يلمسه هواء الغرفة مباشرة، بلا وسيط.</div></details>
     <details class="qa"><summary>10) اذكر ثلاثة أسباب لاستخدام الماء المثلج بدل الفريون في المباني الكبيرة.</summary><div class="ans-box">حدود طول مواسير الفريون ورجوع الزيت · خطر تسرب كمية فريون كبيرة · كفاءة وسعة التشيلر المركزي · سهولة الصيانة · توفير المساحة.</div></details>
     <details class="qa"><summary>11) مشروع 1500 طن والماء متوفر. هوائي أم مائي؟ ولماذا؟</summary><div class="ans-box">مائي Water-Cooled: السعة كبيرة وكفاءته أعلى بنحو النصف في استهلاك الكهرباء.</div></details>
-    <details class="qa"><summary>12) مكيف سعته الاسمية 5 طن. لماذا قد لا يكفي حملًا قدره 5 طن في مكة؟</summary><div class="ans-box">السعة الاسمية عند جو 35°C. عند 46–48°C تنزل 10–20%.</div></details>
+    <details class="qa"><summary>12) مكيف سعته الاسمية 5 طن. لماذا قد لا يكفي حملًا قدره 5 طن في مكة؟</summary><div class="ans-box">السعة الاسمية عند جو <span class="ltr">35°C</span>. عند <span class="ltr">46–48°C</span> تنزل 10–20%.</div></details>
     <details class="qa"><summary>13) ما معنى Throw و NC و Ak في جدول المخارج؟</summary><div class="ans-box">Throw مدى الرمي. NC مستوى الصوت. Ak المساحة الفعالة للمخرج.</div></details>
     <details class="qa"><summary>14) دكت يحمل 600 L/s بسرعة 5 m/s وارتفاعه 250 مم. كم عرضه؟ وهل النسبة مقبولة؟</summary><div class="ans-box"><span class="ltr">A = 0.6/5 = 0.12 m²</span>، العرض <span class="ltr">0.12/0.25 = 0.48 → 500 mm</span>. النسبة <span class="ltr">500/250 = 2</span> ✓.</div></details>
     <details class="qa"><summary>15) ما هو المسار الحرج Critical Path؟ ولماذا نحسب الضغط الساكن عليه فقط؟</summary><div class="ans-box">المسار الأكبر فقدًا من الوحدة لأبعد مخرج. إذا تغلبت المروحة عليه وصل الهواء لكل المخارج الأخرى.</div></details>
