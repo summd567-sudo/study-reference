@@ -271,7 +271,7 @@ svg{direction:ltr}
     <table class="tbl">
       <tr><th>النوع</th><th>المكان</th><th>ملاحظة</th></tr>
       <tr><td>خرسانة مسلحة</td><td>أرضي</td><td>الأشيع للأحجام الكبيرة، يحتاج عزلًا داخليًا</td></tr>
-      <tr><td>GRP (ألواح فايبرجلاس)</td><td>أرضي أو سطح</td><td>لا يصدأ ولا يتأثر كثيرًا بالحرارة، وسعره أعلى</td></tr>
+      <tr><td>GRP / FRP (فايبرجلاس)</td><td>أرضي أو سطح</td><td>هو "الفايبر" في ملخصك. لا يصدأ ولا يتأثر كثيرًا بالحرارة، وسعره أعلى، وشائع في السعودية</td></tr>
       <tr><td>بولي إيثيلين (بلاستيك)</td><td>السطح</td><td>رخيص وخفيف، للأحجام الصغيرة</td></tr>
       <tr><td>ستانلس ستيل</td><td>السطح</td><td>صحي ومتين، مكلف</td></tr>
     </table>
@@ -703,10 +703,11 @@ svg{direction:ltr}
       <tr><td><strong>Wet Vent</strong></td><td>ماسورة تعمل صرفًا لجهاز وتهوية لجهاز آخر في نفس الوقت (شائعة في مجموعة الحمام)</td></tr>
       <tr><td><strong>Circuit Vent</strong></td><td>تهوية واحدة لصف أجهزة على فرع أفقي (حتى 8 أجهزة)، في دورات المياه العامة</td></tr>
       <tr><td><strong>Island Vent</strong></td><td>لحوض في جزيرة وسط المطبخ بعيدًا عن الجدران: التهوية تصعد ثم تنزل تحت الأرضية</td></tr>
+      <tr><td><strong>Waste Stack Vent</strong></td><td>عمود صرف لأجهزة الـWaste فقط يعمل صرفًا وتهوية معًا. لا تُربط عليه مراحيض</td></tr>
       <tr><td><strong>Stack Vent</strong></td><td>امتداد عمود الصرف نفسه فوق أعلى جهاز حتى السطح</td></tr>
       <tr><td><strong>Vent Stack</strong></td><td>عمود رأسي مستقل للتهوية فقط، بجانب عمود الصرف</td></tr>
     </table>
-    <div class="warn">كتبتَ "Waste vent" ضمن الأنواع. لا أعرف نوعًا بهذا الاسم في IPC، والأقرب أنه Waste Stack Vent أو Wet Vent. راجع المحاضرة.</div>
+    <div class="tip tip-purple"><strong>🟣 "Waste vent" في ملخصك:</strong> فهمك قريب. المصطلح في IPC هو <strong>Waste Stack Vent</strong>: عمود يصرّف أجهزة الـWaste فقط (أحواض وأدشاش، بلا مراحيض) ويعمل هو نفسه تهوية لها، فلا تحتاج كل منها تهوية مستقلة.</div>
   </div>
 </div>
 
@@ -758,7 +759,7 @@ svg{direction:ltr}
       <tr><td>أقصى ضغط 4 بار (كُتبت مرة "أقصر")</td><td>4 بار حسب المحاضر، و5.5 بار في IPC</td></tr>
     </table>
     <div class="tip tip-amber"><strong>أرقام من المحاضر أبقيتها وعليها "تحقق":</strong> طبات التسليك كل 22 م، اختبار الصرف بعمود 5 م، اختبار المدفون 30 دقيقة، حرارة المطابخ 75 والمغاسل 80، الفقد الحراري 30 و60 W/m.</div>
-    <div class="tip tip-amber"><strong>كلمات ما قدرت أحددها:</strong> "VBR" ضمن أنواع الخزانات، و"Waste vent" ضمن أنواع التهوية. راجعهما في المحاضرة.</div>
+    <div class="tip tip-green"><strong>كلمتان وضّحتَهما:</strong> "VBR" = خزانات الفايبر (GRP/FRP). و"Waste vent" = تهوية خطوط الـWaste، واسمها في الكود Waste Stack Vent.</div>
   </div>
   <div class="card">
     <div class="card-title">🟡 ما أضفته وليس في ملخصك</div>
